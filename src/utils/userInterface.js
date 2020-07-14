@@ -61,7 +61,9 @@ function displayFiles(err, files) {
 function loadDirectory(folderPath) {
 	fileSystem.getFilesInFolder(folderPath, (err, files) => {
 		clearView();
-		if (err) { return console.log('Sorry, we could not load your home folder'); }
+		if (err) {
+			console.log('Sorry, we could not load your home folder');
+		}
 
 		fileSystem.inspectAndDescribeFiles(folderPath, files, displayFiles);
 
