@@ -4,7 +4,7 @@ const path = require('path');
 
 const fileSystem = require('./fileSystem');
 const search = require('./search');
-const { setTitleBar } = require('../app/components/tittleBar/index');
+const { setTitleBar, navigatingTitleBar } = require('../app/components/tittleBar/index');
 
 
 function clearView() {
@@ -52,6 +52,7 @@ function displayFiles(err, files) {
 		displayFile(file);
 	});
 	search.resetIndex(files);
+	navigatingTitleBar(loadDirectory);
 	return 0;
 }
 
@@ -60,7 +61,9 @@ function displayFiles(err, files) {
 function loadDirectory(folderPath) {
 	fileSystem.getFilesInFolder(folderPath, (err, files) => {
 		clearView();
-		if (err) { return console.log('Sorry, we could not load your home folder'); }
+		if (err) {
+			console.log('Sorry, we could not load your home folder');
+		}
 
 		fileSystem.inspectAndDescribeFiles(folderPath, files, displayFiles);
 
