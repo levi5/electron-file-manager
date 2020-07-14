@@ -1,0 +1,185 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;515;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;1,300;1,400;1,500&display=swap');
+
+
+:root {
+    --background-dark-primary-color: #0F0F13;
+    --background-dark-secondary-color: #141419;
+    --close-button-color:#FF5F57;
+    --minimize-button-color:#FFBC30;
+    --maximize-button-color:#1a936f;
+    --white-color:#FFF;
+    --grey-color:#555;
+
+    /* #1F1F1F */
+    /* #282828 */
+
+    /* #2C2C2C */
+    /* #3E3E3E */
+
+    /* #0F0F13 */
+    /* #141419 */
+
+    /* #262526 */
+    /* #252426 */
+    --border-radius: 10px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    -webkit-font-smoothing: antialiased;
+    /* font-family: 'Fira Code', monospace;
+    font-variant-ligatures: common-ligatures; */
+    /* font-family: 'Ubuntu', sans-serif; */
+    /* font-family: 'Roboto', sans-serif; */
+    font-family: 'Open Sans', sans-serif;
+}
+
+body {
+    background: transparent;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    background: transparent;
+    overflow: hidden;
+}
+
+button,
+input {
+    border: 0;
+    outline: none;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+li {
+    cursor: default;
+}
+
+label {
+    font-size: 14px;
+    color: #F4f4f4;
+    text-align: center;
+}
+
+
+img {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+
+#all {
+    width: 100%;
+    height: 100%;
+    border-radius: var(--border-radius);
+    display: grid;
+    grid-template-areas: "TitleBar""TooBar""Content""Footer";
+    grid-template-columns: 100%;
+    grid-template-rows: 50px 50px calc(100% - 50px - 50px - 50px) 50px;
+   background: transparent;
+}
+
+
+
+
+
+nav {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    grid-area: TooBar;
+    background-color: var(--background-dark-secondary-color);
+    border-bottom: solid #333539 1px;
+    z-index: 9;
+    padding: 5px 20px;
+   
+}
+
+nav .search input[name=search]{
+    background-color: #f4f4f4;
+
+}
+
+
+
+section {
+    flex: 1;
+    grid-area: Content;
+    display: flex;
+    flex-direction: row;
+    background-color: var(--background-dark-primary-color);
+    padding: 2;
+}
+
+
+section .vertical-separator {
+    width: 5px;
+    height: 100%;
+    background-color: var(--background-dark-primary-color);
+    cursor: e-resize;
+}
+
+
+section #main-area {
+    max-width: 100%;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    grid-area: Main;
+    background-color: var(--background-dark-primary-color);
+    z-index: 5;
+    overflow-y: scroll;
+}
+
+
+
+::-webkit-scrollbar-track {
+    background-color: #161719;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    border-radius: 4px;
+    background-color: #161719;
+
+}
+
+::-webkit-scrollbar-thumb {
+    background: #3A3C41;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-corner {
+    background-color: #161719;
+}
+
+
+
+
+footer {
+    width: 100%;
+    height: auto;
+    grid-area: Footer;
+    background-color: var(--background-dark-secondary-color);
+    border-radius: var(--border-radius);
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-top: solid #333 1px;
+    padding: 20px;
+}

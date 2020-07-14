@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/global.css">
+    <link rel="stylesheet" href="../src/app/components/tittleBar/style.css">
+    <link rel="stylesheet" href="../src/app/components/content/left-menu/style.css">
+    <link rel="stylesheet" href="../src/app/components/content/main/style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="all">
+        <header>
+            <div class="window-icons">
+                <button type="button" id="btn-close-window">
+                    <img src="./assets/icons/title-bar/close/2x/baseline_close_white_18dp.png" alt="close window">
+                </button>
+                <button type="button" id="btn-maximize-window">
+                    <img src="./assets/icons/title-bar/maximize/maximize2.png" alt="maximize window">
+                </button>
+                <button type="button" id="btn-minimize-window">
+                    <img src="./assets/icons/title-bar/minimize/minimize.png" alt="minimize window">
+                </button>
+            </div>
+
+            <div class="title-bar">
+                <!-- <h3>title</h3> -->
+                <div class="previous-directory">
+                    <img src="./assets/icons/title-bar/directory/arrow-left-s-line.svg" alt="">
+                </div>
+                <ul>
+                </ul>
+                <div class="next-directory">
+                    <img src="./assets/icons/title-bar/directory/arrow-right-s-line.svg" alt="">
+
+                </div>
+            </div>
+
+            <div class="menu-window">
+                <div class="menu-toggle">
+                    <img id="icon-grade" src="./assets/icons/title-bar/layout/grade-2-50.png" alt="">
+                </div>
+
+
+                <div class="menu-toggle">
+                    <img id="icon-menu" src="./assets/icons/title-bar/menu/menu.png" alt="">
+                </div>
+            </div>
+
+        </header>
+
+        <nav>
+            <div>
+
+            </div>
+            <div class="search">
+                <input id="input-search" type="search" name="search" placeholder="search">
+            </div>
+
+        </nav>
+
+        <section>
+            <div class="left-menu">
+                <!-- <button></button> -->
+                <ul>
+                    <li> <img src="./assets/icons/left-menu/history-fill.png" alt="">Recente</li>
+                    <li> <img src="./assets/icons/left-menu/home-50.png">Pasta pessoal</li>
+                    <li> <img src="./assets/icons/left-menu/desktop.png" alt="">Área de trabalho</li>
+                    <li> <img src="./assets/icons/left-menu/document-48.png" alt="">Documentos</li>
+                    <li> <img src="./assets/icons/left-menu/download.png" alt="">Downloads</li>
+                    <li><img src="./assets/icons/left-menu/image.png" alt="">Imagens</li>
+                    <li><img src="./assets/icons/left-menu/music.png" alt="">Músicas</li>
+                    <li> <img src="./assets/icons/left-menu/videos.png" alt="">Videos</li>
+                </ul>
+
+                <div>
+
+                    <h4 for="">tags</h4>
+                </div>
+            </div>
+
+            <div class="vertical-separator"></div>
+
+            <div id="main-area">
+
+                <template id="item-template">
+                    <div class="item">
+                        <img class="item-icon">
+                        <div class="filename"></div>
+                    </div>
+
+                </template>
+
+
+
+            </div>
+        </section>
+        <footer>
+
+        </footer>
+
+
+    </div>
+
+
+    <script src="../src/app/components/content/index.js"></script>
+
+    <script>
+        require("../src/app/components/content/main/index.js");
+
+        require("../src/app/components/tittleBar/index.js");
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,21 @@
+{
+  "name": "nix",
+  "version": "0.3.14",
+  "main": "./src/main.js",
+  "author": "Levi Araújo",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron  ."
+  },
+  "dependencies": {
+    "async": "^3.2.0",
+    "electron": "^9.0.5",
+    "lunr": "^2.3.8",
+    "osenv": "^0.1.5"
+  },
+  "devDependencies": {
+    "eslint": "^7.4.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.0"
+  }
+}
