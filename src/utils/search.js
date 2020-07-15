@@ -1,3 +1,4 @@
+/* eslint-disable func-names */
 const lunr = require('lunr');
 
 let index;

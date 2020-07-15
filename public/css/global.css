@@ -32,6 +32,7 @@
     box-sizing: border-box;
     outline: none;
     -webkit-font-smoothing: antialiased;
+    list-style: none;
     /* font-family: 'Fira Code', monospace;
     font-variant-ligatures: common-ligatures; */
     /* font-family: 'Ubuntu', sans-serif; */

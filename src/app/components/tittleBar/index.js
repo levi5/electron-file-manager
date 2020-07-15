@@ -4,8 +4,6 @@ const path = require('path');
 
 const fileSystem = require('../../../utils/fileSystem');
 
-
-
 const { remote } = electron;
 
 
@@ -24,6 +22,7 @@ const titleBarDirectories = document.querySelector('.title-bar ul');
 
 function createPathFolders(directory) {
 	const directoryNames = directory.split(path.sep);
+	// console.log(directoryNames);
 
 	const fullDirectors = [];
 	let folders = '';
@@ -130,6 +129,7 @@ nextDirectoryButton.addEventListener('click', () => {
 	const scrollPosX = titleBarDirectories.scrollLeft;
 	titleBarDirectories.scrollTo(scrollPosX + 20, 0);
 });
+
 
 
 
