@@ -1,0 +1,37 @@
+#folder-options{
+   
+    width: auto;
+    height: auto;
+    display: none;
+    flex-direction: column;
+    padding: 30px 0px;
+    position: absolute;
+    z-index: 15;
+    border-radius: 5px;
+    background-color: #24242D;
+    /* background-color: var(--background-dark-secondary-color); */
+    -webkit-box-shadow: 2px 2px 0px 0px rgba(20,20,25,1);
+    -moz-box-shadow: 2px 2px 0px 0px rgba(20,20,25,1);
+    box-shadow: 2px 2px 0px 0px rgba(20,20,25,1);
+}
+
+#folder-options.on{
+    display: flex;
+}
+#folder-options li{
+    min-width: 200px;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px;
+    font-size: 14px;
+    color: var(--white-color);
+    background-color: #24242D;
+}
+
+#folder-options li:hover{
+    filter: brightness(80%);
+}
+

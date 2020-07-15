@@ -10,7 +10,9 @@ const { setTitleBar, navigatingTitleBar } = require('../app/components/tittleBar
 function clearView() {
 	const mainArea = document.getElementById('main-area');
 	const template = document.querySelector('#item-template');
+	const MenuFolderOptions = document.querySelector('#folder-options');
 	mainArea.innerHTML = '';
+	mainArea.append(MenuFolderOptions);
 	mainArea.appendChild(template);
 }
 
@@ -29,11 +31,18 @@ function displayFile(file) {
 		clone.querySelector('img').src = urlIma;
 		clone.querySelector('img').setAttribute('data-filePath', file.path);
 
+
 		if (file.type === 'directory') {
 			clone.querySelector('img')
 				.addEventListener('dblclick', () => {
-					setTitleBar(file.path);
-					loadDirectory(file.path);
+					openFolder(file.path);
+				}, false);
+
+			clone.querySelector('.item')
+				.addEventListener('pointerdown', (e) => {
+					if (e.button === 2) {
+						folderOptions(e.clientX, e.clientY, file.file);
+					}
 				}, false);
 		}
 		clone.querySelector('.filename').innerText = file.file;
@@ -52,7 +61,7 @@ function displayFiles(err, files) {
 		displayFile(file);
 	});
 	search.resetIndex(files);
-	navigatingTitleBar(loadDirectory);
+	navigatingTitleBar(openFolder);
 	return 0;
 }
 
@@ -66,7 +75,6 @@ function loadDirectory(folderPath) {
 		}
 
 		fileSystem.inspectAndDescribeFiles(folderPath, files, displayFiles);
-
 		return true;
 	});
 }
@@ -103,10 +111,58 @@ function resetFilter() {
 }
 
 
+
+function folderOptions(x, y, filename) {
+	let posX = x;
+	let posY = y;
+	const mainArea = document.getElementById('main-area');
+	const elementFolderOptions = document.querySelector('#folder-options');
+
+	elementFolderOptions.classList.toggle('on');
+
+	elementFolderOptions.setAttribute('data-path', filename);
+
+	const [mainAreaData] = mainArea.getClientRects();
+	const {
+		top, bottom, left, right,
+	} = mainAreaData;
+	const elementFolderOptionsWidth = parseInt(elementFolderOptions.clientWidth, 10);
+	const elementFolderOptionsHeight = parseInt(elementFolderOptions.clientHeight, 10);
+
+	const limitX = posX + elementFolderOptionsWidth + 20;
+	const limitY = posY + elementFolderOptionsHeight + 20;
+
+
+
+
+	if (limitX > right) posX -= (limitX - right);
+
+	if (limitX < left) posX += (limitX - left);
+
+	if (limitY > bottom) posY -= (limitY - bottom);
+
+	if (limitY < top) posY += (limitY - top);
+
+
+	elementFolderOptions.style.left = `${posX}px`;
+	elementFolderOptions.style.top = `${posY}px`;
+}
+
+
+
+function openFolder(folderPath) {
+	setTitleBar(folderPath);
+	loadDirectory(folderPath);
+}
+
+
+
+
 module.exports = {
 	displayFiles,
 	loadDirectory,
 	bindSearchField,
 	filterResults,
 	resetFilter,
+	openFolder,
 };

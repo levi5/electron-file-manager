@@ -7,7 +7,6 @@ const search = require('../../../../utils/search');
 
 function main() {
 	const folderPath = fileSystem.getUsersHomeFolder();
-	console.log(folderPath);
 
 	userInterface.loadDirectory(folderPath);
 

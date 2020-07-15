@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../src/app/components/tittleBar/style.css">
     <link rel="stylesheet" href="../src/app/components/content/left-menu/style.css">
     <link rel="stylesheet" href="../src/app/components/content/main/style.css">
+    <link rel="stylesheet" href="../src/app/components/content/folderOptions/style.css">
     <title>Document</title>
 </head>
 
@@ -27,7 +28,6 @@
             </div>
 
             <div class="title-bar">
-                <!-- <h3>title</h3> -->
                 <div class="previous-directory">
                     <img src="./assets/icons/title-bar/directory/arrow-left-s-line.svg" alt="">
                 </div>
@@ -86,6 +86,17 @@
 
             <div id="main-area">
 
+                <div id="folder-options" class="">
+                    <ul>
+
+                        <li id="open-folder">Abrir</li>
+                        <li>Excluir</li>
+                        <li>Renomear</li>
+                        <li>Criar Tag</li>
+                    </ul>
+                </div>
+
+
                 <template id="item-template">
                     <div class="item">
                         <img class="item-icon">
@@ -110,8 +121,8 @@
 
     <script>
         require("../src/app/components/content/main/index.js");
-
         require("../src/app/components/tittleBar/index.js");
+        require("../src/app/components/content/folderOptions/index.js");
      
     </script>
 
