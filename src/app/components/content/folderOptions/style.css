@@ -1,5 +1,5 @@
-#folder-options{
-   
+#folder-options {
+
     width: auto;
     height: auto;
     display: none;
@@ -10,15 +10,16 @@
     border-radius: 5px;
     background-color: #24242D;
     /* background-color: var(--background-dark-secondary-color); */
-    -webkit-box-shadow: 2px 2px 0px 0px rgba(20,20,25,1);
-    -moz-box-shadow: 2px 2px 0px 0px rgba(20,20,25,1);
-    box-shadow: 2px 2px 0px 0px rgba(20,20,25,1);
+    -webkit-box-shadow: 2px 2px 0px 0px rgba(20, 20, 25, 1);
+    -moz-box-shadow: 2px 2px 0px 0px rgba(20, 20, 25, 1);
+    box-shadow: 2px 2px 0px 0px rgba(20, 20, 25, 1);
 }
 
-#folder-options.on{
+#folder-options.on {
     display: flex;
 }
-#folder-options li{
+
+#folder-options li {
     min-width: 200px;
     width: 100%;
     height: auto;
@@ -31,7 +32,10 @@
     background-color: #24242D;
 }
 
-#folder-options li:hover{
+#folder-options li:hover {
     filter: brightness(80%);
 }
+
+
+
 

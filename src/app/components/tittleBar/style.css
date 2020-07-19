@@ -156,7 +156,9 @@ header .title-bar {
     z-index: 5;
 }
 
-
+header .title-bar #hidden-path-title-bar{
+    display: none;
+}
 header .title-bar h3 {
     display: flex;
     justify-content: center;

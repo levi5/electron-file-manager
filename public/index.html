@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../src/app/components/content/left-menu/style.css">
     <link rel="stylesheet" href="../src/app/components/content/main/style.css">
     <link rel="stylesheet" href="../src/app/components/content/folderOptions/style.css">
+    <link rel="stylesheet" href="../src/app/components/content/tags/style.css">
     <title>Document</title>
 </head>
 
@@ -28,6 +29,7 @@
             </div>
 
             <div class="title-bar">
+                <div id="hidden-path-title-bar"></div>
                 <div class="previous-directory">
                     <img src="./assets/icons/title-bar/directory/arrow-left-s-line.svg" alt="">
                 </div>
@@ -84,7 +86,98 @@
 
             <div class="vertical-separator"></div>
 
+            <div class="config-screen">
+
+
+
+
+                <div id="createTags">
+
+                    <div class="createTags-division">
+                        <div class="item-group">
+                            <h4>Tag:<h4>
+
+                                    <div class="item-sub-group">
+                                        <input name="inputTag" type="text" placeholder="tag name">
+                                        <div id="btn-select-tag-color"></div>
+                                    </div>
+                                    <div id="tag-name-content-options" class="tag-content-options">
+
+                                        <div style="background-color: #F4F4F4;" class="tag-content-options-colors">
+                                        </div>
+                                        <div style="background-color: #1A936F;" class="tag-content-options-colors">
+                                        </div>
+                                        <div style="background-color: #FF5F57;" class="tag-content-options-colors">
+                                        </div>
+                                        <div style="background-color: #FFBC30;" class="tag-content-options-colors">
+                                        </div>
+                                        <div style="background-color: #555555;" class="tag-content-options-colors">
+                                        </div>
+                                        <div style="background-color: #FFBC30;" class="tag-content-options-colors">
+                                        </div>
+                                        <div style="background-color: #929395;" class="tag-content-options-colors">
+                                        </div>
+                                        <div style="background-color: #333333;" class="tag-content-options-colors">
+                                        </div>
+                                    </div>
+                        </div>
+
+                        <div class="item-group">
+                            <h4>Icon:</h4>
+                            <div class="item-sub-group">
+                                <div id="tag--button-select-icon-color"></div>
+                                <div id="btn-tag-select-icon-emoji"></div>
+                            </div>
+                            <div id="tag-options-colors-icon" class="tag-content-options">
+
+                                <div style="background-color: #F4F4F4;" class="tag-content-options-colors"></div>
+                                <div style="background-color: #929395;" class="tag-content-options-colors"></div>
+                                <div style="background-color: #555555;" class="tag-content-options-colors"></div>
+                                <div style="background-color: #333333;" class="tag-content-options-colors"></div>
+                                <div style="background-color: #1A936F;" class="tag-content-options-colors"></div>
+                                <div style="background-color: #FF5F57;" class="tag-content-options-colors"></div>
+                                <div style="background-color: #FFBC30;" class="tag-content-options-colors"></div>
+                                <div style="background-color: #FFBC30;" class="tag-content-options-colors"></div>
+                               
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <div class="createTags-division">
+                        <div class="item-group center-aligned-object">
+                            <label name="filetype"></label>
+                            <label name="filePath"></label>
+                            <img id="createTag-img-preview" alt="imagem.svg">
+                            <label name="filename"></label>
+                            <div class="item-sub-group center-aligned-object" >
+                                <div  id="tag--tag-icon" class="tag-icon"></div>
+                                <label name="tagname"></label>
+                            </div>
+                          
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="title-modal-config">
+                    <button id="btn-close-modal-config">close</button>
+                    <button id="btn-save-tags">save</button>
+                </div>
+
+            </div>
+
+
+
             <div id="main-area">
+
 
                 <div id="folder-options" class="">
                     <ul>
@@ -92,7 +185,7 @@
                         <li id="open-folder">Abrir</li>
                         <li>Excluir</li>
                         <li>Renomear</li>
-                        <li>Criar Tag</li>
+                        <li id="btn-create-tag">Criar Tag</li>
                     </ul>
                 </div>
 
@@ -101,6 +194,10 @@
                     <div class="item">
                         <img class="item-icon">
                         <div class="filename"></div>
+                        <div class="tag">
+                            <div class="tag-icon"></div>
+                            <div class="tag-name"></div>
+                        </div>
                     </div>
 
                 </template>
@@ -117,13 +214,12 @@
     </div>
 
 
-    <script src="../src/app/components/content/index.js"></script>
-
     <script>
+        require("../src/app/components/content/index.js");
         require("../src/app/components/content/main/index.js");
-        require("../src/app/components/tittleBar/index.js");
+        // require("../src/app/components/tittleBar/index.js");
         require("../src/app/components/content/folderOptions/index.js");
-     
+        require("../src/app/components/content/tags/index.js");
     </script>
 
 

@@ -4,30 +4,41 @@ const path = require('path');
 
 const fileSystem = require('./fileSystem');
 const search = require('./search');
+const { HtmlElements } = require('./Elements');
+const { getTagConfig } = require('./settings');
 const { setTitleBar, navigatingTitleBar } = require('../app/components/tittleBar/index');
 
 
 function clearView() {
-	const mainArea = document.getElementById('main-area');
 	const template = document.querySelector('#item-template');
-	const MenuFolderOptions = document.querySelector('#folder-options');
-	mainArea.innerHTML = '';
-	mainArea.append(MenuFolderOptions);
-	mainArea.appendChild(template);
+	const menuFolderOptions = document.querySelector('#folder-options');
+
+	HtmlElements.mainArea.innerHTML = '';
+	HtmlElements.mainArea.append(menuFolderOptions);
+	HtmlElements.mainArea.appendChild(template);
 }
 
 
 
 
-function displayFile(file) {
-	const mainArea = document.getElementById('main-area');
+async function displayFile(file) {
 	const template = document.querySelector('#item-template');
 	const clone = document.importNode(template.content, true);
+
+	const dataTag = await getTagConfig(file.path);
+
+
+	if (dataTag) {
+		clone.querySelector('.tag-icon').style.backgroundColor = dataTag.iconBackgroundColor;
+		clone.querySelector('.tag-name').style.color = dataTag.tagNameColor;
+		clone.querySelector('.tag-name').textContent = dataTag.tagName;
+	}
 
 
 	if (file.type) {
 		const urlIma = path.resolve(__dirname, '..', '..', 'public', 'assets', 'icons', 'main-area', `${file.type}.svg`);
 
+		clone.querySelector('.item').setAttribute('data-path', file.path);
 		clone.querySelector('img').src = urlIma;
 		clone.querySelector('img').setAttribute('data-filePath', file.path);
 
@@ -37,16 +48,15 @@ function displayFile(file) {
 				.addEventListener('dblclick', () => {
 					openFolder(file.path);
 				}, false);
-
-			clone.querySelector('.item')
-				.addEventListener('pointerdown', (e) => {
-					if (e.button === 2) {
-						folderOptions(e.clientX, e.clientY, file.file);
-					}
-				}, false);
 		}
+		clone.querySelector('.item')
+			.addEventListener('pointerdown', (e) => {
+				if (e.button === 2) {
+					folderOptions(e.clientX, e.clientY, file.file, file.type, file.path);
+				}
+			}, false);
 		clone.querySelector('.filename').innerText = file.file;
-		mainArea.appendChild(clone);
+		HtmlElements.mainArea.appendChild(clone);
 	}
 }
 
@@ -62,6 +72,7 @@ function displayFiles(err, files) {
 	});
 	search.resetIndex(files);
 	navigatingTitleBar(openFolder);
+
 	return 0;
 }
 
@@ -70,13 +81,12 @@ function displayFiles(err, files) {
 function loadDirectory(folderPath) {
 	fileSystem.getFilesInFolder(folderPath, (err, files) => {
 		clearView();
-		if (err) {
-			console.log('Sorry, we could not load your home folder');
-		}
+		if (err) { console.log('Sorry, we could not load your home folder'); }
 
 		fileSystem.inspectAndDescribeFiles(folderPath, files, displayFiles);
 		return true;
 	});
+	setTitleBar(folderPath);
 }
 
 
@@ -112,28 +122,26 @@ function resetFilter() {
 
 
 
-function folderOptions(x, y, filename) {
+function folderOptions(x, y, filename, filetype, filePath) {
 	let posX = x;
 	let posY = y;
-	const mainArea = document.getElementById('main-area');
 	const elementFolderOptions = document.querySelector('#folder-options');
 
 	elementFolderOptions.classList.toggle('on');
+	elementFolderOptions.setAttribute('data-name', filename);
+	elementFolderOptions.setAttribute('data-type', filetype);
+	elementFolderOptions.setAttribute('data-path', filePath);
 
-	elementFolderOptions.setAttribute('data-path', filename);
-
-	const [mainAreaData] = mainArea.getClientRects();
+	const [mainAreaData] = HtmlElements.mainArea.getClientRects();
 	const {
 		top, bottom, left, right,
 	} = mainAreaData;
+
 	const elementFolderOptionsWidth = parseInt(elementFolderOptions.clientWidth, 10);
 	const elementFolderOptionsHeight = parseInt(elementFolderOptions.clientHeight, 10);
 
 	const limitX = posX + elementFolderOptionsWidth + 20;
 	const limitY = posY + elementFolderOptionsHeight + 20;
-
-
-
 
 	if (limitX > right) posX -= (limitX - right);
 
@@ -143,7 +151,6 @@ function folderOptions(x, y, filename) {
 
 	if (limitY < top) posY += (limitY - top);
 
-
 	elementFolderOptions.style.left = `${posX}px`;
 	elementFolderOptions.style.top = `${posY}px`;
 }
@@ -151,11 +158,14 @@ function folderOptions(x, y, filename) {
 
 
 function openFolder(folderPath) {
-	setTitleBar(folderPath);
 	loadDirectory(folderPath);
 }
 
 
+function getSelectedFileDirectory() {
+	const filename = String(document.querySelector('#folder-options').getAttribute('data-path'));
+	return filename;
+}
 
 
 module.exports = {
@@ -165,4 +175,5 @@ module.exports = {
 	filterResults,
 	resetFilter,
 	openFolder,
+	getSelectedFileDirectory,
 };

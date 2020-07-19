@@ -2,37 +2,29 @@
 const electron = require('electron');
 const path = require('path');
 
-const fileSystem = require('../../../utils/fileSystem');
+
+const { HtmlElements } = require('../../../utils/Elements');
 
 const { remote } = electron;
 
 
-// Definition of html elements
-// window control buttons (close, minimize and maximize)
-const closeButton = document.getElementById('btn-close-window');
-const minimizeButton = document.getElementById('btn-minimize-window');
-const maximizeButton = document.getElementById('btn-maximize-window');
-
-
-const titleBar = document.querySelector('.title-bar');
-const titleBarDirectories = document.querySelector('.title-bar ul');
-
-
-
-
 function createPathFolders(directory) {
 	const directoryNames = directory.split(path.sep);
-	// console.log(directoryNames);
+
 
 	const fullDirectors = [];
 	let folders = '';
 
 	directoryNames.map((item) => {
-		folders = folders + item + path.sep;
+		if (item === '') {
+			folders = path.sep;
+		} else {
+			folders = path.join(folders, item);
+		}
 		fullDirectors.push(folders);
+
 		return true;
 	});
-
 	return {
 		links: fullDirectors,
 		directors: directoryNames,
@@ -40,15 +32,25 @@ function createPathFolders(directory) {
 }
 
 
+function createHtmlNavElementsTitleBar(directory, filepath, index) {
+	const li = document.createElement('div');
+	const label = document.createElement('label');
+	li.setAttribute('id', `${index}`);
+	li.setAttribute('data-path', `${filepath}`);
+	label.textContent = directory;
+	li.appendChild(label);
+	HtmlElements.titleBarNavMenu.appendChild(li);
+}
+
 
 function setTitleBar(directory) {
 	const elementSize = 100;
 	const { links, directors } = createPathFolders(directory);
 
-	titleBarDirectories.innerHTML = '';
+	HtmlElements.titleBarNavMenu.innerHTML = '';
 
 	let numberElements = Math.trunc(100 / ((elementSize * 100)
-	/ (parseInt(titleBar.offsetWidth, 10))));
+	/ (parseInt(HtmlElements.titleBar.offsetWidth, 10))));
 
 	const directorySize = directors.length;
 
@@ -58,30 +60,14 @@ function setTitleBar(directory) {
 
 		directors.map((item, index) => {
 			if (item) {
-				if (index >= numberElements) {
-					const li = document.createElement('div');
-					const label = document.createElement('label');
-					li.setAttribute('id', `${index}`);
-					li.setAttribute('data-path', `${links[index]}`);
-					label.textContent = item;
-					li.appendChild(label);
-					titleBarDirectories.appendChild(li);
-				}
+				if (index >= numberElements) { createHtmlNavElementsTitleBar(item, links[index], index); }
 			}
 			return true;
 		});
 	} else {
 		directors.map((item, index) => {
 			if (item) {
-				if (index <= numberElements) {
-					const li = document.createElement('div');
-					const label = document.createElement('label');
-					li.setAttribute('id', `${index}`);
-					li.setAttribute('data-path', `${links[index]}`);
-					label.textContent = item;
-					li.appendChild(label);
-					titleBarDirectories.appendChild(li);
-				}
+				if (index <= numberElements) { createHtmlNavElementsTitleBar(item, links[index], index); }
 			}
 			return true;
 		});
@@ -89,18 +75,17 @@ function setTitleBar(directory) {
 }
 
 
-
-closeButton.addEventListener('click', (_e) => {
+HtmlElements.buttons.closeButton.addEventListener('click', (_e) => {
 	const window = remote.getCurrentWindow();
 	window.close();
 });
 
-minimizeButton.addEventListener('click', (_e) => {
+HtmlElements.buttons.minimizeButton.addEventListener('click', (_e) => {
 	const window = remote.getCurrentWindow();
 	window.minimize();
 });
 
-maximizeButton.addEventListener('click', (_e) => {
+HtmlElements.buttons.maximizeButton.addEventListener('click', (_e) => {
 	const window = remote.getCurrentWindow();
 
 	if (!window.isMaximized()) {
@@ -115,37 +100,32 @@ maximizeButton.addEventListener('click', (_e) => {
 
 
 
-const previousDirectoryButton = document.querySelector('header .title-bar .previous-directory');
-const nextDirectoryButton = document.querySelector('header .title-bar .next-directory');
-
-
-previousDirectoryButton.addEventListener('click', () => {
-	const scrollPosX = titleBarDirectories.scrollLeft;
-	titleBarDirectories.scrollTo(scrollPosX - 20, 0);
+HtmlElements.buttons.previousDirectory.addEventListener('click', () => {
+	const scrollPosX = HtmlElements.titleBarNavMenu.scrollLeft;
+	HtmlElements.titleBarNavMenu.scrollTo(scrollPosX - 20, 0);
 });
 
 
-nextDirectoryButton.addEventListener('click', () => {
-	const scrollPosX = titleBarDirectories.scrollLeft;
-	titleBarDirectories.scrollTo(scrollPosX + 20, 0);
+HtmlElements.buttons.nextDirectory.addEventListener('click', () => {
+	const scrollPosX = HtmlElements.titleBarNavMenu.scrollLeft;
+	HtmlElements.titleBarNavMenu.scrollTo(scrollPosX + 20, 0);
 });
 
 
 
 
 function navigatingTitleBar(f) {
-	const itens = document.querySelectorAll('.title-bar ul div');
-	for (let i = 0; i < itens.length; i += 1) {
-		itens[i].addEventListener('click', async () => {
-			const folderPath = await String(itens[i].getAttribute('data-path'));
-			await f(folderPath);
-		});
-	}
+	const tabs = [...HtmlElements.titleBarNavMenu.children];
+
+	tabs.map((tab) => {
+		tab.addEventListener('click', async (_event) => {
+			const folderPath = await String(tab.getAttribute('data-path'));
+			f(folderPath);
+		}, false);
+		return true;
+	});
 }
 
-
-const directory = fileSystem.getUsersHomeFolder();
-setTitleBar(directory);
 
 
 

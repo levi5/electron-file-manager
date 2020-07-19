@@ -25,6 +25,48 @@
     padding-top: 10px;
     text-align: center;
     font-size: 10pt;
-    color: #FFF;
+    color: var(--white-color);
 
+}
+
+.item .tag{
+   
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+  
+    
+    
+}
+.tag .tag-name{
+    max-width: 100px;
+    width: auto;
+    display: flex;
+    flex-wrap: wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+    white-space: nowrap;
+    overflow: hidden;
+    text-align: center;
+    text-overflow: ellipsis;
+    font-size: 10pt;
+    color:var(--white-color);
+    
+}
+
+.tag-icon{
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 4px;
+    transition:  transform 0.3s, filter 0.3s;
+}
+
+.tag-icon:hover{
+    transform: scale(1.1);
+    filter: brightness(90%);
+    
 }

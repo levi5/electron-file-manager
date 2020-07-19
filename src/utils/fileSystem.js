@@ -4,8 +4,6 @@ const osenv = require('osenv');
 const path = require('path');
 
 
-
-
 function getUsersHomeFolder() {
 	return osenv.home();
 }

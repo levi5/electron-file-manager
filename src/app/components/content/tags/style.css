@@ -1,0 +1,174 @@
+.config-screen {
+    width: 100%;
+    height: var(--content-height);
+    position: absolute;
+    z-index: 15;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--background-dark-primary-color);
+}
+
+.config-screen.on {
+    display: flex;
+}
+
+.config-screen input{
+    min-width: 100px;
+}
+
+.config-screen h4{
+    
+    width: auto;
+    height: auto;
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--white-color);
+}
+.config-screen  label {
+    max-width: 90px;
+   
+    width: auto;
+    height: auto;
+    word-wrap: break-word;
+    word-break: normal;
+   
+    color: var(--white-color);
+}
+modal-config  label[name=tagname] {
+    font-size: 12px;
+}
+
+.config-screen  label[name=filePath] {
+    display: none;
+}
+
+
+.config-screen .title-modal-config {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+
+.config-screen .title-modal-config #btn-close-modal-config {
+    width: auto;
+    height: auto;
+    display: flex;
+    align-items: center;
+    background-color: var(--close-button-color);
+    border-radius: 5px;
+    padding: 10px;
+    color:var(--white-color);
+}
+
+
+.config-screen #createTags {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction:row;
+}
+
+
+.config-screen #createTags  .createTags-division{
+    min-width: 200px;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    margin-top: 40px;
+}
+
+.item-group {
+    width: 100%;
+    height: auto;
+    padding: 10px 30px;
+    display: flex;
+    flex-direction: column;
+    margin-right: 10px;
+    margin-bottom: 1px solid #555;
+}
+
+.config-screen  img{
+    background-position: center;
+    background-repeat: repeat;
+    background-size: cover;
+}
+
+.item-sub-group {
+    padding: 10px 0px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+
+
+.tag-content-options{
+    max-width: 200px;
+    width: auto;
+    height: auto;
+    border-radius: 5px;
+    display: none;
+    flex-wrap: wrap;
+    background-color: var(--background-dark-secondary-color);
+    padding: 10px;
+    transition: opacity 0.3s;
+}
+
+ .tag-content-options.on{
+    display: flex;
+}
+
+
+.tag--btn-circle{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.tag-content-options-colors{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: var(--white-color);  
+    margin:0px 10px  10px 0px;
+}
+
+
+
+
+.config-screen  #btn-select-tag-color{
+    min-width: 20px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color:#929395;
+    margin-left: 10px;
+}
+
+
+
+.config-screen #tag--button-select-icon-color{
+    width: 20px;
+    height: 20px;
+    border-radius: 50px;
+    background-color: #929395;
+    margin-right: 10px;
+}
+.config-screen  #btn-tag-select-icon-emoji{
+    width: 20px;
+    height: 20px;
+    border-radius: 50px;
+    background-color: orange;
+    margin-right: 10px;
+}
+
+
