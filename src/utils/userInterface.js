@@ -28,6 +28,7 @@ async function displayFile(file) {
 	const dataTag = await getTagConfig(file.path);
 
 
+
 	if (dataTag) {
 		clone.querySelector('.tag-icon').style.backgroundColor = dataTag.iconBackgroundColor;
 		clone.querySelector('.tag-name').style.color = dataTag.tagNameColor;
@@ -43,6 +44,7 @@ async function displayFile(file) {
 		clone.querySelector('img').setAttribute('data-filePath', file.path);
 
 
+
 		if (file.type === 'directory') {
 			clone.querySelector('img')
 				.addEventListener('dblclick', () => {
@@ -55,6 +57,7 @@ async function displayFile(file) {
 					folderOptions(e.clientX, e.clientY, file.file, file.type, file.path);
 				}
 			}, false);
+
 		clone.querySelector('.filename').innerText = file.file;
 		HtmlElements.mainArea.appendChild(clone);
 	}
@@ -166,6 +169,8 @@ function getSelectedFileDirectory() {
 	const filename = String(document.querySelector('#folder-options').getAttribute('data-path'));
 	return filename;
 }
+
+
 
 
 module.exports = {
