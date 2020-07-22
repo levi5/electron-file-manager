@@ -50,8 +50,8 @@ app.on('window-all-closed', () => {
 
 
 
-app.on('ready', async () => {
+app.on('ready', () => {
 	setTimeout(() => {
 		createWindow();
-	}, 400);
+	}, 800);
 });
