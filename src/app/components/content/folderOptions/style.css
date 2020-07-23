@@ -1,12 +1,10 @@
-
-
 #folder-options {
 
     width: auto;
     height: auto;
     display: none;
     flex-direction: column;
-    padding: 30px 0px;
+    padding: 20px 0px 30px 0px;
     position: absolute;
     z-index: 15;
     border-radius: 5px;
@@ -15,10 +13,25 @@
     -webkit-box-shadow: 2px 2px 0px 0px rgba(20, 20, 25, 1);
     -moz-box-shadow: 2px 2px 0px 0px rgba(20, 20, 25, 1);
     box-shadow: 2px 2px 0px 0px rgba(20, 20, 25, 1);
+    cursor: default;
 }
 
 #folder-options.on {
     display: flex;
+}
+
+#folder-options-title {
+    width: 100%;
+    height: auto;
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+    color: var(--white-color);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    padding: 5px;
+
 }
 
 #folder-options li {
@@ -37,7 +50,3 @@
 #folder-options li:hover {
     filter: brightness(80%);
 }
-
-
-
-
