@@ -11,10 +11,9 @@ const { setTitleBar, navigatingTitleBar } = require('../app/components/tittleBar
 
 function clearView() {
 	const template = document.querySelector('#item-template');
-	const menuFolderOptions = document.querySelector('#folder-options');
 
 	HtmlElements.mainArea.innerHTML = '';
-	HtmlElements.mainArea.append(menuFolderOptions);
+	HtmlElements.mainArea.append(HtmlElements.menuFolderOptions);
 	HtmlElements.mainArea.appendChild(template);
 }
 
@@ -27,8 +26,6 @@ async function displayFile(file) {
 
 	const dataTag = await getTagConfig(file.path);
 
-
-
 	if (dataTag) {
 		clone.querySelector('.tag-icon').style.backgroundColor = dataTag.iconBackgroundColor;
 		clone.querySelector('.tag-name').style.color = dataTag.tagNameColor;
@@ -40,6 +37,8 @@ async function displayFile(file) {
 		const urlIma = path.resolve(__dirname, '..', '..', 'public', 'assets', 'icons', 'main-area', `${file.type}.svg`);
 
 		clone.querySelector('.item').setAttribute('data-path', file.path);
+		clone.querySelector('.item').setAttribute('onClick', 'selected(this)');
+		clone.querySelector('.item').setAttribute('onPointerdown', 'selected(this)');
 		clone.querySelector('img').src = urlIma;
 		clone.querySelector('img').setAttribute('data-filePath', file.path);
 
@@ -54,11 +53,13 @@ async function displayFile(file) {
 		clone.querySelector('.item')
 			.addEventListener('pointerdown', (e) => {
 				if (e.button === 2) {
+					closeFolderOptions();
 					folderOptions(e.clientX, e.clientY, file.file, file.type, file.path);
 				}
 			}, false);
 
 		clone.querySelector('.filename').innerText = file.file;
+
 		HtmlElements.mainArea.appendChild(clone);
 	}
 }
@@ -134,6 +135,7 @@ function folderOptions(x, y, filename, filetype, filePath) {
 	elementFolderOptions.setAttribute('data-name', filename);
 	elementFolderOptions.setAttribute('data-type', filetype);
 	elementFolderOptions.setAttribute('data-path', filePath);
+	elementFolderOptions.querySelector('#folder-options-title').textContent = filename;
 
 	const [mainAreaData] = HtmlElements.mainArea.getClientRects();
 	const {
@@ -166,8 +168,14 @@ function openFolder(folderPath) {
 
 
 function getSelectedFileDirectory() {
-	const filename = String(document.querySelector('#folder-options').getAttribute('data-path'));
+	const filename = String(HtmlElements.menuFolderOptions.getAttribute('data-path'));
 	return filename;
+}
+
+
+
+function closeFolderOptions() {
+	HtmlElements.menuFolderOptions.classList.remove('on');
 }
 
 
@@ -181,4 +189,5 @@ module.exports = {
 	resetFilter,
 	openFolder,
 	getSelectedFileDirectory,
+	closeFolderOptions,
 };
