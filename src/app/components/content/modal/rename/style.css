@@ -1,0 +1,45 @@
+#modal-rename{
+    width: auto;
+    height: auto;
+    padding: 40px 20px;
+    display: none;
+    flex-direction: column;
+    background-color: #24242D;
+    position: absolute;
+    z-index: 15;
+    border-radius: 5px;
+   
+}
+#modal-rename::before{
+    content: "";
+    width: 0; 
+    height: 0; 
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 15px solid #24242D;
+    position: absolute;
+    top: -15px;
+    left: 35%;
+}
+
+#modal-rename.on{
+   display: flex;
+}
+
+#modal-rename input[name=rename-file]{
+    background-color: transparent;
+    border-bottom: 2px solid #555555;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: var(--white-color);
+
+}
+
+#modal-rename button{
+    cursor: pointer;
+    color: var(--white-color);
+    background-color: var(--maximize-button-color);
+  
+}#modal-rename button:hover{
+    filter: brightness(80%);
+}

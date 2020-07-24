@@ -96,6 +96,11 @@ img {
     margin: 0;
 
 }
+.hiding-text{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
 #all {
     width: 100%;

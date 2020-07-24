@@ -9,6 +9,7 @@ const HtmlElements = {
 	leftMenu: $select('section .left-menu'),
 	mainArea: $selectById('main-area'),
 	configScreen: $select('.config-screen'),
+	modalRename: $select('#modal-rename'),
 	menuFolderOptions: $select('#folder-options'),
 	separador: $select('section .vertical-separator'),
 

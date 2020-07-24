@@ -60,6 +60,28 @@ async function getTagConfig(filePath, workspaceName = 'main') {
 
 
 
+async function getTagsConfig(workspaceName = 'main') {
+	const settingsPath = resolve(__dirname, '..', 'config', 'settings.json');
+	const settingData = await readConfigurationFile(settingsPath);
+
+	const arrayTags = [];
+
+	settingData.map((config) => {
+		const { workspace, tags } = config;
+
+		if (workspace === workspaceName) {
+			tags.map((tag) => {
+				arrayTags.push(tag);
+				return true;
+			});
+		}
+		return true;
+	});
+	return arrayTags;
+}
+
+
+
 
 async function saveTagConfig(dataTag, workspaceName = 'main') {
 	const newData = [];
@@ -83,7 +105,6 @@ async function saveTagConfig(dataTag, workspaceName = 'main') {
 					count += 1;
 				} else {
 					temp = file;
-					count = 0;
 				}
 
 				newTag.push(temp);
@@ -110,6 +131,7 @@ async function saveTagConfig(dataTag, workspaceName = 'main') {
 
 
 module.exports = {
-	saveTagConfig,
 	getTagConfig,
+	getTagsConfig,
+	saveTagConfig,
 };
