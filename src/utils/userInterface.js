@@ -13,6 +13,7 @@ function clearView() {
 	const template = document.querySelector('#item-template');
 
 	HtmlElements.mainArea.innerHTML = '';
+	HtmlElements.mainArea.append(HtmlElements.modalRename);
 	HtmlElements.mainArea.append(HtmlElements.menuFolderOptions);
 	HtmlElements.mainArea.appendChild(template);
 }
@@ -37,8 +38,11 @@ async function displayFile(file) {
 		const urlIma = path.resolve(__dirname, '..', '..', 'public', 'assets', 'icons', 'main-area', `${file.type}.svg`);
 
 		clone.querySelector('.item').setAttribute('data-path', file.path);
+		clone.querySelector('.item').setAttribute('data-type', file.type);
 		clone.querySelector('.item').setAttribute('onClick', 'selected(this)');
 		clone.querySelector('.item').setAttribute('onPointerdown', 'selected(this)');
+		clone.querySelector('.item .filename').setAttribute('ondblclick', 'openWindowRenameFiles(this)');
+
 		clone.querySelector('img').src = urlIma;
 		clone.querySelector('img').setAttribute('data-filePath', file.path);
 
@@ -59,6 +63,7 @@ async function displayFile(file) {
 			}, false);
 
 		clone.querySelector('.filename').innerText = file.file;
+
 
 		HtmlElements.mainArea.appendChild(clone);
 	}
@@ -130,6 +135,7 @@ function folderOptions(x, y, filename, filetype, filePath) {
 	let posX = x;
 	let posY = y;
 	const elementFolderOptions = document.querySelector('#folder-options');
+	HtmlElements.modalRename.classList.remove('on');
 
 	elementFolderOptions.classList.toggle('on');
 	elementFolderOptions.setAttribute('data-name', filename);
@@ -178,6 +184,10 @@ function closeFolderOptions() {
 	HtmlElements.menuFolderOptions.classList.remove('on');
 }
 
+function closeModalRename() {
+	HtmlElements.modalRename.classList.remove('on');
+}
+
 
 
 
@@ -190,4 +200,6 @@ module.exports = {
 	openFolder,
 	getSelectedFileDirectory,
 	closeFolderOptions,
+	closeModalRename,
+
 };

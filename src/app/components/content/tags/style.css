@@ -150,7 +150,7 @@ modal-config  label[name=tagname] {
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background-color:#929395;
+     background-color: var(--white-color);
     margin-left: 10px;
 }
 
@@ -160,7 +160,7 @@ modal-config  label[name=tagname] {
     width: 20px;
     height: 20px;
     border-radius: 50px;
-    background-color: #929395;
+    background-color: var(--white-color);
     margin-right: 10px;
 }
 .config-screen  #btn-tag-select-icon-emoji{

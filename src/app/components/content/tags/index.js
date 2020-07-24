@@ -2,8 +2,9 @@
 const path = require('path');
 const { remote } = require('electron');
 
-const { saveTagConfig } = require('../../../../utils/settings');
 const { HtmlElements } = require('../../../../utils/Elements');
+const { saveTagConfig } = require('../../../../utils/settings');
+const { loadMenuTags } = require('../left-menu/index');
 
 
 function getTagData() {
@@ -14,9 +15,13 @@ function getTagData() {
 	const tagname = document.querySelector('#createTags label[name=tagname]');
 
 
-	const { backgroundColor: iconBackgroundColor } = tagIcon.style;
-	const { color: tagNameColor } = tagname.style;
-	const tagName = tagname.textContent;
+	let { backgroundColor: iconBackgroundColor } = tagIcon.style;
+	let { color: tagNameColor } = tagname.style;
+	let tagName = tagname.textContent;
+
+	iconBackgroundColor = iconBackgroundColor || '#FFF';
+	tagNameColor = tagNameColor || '#FFF';
+	tagName = tagName || 'tag';
 
 	return {
 		filename,
@@ -137,6 +142,7 @@ inputTag.addEventListener('keyup', async (_e) => {
 HtmlElements.buttons.saveTagsButton.addEventListener('click', async () => {
 	const window = remote.getCurrentWindow();
 	saveTag();
+	loadMenuTags();
 	HtmlElements.configScreen.classList.toggle('on');
 	window.reload();
 });

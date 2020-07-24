@@ -22,7 +22,7 @@ function createShortCuts() {
 const createWindow = () => {
 	mainWindow = new BrowserWindow({
 		width: 900,
-		height: 600,
+		height: 620,
 		titleBarStyle: 'hidden',
 		autoHideMenuBar: true,
 		frame: false,

@@ -3,6 +3,7 @@ const fs = require('fs');
 const osenv = require('osenv');
 const path = require('path');
 
+const fsPromises = fs.promises;
 
 function getUsersHomeFolder() {
 	return osenv.home();
@@ -54,8 +55,26 @@ function inspectAndDescribeFiles(folderPath, files, cb) {
 }
 
 
+
+async function rename(filename, newFilename) {
+	await fsPromises.rename(filename, newFilename, (err) => {
+		if (err) {
+			return {
+				success: false,
+				error: err,
+			};
+		}
+		return {
+			success: true,
+			error: err,
+		};
+	});
+}
+
+
 module.exports = {
 	getUsersHomeFolder,
 	getFilesInFolder,
 	inspectAndDescribeFiles,
+	rename,
 };
