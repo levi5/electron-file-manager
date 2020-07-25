@@ -28,9 +28,14 @@ function navigationByTag() {
 
 async function loadMenuTags() {
 	const tags = await getTagsConfig();
+	const ul = HtmlElements.leftMenu.querySelector('#content-tag-left-menu ul');
+
+	const template = HtmlElements.leftMenu.querySelector('#tag-left-menu');
+	ul.innerHTML = '';
+	ul.appendChild(template);
+
 
 	tags.map((tag) => {
-		const template = HtmlElements.leftMenu.querySelector('#tag-left-menu');
 		const clone = document.importNode(template.content, true);
 		const { iconBackgroundColor, tagName, tagNameColor } = tag;
 
@@ -40,7 +45,7 @@ async function loadMenuTags() {
 		clone.querySelector('li').setAttribute('data-path', tag.filePath);
 		clone.querySelector('li').setAttribute('data-type', tag.filetype);
 
-		HtmlElements.leftMenu.querySelector('#content-tag-left-menu  ul').appendChild(clone);
+		ul.appendChild(clone);
 		return true;
 	});
 	navigationByTag();

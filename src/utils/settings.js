@@ -8,7 +8,7 @@ const fs = require('fs').promises;
 async function writeConfigurationFile(data, settingPath = null) {
 	let path;
 
-	if (settingPath) { path = settingPath; } else { path = resolve(__dirname, '..', 'config', 'setting.json'); }
+	if (settingPath) { path = settingPath; } else { path = resolve(__dirname, '..', 'config', 'settings.json'); }
 
 	if (data !== null || data !== undefined) {
 		const json = JSON.stringify(data);
@@ -19,16 +19,20 @@ async function writeConfigurationFile(data, settingPath = null) {
 }
 
 // Function for reading the configuration file
-async function readConfigurationFile(settingPath = null) {
+async function readConfigurationFile(settingPath = '') {
 	try {
 		let path;
-		if (settingPath) { path = settingPath; } else { path = resolve(__dirname, '..', 'config', 'setting.json'); }
+		if (settingPath) { path = settingPath; } else { path = resolve(__dirname, '..', 'config', 'settings.json'); }
 
-		// console.log(path);
+
 		const data = await fs.readFile(path, 'utf8').then((dataConfig) => dataConfig);
-		const obj = JSON.parse(data);
 
-		return obj;
+
+		if (data) {
+			const obj = JSON.parse(data);
+			return obj;
+		}
+		return null;
 	} catch (error) {
 		console.error('Error reading configuration file. ', error);
 		return null;
@@ -41,20 +45,21 @@ async function getTagConfig(filePath, workspaceName = 'main') {
 	const settingData = await readConfigurationFile(settingsPath);
 
 	let dataTag = null;
+	if (settingData) {
+		settingData.map((config) => {
+			const { workspace, tags } = config;
 
-	settingData.map((config) => {
-		const { workspace, tags } = config;
-
-		if (workspace === workspaceName) {
-			tags.map((file) => {
-				if (filePath === file.filePath) {
-					dataTag = file;
-				}
-				return true;
-			});
-		}
-		return true;
-	});
+			if (workspace === workspaceName) {
+				tags.map((file) => {
+					if (filePath === file.filePath) {
+						dataTag = file;
+					}
+					return true;
+				});
+			}
+			return true;
+		});
+	}
 	return dataTag;
 }
 
@@ -128,10 +133,37 @@ async function saveTagConfig(dataTag, workspaceName = 'main') {
 }
 
 
+async function changeTagData(filename, filepath, newFilepath, filetype) {
+	const newData = [];
+	const settingsPath = resolve(__dirname, '..', 'config', 'settings.json');
+
+	const settingData = await readConfigurationFile(settingsPath);
+	settingData.map((config) => {
+		const newTag = [];
+		const { workspace, tags } = config;
+
+		tags.map((tag) => {
+			const { filePath } = tag;
+
+			if (filePath === filepath) {
+				newTag.push({
+					...tag, filename, filePath: newFilepath, filetype,
+				});
+			} else {
+				newTag.push(tag);
+			}
+			return true;
+		});
+		newData.push({ workspace, tags: newTag });
+		return true;
+	});
+	writeConfigurationFile(newData, settingsPath);
+}
 
 
 module.exports = {
 	getTagConfig,
 	getTagsConfig,
 	saveTagConfig,
+	changeTagData,
 };

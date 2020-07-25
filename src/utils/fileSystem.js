@@ -54,7 +54,16 @@ function inspectAndDescribeFiles(folderPath, files, cb) {
 	}, cb);
 }
 
+function changingFilepath(filename, filepath, filetype) {
+	let newFilepath = 'sem nome';
 
+	if (filetype === 'file') {
+		newFilepath = path.join(path.dirname(filepath), filename);
+	} else {
+		newFilepath = path.join(path.resolve(filepath, '..'), filename);
+	}
+	return newFilepath;
+}
 
 async function rename(filename, newFilename) {
 	await fsPromises.rename(filename, newFilename, (err) => {
@@ -76,5 +85,6 @@ module.exports = {
 	getUsersHomeFolder,
 	getFilesInFolder,
 	inspectAndDescribeFiles,
+	changingFilepath,
 	rename,
 };
