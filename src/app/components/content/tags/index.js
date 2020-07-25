@@ -1,6 +1,5 @@
 /* eslint-disable no-undef */
 const path = require('path');
-const { remote } = require('electron');
 
 const { HtmlElements } = require('../../../../utils/Elements');
 const { saveTagConfig } = require('../../../../utils/settings');
@@ -77,13 +76,24 @@ function setFontColorTag(elementOne, elementTwo, styleOption) {
 }
 
 
-function saveTag() {
-	const dataTag = getTagData();
-	saveTagConfig(dataTag);
+async function saveTag() {
+	const dataTag = await getTagData();
+	if (dataTag) {
+		const { filePath, iconBackgroundColor, tagNameColor } = dataTag;
+		const item = document.querySelector(`.item[data-path="${filePath}"]`);
+		item.querySelector('.tag .tag-name').style.color = tagNameColor;
+		item.querySelector('.tag .tag-icon').style.backgroundColor = iconBackgroundColor;
+	}
+
+	await saveTagConfig(dataTag);
 }
 
 
-
+function setTagCreateScreenValues(filename, filePath, filetype) {
+	HtmlElements.configScreen.querySelector('label[name=filename]').textContent = `${filename}`;
+	HtmlElements.configScreen.querySelector('label[name=filetype]').textContent = `${filetype}`;
+	HtmlElements.configScreen.querySelector('label[name=filePath]').textContent = `${filePath}`;
+}
 
 function load() {
 	const elementHtmlTagName = ['#tag-name-content-options .tag-content-options-colors', 'label[name=tagname]'];
@@ -101,14 +111,10 @@ document.getElementById('btn-create-tag').addEventListener('click', async () => 
 	const filePath = await String(document.querySelector('#folder-options').getAttribute('data-path'));
 
 	readTag(filePath);
-
+	setTagCreateScreenValues(filename, filePath, filetype);
 
 	const url = path.resolve(__dirname, '..', '..', '..', '..', '..', 'public', 'assets', 'icons', 'main-area', `${filetype}.svg`);
 	document.querySelector('#createTag-img-preview').setAttribute('src', url);
-
-	HtmlElements.configScreen.querySelector('label[name=filename]').textContent = `${filename}`;
-	HtmlElements.configScreen.querySelector('label[name=filetype]').textContent = `${filetype}`;
-	HtmlElements.configScreen.querySelector('label[name=filePath]').textContent = `${filePath}`;
 
 	HtmlElements.configScreen.classList.toggle('on');
 });
@@ -140,11 +146,9 @@ inputTag.addEventListener('keyup', async (_e) => {
 
 
 HtmlElements.buttons.saveTagsButton.addEventListener('click', async () => {
-	const window = remote.getCurrentWindow();
-	saveTag();
-	loadMenuTags();
+	await saveTag();
+	await loadMenuTags();
 	HtmlElements.configScreen.classList.toggle('on');
-	window.reload();
 });
 
 
@@ -157,3 +161,8 @@ document.getElementById('tag--button-select-icon-color').addEventListener('click
 
 
 load();
+
+
+module.exports = {
+	setTagCreateScreenValues,
+};

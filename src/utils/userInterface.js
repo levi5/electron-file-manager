@@ -11,27 +11,28 @@ const { setTitleBar, navigatingTitleBar } = require('../app/components/tittleBar
 
 function clearView() {
 	const template = document.querySelector('#item-template');
+	const modal = HtmlElements.modalRename;
+	const menu = HtmlElements.menuFolderOptions;
 
 	HtmlElements.mainArea.innerHTML = '';
-	HtmlElements.mainArea.append(HtmlElements.modalRename);
-	HtmlElements.mainArea.append(HtmlElements.menuFolderOptions);
+	HtmlElements.mainArea.appendChild(modal);
+	HtmlElements.mainArea.appendChild(menu);
 	HtmlElements.mainArea.appendChild(template);
 }
 
 
 
 
-async function displayFile(file) {
+function displayFile(file, hideFiles = true) {
 	const template = document.querySelector('#item-template');
 	const clone = document.importNode(template.content, true);
 
-	const dataTag = await getTagConfig(file.path);
 
-	if (dataTag) {
-		clone.querySelector('.tag-icon').style.backgroundColor = dataTag.iconBackgroundColor;
-		clone.querySelector('.tag-name').style.color = dataTag.tagNameColor;
-		clone.querySelector('.tag-name').textContent = dataTag.tagName;
+	if (hideFiles) {
+		const firstCharacter = file.file[0];
+		if (firstCharacter === '.') { return; }
 	}
+
 
 
 	if (file.type) {
@@ -63,10 +64,25 @@ async function displayFile(file) {
 			}, false);
 
 		clone.querySelector('.filename').innerText = file.file;
-
-
 		HtmlElements.mainArea.appendChild(clone);
 	}
+}
+
+
+function setFileTag() {
+	const itens = [...document.querySelectorAll('#main-area .item')];
+
+	itens.map(async (item) => {
+		const filePath = await item.getAttribute('data-path');
+		const dataTag = await getTagConfig(filePath);
+
+		if (dataTag) {
+			const element = item;
+			element.querySelector('.tag-icon').style.backgroundColor = dataTag.iconBackgroundColor;
+			element.querySelector('.tag-name').style.color = dataTag.tagNameColor;
+			element.querySelector('.tag-name').textContent = dataTag.tagName;
+		}
+	});
 }
 
 
@@ -76,23 +92,30 @@ function displayFiles(err, files) {
 		return console.log('Sorry, we could not display your files');
 	}
 
-	files.forEach((file) => {
+	const sortedFiles = shot(files);
+	sortedFiles.forEach((file) => {
 		displayFile(file);
 	});
-	search.resetIndex(files);
+	search.resetIndex(sortedFiles);
 	navigatingTitleBar(openFolder);
+	setFileTag();
 
 	return 0;
 }
 
-
+function shot(files) {
+	const a = files.sort();
+	return a;
+}
 
 function loadDirectory(folderPath) {
 	fileSystem.getFilesInFolder(folderPath, (err, files) => {
 		clearView();
 		if (err) { console.log('Sorry, we could not load your home folder'); }
 
+
 		fileSystem.inspectAndDescribeFiles(folderPath, files, displayFiles);
+
 		return true;
 	});
 	setTitleBar(folderPath);
