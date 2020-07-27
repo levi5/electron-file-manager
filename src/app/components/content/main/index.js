@@ -3,6 +3,7 @@ const userInterface = require('../../../../utils/userInterface');
 const search = require('../../../../utils/search');
 const { loadMenuTags } = require('../left-menu/index');
 const { rename } = require('../modal/rename/index');
+const optionsBar = require('../../options-bar/index');
 
 
 
@@ -11,6 +12,7 @@ function main() {
 
 	userInterface.openFolder(folderPath);
 	loadMenuTags();
+	optionsBar.viewHiddenFiles();
 	rename();
 
 

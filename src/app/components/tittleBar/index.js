@@ -114,7 +114,7 @@ HtmlElements.buttons.nextDirectory.addEventListener('click', () => {
 
 
 
-function navigatingTitleBar(f) {
+async function navigatingTitleBar(f) {
 	const tabs = [...HtmlElements.titleBarNavMenu.children];
 
 	tabs.map((tab) => {
@@ -125,7 +125,6 @@ function navigatingTitleBar(f) {
 		return true;
 	});
 }
-
 
 
 

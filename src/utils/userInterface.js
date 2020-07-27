@@ -7,6 +7,7 @@ const search = require('./search');
 const { HtmlElements } = require('./Elements');
 const { getTagConfig } = require('./settings');
 const { setTitleBar, navigatingTitleBar } = require('../app/components/tittleBar/index');
+const settings = require('./settings');
 
 
 function clearView() {
@@ -26,6 +27,7 @@ function clearView() {
 function displayFile(file, hideFiles = true) {
 	const template = document.querySelector('#item-template');
 	const clone = document.importNode(template.content, true);
+
 
 
 	if (hideFiles) {
@@ -87,39 +89,43 @@ function setFileTag() {
 
 
 
-function displayFiles(err, files) {
-	if (err) {
-		return console.log('Sorry, we could not display your files');
-	}
+async function displayFiles(files) {
+	const hiddenFile = await settings.getOptionHiddenFile();
 
-	const sortedFiles = shot(files);
+
+	const sortedFiles = fileOrdering(files);
 	sortedFiles.forEach((file) => {
-		displayFile(file);
+		displayFile(file, hiddenFile);
 	});
+
 	search.resetIndex(sortedFiles);
 	navigatingTitleBar(openFolder);
 	setFileTag();
-
 	return 0;
 }
 
-function shot(files) {
-	const a = files.sort();
-	return a;
+function fileOrdering(files) {
+	const sortFiles = files.sort((a, b) => (a.file).localeCompare(b.file));
+	return sortFiles;
 }
 
-function loadDirectory(folderPath) {
-	fileSystem.getFilesInFolder(folderPath, (err, files) => {
-		clearView();
-		if (err) { console.log('Sorry, we could not load your home folder'); }
 
+async function loadDirectory(folderPath) {
+	const { files, error } = await fileSystem.getFilesInFolder(folderPath);
 
-		fileSystem.inspectAndDescribeFiles(folderPath, files, displayFiles);
+	clearView();
+	if (error) {
+		permissionErrors(error);
+		console.log('Sorry, we could not load your home folder');
+		return;
+	}
 
-		return true;
-	});
-	setTitleBar(folderPath);
+	const fileData = await fileSystem.inspectAndDescribeFiles(folderPath, files);
+	await setTitleBar(folderPath);
+	await displayFiles(fileData);
 }
+
+
 
 
 function bindSearchField(cb) {
@@ -152,6 +158,13 @@ function resetFilter() {
 	}
 }
 
+
+
+function getCurrentDirectory() {
+	const elements = [...HtmlElements.titleBarNavMenu.querySelectorAll('div')];
+	const filepath = elements[elements.length - 1].getAttribute('data-path');
+	return filepath;
+}
 
 
 function folderOptions(x, y, filename, filetype, filePath) {
@@ -214,6 +227,13 @@ function closeModalRename() {
 
 
 
+function permissionErrors(err) {
+	alert('this folder or files cannot be accessed by you');
+}
+
+
+
+
 module.exports = {
 	displayFiles,
 	loadDirectory,
@@ -224,5 +244,6 @@ module.exports = {
 	getSelectedFileDirectory,
 	closeFolderOptions,
 	closeModalRename,
+	getCurrentDirectory,
 
 };
