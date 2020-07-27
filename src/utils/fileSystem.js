@@ -1,5 +1,5 @@
-const async = require('async');
 const fs = require('fs');
+const fsP = require('fs').promises;
 const osenv = require('osenv');
 const path = require('path');
 
@@ -10,13 +10,34 @@ function getUsersHomeFolder() {
 }
 
 
-function getFilesInFolder(folderPath, cb) {
-	fs.readdir(folderPath, cb);
+async function getFilesInFolder(folderPath) {
+	try {
+		const files = await fsP.readdir(folderPath).then((data) => {
+			try {
+				return {
+					files: data,
+					error: null,
+				};
+			} catch (err) {
+				return {
+					files: null,
+					error: err,
+				};
+			}
+		});
+
+		return files;
+	} catch (error) {
+		return {
+			files: null,
+			error,
+		};
+	}
 }
 
 
 
-function inspectAndDescribeFile(filePath, cb) {
+async function inspectAndDescribeFile(filePath) {
 	const result = {
 		file: path.basename(filePath),
 		path: filePath,
@@ -24,34 +45,49 @@ function inspectAndDescribeFile(filePath, cb) {
 		extname: path.extname(filePath) ? path.extname(filePath) : 'directory',
 	};
 
+	let files;
+	try {
+		files = await fsP.access(filePath);
+	} catch (error) {
+		files = undefined;
+	}
 
-	fs.access(filePath, (err, _data) => {
-		if (!err) {
-			fs.stat(filePath, { recursive: true }, (err2, stat) => {
-				if (err2) {
-					cb(err2);
-				} else {
-					if (stat.isFile()) {
-						result.type = 'file';
-					}
-					if (stat.isDirectory()) {
-						result.type = 'directory';
-					}
-					cb(err2, result);
-				}
-			});
-		} else {
-			cb(null, result);
+
+
+	if (!files) {
+		try {
+			const stat = await fsP.stat(filePath);
+
+			if (stat.isFile()) {
+				result.type = 'file';
+			}
+			if (stat.isDirectory()) {
+				result.type = 'directory';
+			}
+		} catch (error) {
+			return result;
 		}
-	});
+	}
+
+	return result;
 }
 
 
-function inspectAndDescribeFiles(folderPath, files, cb) {
-	async.map(files, (file, asyncCb) => {
-		const resolvedFilePath = path.resolve(folderPath, file);
-		inspectAndDescribeFile(resolvedFilePath, asyncCb);
-	}, cb);
+async function inspectAndDescribeFiles(folderPath, files) {
+	const describeFiles = await files.map(async (file) => {
+		const resolvedFilePath = await path.resolve(folderPath, file);
+		const response = await inspectAndDescribeFile(resolvedFilePath).then((data) => data);
+
+		return response;
+	});
+
+	const values = await Promise.allSettled(describeFiles);
+
+	const fileData = values.map((item) => {
+		const { value } = item;
+		return value;
+	});
+	return fileData;
 }
 
 function changingFilepath(filename, filepath, filetype) {
