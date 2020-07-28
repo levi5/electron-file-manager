@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
@@ -60,7 +60,7 @@
             </div>
             <div>
                 <div id="view-hidden-files">
-                    
+
 
                 </div>
             </div>
@@ -92,6 +92,7 @@
                             <li>
                                 <div class="tag-icon"></div>
                                 <div class="tag-name hiding-text" style="max-width:80%;"></div>
+
                             </li>
                         </template>
                     </ul>
@@ -115,20 +116,34 @@
                                     </div>
                                     <div id="tag-name-content-options" class="tag-content-options">
 
-                                        <div style="background-color: #F4F4F4;" class="tag-content-options-colors"></div>
-                                        <div style="background-color: #929395;" class="tag-content-options-colors"></div>
-                                        <div style="background-color: #555555;" class="tag-content-options-colors"></div>
-                                        <div style="background-color: #333333;" class="tag-content-options-colors"></div>
-                                      
-                                        <div style="background-color: #02c39a;" class="tag-content-options-colors"></div>
-                                        <div style="background-color: #F22B29;" class="tag-content-options-colors"></div>
-                                        <div style="background-color: #ffd23f;" class="tag-content-options-colors"></div>
-                                        <div style="background-color: #F4743B;" class="tag-content-options-colors"></div>
-                                        <div style="background-color: #64dfdf;" class="tag-content-options-colors"></div>
-                            
-                                        <div style="background-color: #3a86ff;" class="tag-content-options-colors"></div>
-                                        <div style="background-color: #7400b8;" class="tag-content-options-colors"></div>
-                                        <div style="background-color: #ef476f;" class="tag-content-options-colors"></div>
+                                        <div style="background-color: #F4F4F4;" class="tag-content-options-colors">
+                                        </div>
+                                        <div style="background-color: #929395;" class="tag-content-options-colors">
+                                        </div>
+                                        <div style="background-color: #555555;" class="tag-content-options-colors">
+                                        </div>
+                                        <div style="background-color: #333333;" class="tag-content-options-colors">
+                                        </div>
+
+                                        <div style="background-color: #02c39a;" class="tag-content-options-colors">
+                                        </div>
+                                        <div style="background-color: #F22B29;" class="tag-content-options-colors">
+                                        </div>
+                                        <div style="background-color: #ffd23f;" class="tag-content-options-colors">
+                                        </div>
+                                        <div style="background-color: #F4743B;" class="tag-content-options-colors">
+                                        </div>
+                                        <div style="background-color: #64dfdf;" class="tag-content-options-colors">
+                                        </div>
+
+                                        <div style="background-color: #3a86ff;" class="tag-content-options-colors">
+                                        </div>
+                                        <div style="background-color: #7400b8;" class="tag-content-options-colors">
+                                        </div>
+                                        <div style="background-color: #ef476f;" class="tag-content-options-colors">
+                                        </div>
+                                        <div style="background-color: 'null';"
+                                            class="tag-content-options-colors not-tag-color"></div>
                                     </div>
                         </div>
 
@@ -137,7 +152,6 @@
                             <h4>Icon:</h4>
                             <div class="item-sub-group">
                                 <div id="tag--button-select-icon-color"></div>
-                                <div id="btn-tag-select-icon-emoji"></div>
                             </div>
 
                             <div id="tag-options-colors-icon" class="tag-content-options">
@@ -146,18 +160,29 @@
                                 <div style="background-color: #929395;" class="tag-content-options-colors"></div>
                                 <div style="background-color: #555555;" class="tag-content-options-colors"></div>
                                 <div style="background-color: #333333;" class="tag-content-options-colors"></div>
-                              
+
                                 <div style="background-color: #02c39a;" class="tag-content-options-colors"></div>
                                 <div style="background-color: #F22B29;" class="tag-content-options-colors"></div>
                                 <div style="background-color: #ffd23f;" class="tag-content-options-colors"></div>
                                 <div style="background-color: #F4743B;" class="tag-content-options-colors"></div>
                                 <div style="background-color: #64dfdf;" class="tag-content-options-colors"></div>
-                    
+
                                 <div style="background-color: #3a86ff;" class="tag-content-options-colors"></div>
                                 <div style="background-color: #7400b8;" class="tag-content-options-colors"></div>
                                 <div style="background-color: #ef476f;" class="tag-content-options-colors"></div>
+                                <div style="background-color: 'null';" class="tag-content-options-colors not-tag-color">
+                                </div>
                             </div>
                         </div>
+
+
+                        <div class="item-group">
+                            <h4>Emojis:</h4>
+                            <div class="item-sub-group">
+                                <input type="text" name="inputEmoji" placeholder="inserir emojis">
+                            </div>
+                        </div>
+
                     </div>
 
 
@@ -172,8 +197,7 @@
                                 <div id="tag--tag-icon" class="tag-icon"></div>
                                 <label name="tagname"></label>
                             </div>
-
-
+                            <label name="tagEmoji"></label>
                         </div>
                     </div>
 
@@ -215,9 +239,13 @@
                         <img class="item-icon">
                         <div class="filename"></div>
                         <div class="tag">
-                            <div class="tag-icon"></div>
-                            <div class="tag-name"></div>
+                            <div class="tag-group">
+                                <div class="tag-icon"></div>
+                                <div class="tag-name"></div>
+                            </div>
+                            <div class="tag-emoji"></div>
                         </div>
+
                     </div>
 
                 </template>
@@ -242,7 +270,6 @@
         require("../src/app/components/content/tags/index.js");
         require("../src/app/components/content/left-menu/index.js");
         require("../src/app/components/content/modal/rename/index.js");
-       
     </script>
 
 

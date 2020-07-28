@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 const path = require('path');
 
-const { HtmlElements } = require('../../../../../utils/Elements');
+const { Elements } = require('../../../../../utils/Elements');
 const fileSystem = require('../../../../../utils/fileSystem');
 const userInterface = require('../../../../../utils/userInterface');
 const settings = require('../../../../../utils/settings');
@@ -10,7 +10,7 @@ const { loadMenuTags } = require('../../left-menu/index');
 
 
 async function applyFilenameChange(filepath, newFilepath, filename) {
-	const itens = [...HtmlElements.mainArea.querySelectorAll('.item')];
+	const itens = [...Elements.mainArea.querySelectorAll('.item')];
 
 	itens.map((item) => {
 		const filePath = item.getAttribute('data-path');
@@ -27,15 +27,15 @@ async function applyFilenameChange(filepath, newFilepath, filename) {
 }
 
 function setAttributeModal(filename = '', filepath = '', filetype = '') {
-	HtmlElements.menuFolderOptions.setAttribute('data-name', filename);
-	HtmlElements.menuFolderOptions.setAttribute('data-type', filetype);
-	HtmlElements.menuFolderOptions.setAttribute('data-path', filepath);
+	Elements.menuFolderOptions.setAttribute('data-name', filename);
+	Elements.menuFolderOptions.setAttribute('data-type', filetype);
+	Elements.menuFolderOptions.setAttribute('data-path', filepath);
 }
 
 async function rename() {
 	document.querySelector('#btn-modal-rename').addEventListener('click', async () => {
-		const filepath = String(HtmlElements.modalRename.getAttribute('data-path'));
-		const filetype = String(HtmlElements.modalRename.getAttribute('data-type'));
+		const filepath = String(Elements.modalRename.getAttribute('data-path'));
+		const filetype = String(Elements.modalRename.getAttribute('data-type'));
 		const input = String(document.querySelector('#modal-rename input[name=rename-file]').value);
 
 		let newFilepath;
@@ -50,15 +50,15 @@ async function rename() {
 			const previousDirectory = path.resolve(newFilepath, '..');
 
 
-			const posScroll = HtmlElements.mainArea.scrollTop;
+			const posScroll = Elements.mainArea.scrollTop;
 
 			await userInterface.openFolder(previousDirectory);
 			await loadMenuTags();
-			HtmlElements.mainArea.scrollTo(0, posScroll);
+			Elements.mainArea.scrollTo(0, posScroll);
 		}
 
 		setAttributeModal();
-		HtmlElements.modalRename.classList.remove('on');
+		Elements.modalRename.classList.remove('on');
 	});
 }
 

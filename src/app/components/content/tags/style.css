@@ -13,7 +13,9 @@
 .config-screen.on {
     display: flex;
 }
-
+.config-screen button:hover{
+    filter: brightness(60%);
+}
 .config-screen input{
     min-width: 100px;
 }
@@ -38,6 +40,7 @@
 }
 modal-config  label[name=tagname] {
     font-size: 12px;
+    font-family: 'Open Sans', sans-serif, color-emoji;
 }
 
 .config-screen  label[name=filePath] {
@@ -51,7 +54,7 @@ modal-config  label[name=tagname] {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding: 20px;
+    padding: 10px;
     overflow-y: auto;
 }
 
@@ -67,12 +70,25 @@ modal-config  label[name=tagname] {
     color:var(--white-color);
 }
 
+.config-screen .title-modal-config #btn-save-tags {
+    width: auto;
+    height: auto;
+    display: flex;
+    align-items: center;
+    background-color: var(--maximize-button-color);
+    border-radius: 5px;
+    padding: 10px;
+    color:var(--white-color);
+}
+
+
 
 .config-screen #createTags {
     width: 100%;
     height: 100%;
     display: flex;
     flex-direction:row;
+    overflow-y: auto;
 }
 
 
@@ -129,8 +145,8 @@ modal-config  label[name=tagname] {
 
 
 .tag--btn-circle{
-    width: 20px;
-    height: 20px;
+    width: 25px;
+    height: 25px;
     border-radius: 50%;
 }
 
@@ -141,8 +157,21 @@ modal-config  label[name=tagname] {
     background-color: var(--white-color);  
     margin:0px 10px  10px 0px;
 }
-
-
+.not-tag-color
+{
+    width: 23px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: transparent;
+    background-image: url('../../../../../public/assets/icons/main-area/tags/blur-off-fill.svg');
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-position: center;
+    background-repeat: repeat;
+    background-size: cover;
+    margin:0px 10px  10px 0px;
+}
 
 
 .config-screen  #btn-select-tag-color{
@@ -163,12 +192,4 @@ modal-config  label[name=tagname] {
     background-color: var(--white-color);
     margin-right: 10px;
 }
-.config-screen  #btn-tag-select-icon-emoji{
-    width: 20px;
-    height: 20px;
-    border-radius: 50px;
-    background-color: orange;
-    margin-right: 10px;
-}
-
 

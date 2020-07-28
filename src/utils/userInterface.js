@@ -1,24 +1,47 @@
+/* eslint-disable no-alert */
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-undef */
 const path = require('path');
 
 const fileSystem = require('./fileSystem');
 const search = require('./search');
-const { HtmlElements } = require('./Elements');
+const { Elements } = require('./Elements');
 const { getTagConfig } = require('./settings');
 const { setTitleBar, navigatingTitleBar } = require('../app/components/tittleBar/index');
 const settings = require('./settings');
 
 
+
+
+function setFileTag() {
+	const itens = [...Elements.mainArea.querySelectorAll('.item')];
+
+	itens.map(async (item) => {
+		const filePath = await item.getAttribute('data-path');
+		const dataTag = await getTagConfig(filePath);
+
+		if (dataTag) {
+			const element = item;
+			element.querySelector('.tag-icon').style.backgroundColor = dataTag.iconBackgroundColor;
+			element.querySelector('.tag-name').style.color = dataTag.tagNameColor;
+			element.querySelector('.tag-name').textContent = dataTag.tagName;
+			element.querySelector('.tag-emoji').textContent = dataTag.tagEmoji;
+		}
+	});
+}
+
+
+
+
 function clearView() {
 	const template = document.querySelector('#item-template');
-	const modal = HtmlElements.modalRename;
-	const menu = HtmlElements.menuFolderOptions;
+	const modal = Elements.modalRename;
+	const menu = Elements.menuFolderOptions;
 
-	HtmlElements.mainArea.innerHTML = '';
-	HtmlElements.mainArea.appendChild(modal);
-	HtmlElements.mainArea.appendChild(menu);
-	HtmlElements.mainArea.appendChild(template);
+	Elements.mainArea.innerHTML = '';
+	Elements.mainArea.appendChild(modal);
+	Elements.mainArea.appendChild(menu);
+	Elements.mainArea.appendChild(template);
 }
 
 
@@ -29,12 +52,10 @@ function displayFile(file, hideFiles = true) {
 	const clone = document.importNode(template.content, true);
 
 
-
 	if (hideFiles) {
 		const firstCharacter = file.file[0];
 		if (firstCharacter === '.') { return; }
 	}
-
 
 
 	if (file.type) {
@@ -66,34 +87,17 @@ function displayFile(file, hideFiles = true) {
 			}, false);
 
 		clone.querySelector('.filename').innerText = file.file;
-		HtmlElements.mainArea.appendChild(clone);
+		Elements.mainArea.appendChild(clone);
 	}
 }
 
-
-function setFileTag() {
-	const itens = [...document.querySelectorAll('#main-area .item')];
-
-	itens.map(async (item) => {
-		const filePath = await item.getAttribute('data-path');
-		const dataTag = await getTagConfig(filePath);
-
-		if (dataTag) {
-			const element = item;
-			element.querySelector('.tag-icon').style.backgroundColor = dataTag.iconBackgroundColor;
-			element.querySelector('.tag-name').style.color = dataTag.tagNameColor;
-			element.querySelector('.tag-name').textContent = dataTag.tagName;
-		}
-	});
-}
 
 
 
 async function displayFiles(files) {
 	const hiddenFile = await settings.getOptionHiddenFile();
-
-
 	const sortedFiles = fileOrdering(files);
+
 	sortedFiles.forEach((file) => {
 		displayFile(file, hiddenFile);
 	});
@@ -104,10 +108,12 @@ async function displayFiles(files) {
 	return 0;
 }
 
+
 function fileOrdering(files) {
 	const sortFiles = files.sort((a, b) => (a.file).localeCompare(b.file));
 	return sortFiles;
 }
+
 
 
 async function loadDirectory(folderPath) {
@@ -151,6 +157,8 @@ function filterResults(results) {
 	}
 }
 
+
+
 function resetFilter() {
 	const items = document.getElementsByClassName('item');
 	for (let i = 0; i < items.length; i += 1) {
@@ -161,7 +169,7 @@ function resetFilter() {
 
 
 function getCurrentDirectory() {
-	const elements = [...HtmlElements.titleBarNavMenu.querySelectorAll('div')];
+	const elements = [...Elements.titleBarNavMenu.querySelectorAll('div')];
 	const filepath = elements[elements.length - 1].getAttribute('data-path');
 	return filepath;
 }
@@ -171,7 +179,7 @@ function folderOptions(x, y, filename, filetype, filePath) {
 	let posX = x;
 	let posY = y;
 	const elementFolderOptions = document.querySelector('#folder-options');
-	HtmlElements.modalRename.classList.remove('on');
+	Elements.modalRename.classList.remove('on');
 
 	elementFolderOptions.classList.toggle('on');
 	elementFolderOptions.setAttribute('data-name', filename);
@@ -179,7 +187,7 @@ function folderOptions(x, y, filename, filetype, filePath) {
 	elementFolderOptions.setAttribute('data-path', filePath);
 	elementFolderOptions.querySelector('#folder-options-title').textContent = filename;
 
-	const [mainAreaData] = HtmlElements.mainArea.getClientRects();
+	const [mainAreaData] = Elements.mainArea.getClientRects();
 	const {
 		top, bottom, left, right,
 	} = mainAreaData;
@@ -209,25 +217,28 @@ function openFolder(folderPath) {
 }
 
 
+
 function getSelectedFileDirectory() {
-	const filename = String(HtmlElements.menuFolderOptions.getAttribute('data-path'));
+	const filename = String(Elements.menuFolderOptions.getAttribute('data-path'));
 	return filename;
 }
 
 
 
 function closeFolderOptions() {
-	HtmlElements.menuFolderOptions.classList.remove('on');
+	Elements.menuFolderOptions.classList.remove('on');
 }
+
+
 
 function closeModalRename() {
-	HtmlElements.modalRename.classList.remove('on');
+	Elements.modalRename.classList.remove('on');
 }
 
 
 
 
-function permissionErrors(err) {
+function permissionErrors(_err) {
 	alert('this folder or files cannot be accessed by you');
 }
 

@@ -3,7 +3,7 @@ const {
 	openFolder, getSelectedFileDirectory, closeFolderOptions, closeModalRename,
 } = require('../../../../utils/userInterface');
 
-const { HtmlElements } = require('../../../../utils/Elements');
+const { Elements } = require('../../../../utils/Elements');
 
 
 document.body.addEventListener('click', (e) => {
@@ -13,7 +13,7 @@ document.body.addEventListener('click', (e) => {
 	closeFolderOptions();
 });
 
-HtmlElements.mainArea.addEventListener('scroll', () => {
+Elements.mainArea.addEventListener('scroll', () => {
 	closeFolderOptions();
 	closeModalRename();
 });

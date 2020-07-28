@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 const path = require('path');
 
-const { HtmlElements } = require('../../../../utils/Elements');
+const { Elements } = require('../../../../utils/Elements');
 const { getTagsConfig } = require('../../../../utils/settings');
 const userInterface = require('../../../../utils/userInterface');
 
@@ -28,9 +28,9 @@ function navigationByTag() {
 
 async function loadMenuTags() {
 	const tags = await getTagsConfig();
-	const ul = HtmlElements.leftMenu.querySelector('#content-tag-left-menu ul');
+	const ul = Elements.leftMenu.querySelector('#content-tag-left-menu ul');
 
-	const template = HtmlElements.leftMenu.querySelector('#tag-left-menu');
+	const template = Elements.leftMenu.querySelector('#tag-left-menu');
 	ul.innerHTML = '';
 	ul.appendChild(template);
 

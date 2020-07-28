@@ -1,9 +1,8 @@
-const fs = require('fs');
-const fsP = require('fs').promises;
+const fs = require('fs').promises;
 const osenv = require('osenv');
 const path = require('path');
 
-const fsPromises = fs.promises;
+
 
 function getUsersHomeFolder() {
 	return osenv.home();
@@ -12,7 +11,7 @@ function getUsersHomeFolder() {
 
 async function getFilesInFolder(folderPath) {
 	try {
-		const files = await fsP.readdir(folderPath).then((data) => {
+		const files = await fs.readdir(folderPath).then((data) => {
 			try {
 				return {
 					files: data,
@@ -47,7 +46,7 @@ async function inspectAndDescribeFile(filePath) {
 
 	let files;
 	try {
-		files = await fsP.access(filePath);
+		files = await fs.access(filePath);
 	} catch (error) {
 		files = undefined;
 	}
@@ -56,7 +55,7 @@ async function inspectAndDescribeFile(filePath) {
 
 	if (!files) {
 		try {
-			const stat = await fsP.stat(filePath);
+			const stat = await fs.stat(filePath);
 
 			if (stat.isFile()) {
 				result.type = 'file';
@@ -102,7 +101,7 @@ function changingFilepath(filename, filepath, filetype) {
 }
 
 async function rename(filename, newFilename) {
-	await fsPromises.rename(filename, newFilename, (err) => {
+	await fs.rename(filename, newFilename, (err) => {
 		if (err) {
 			return {
 				success: false,

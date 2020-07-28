@@ -3,7 +3,7 @@
 const $select = document.querySelector.bind(document);
 const $selectById = document.getElementById.bind(document);
 
-const HtmlElements = {
+const Elements = {
 	titleBar: $select('.title-bar'),
 	titleBarNavMenu: $select('.title-bar ul'),
 	leftMenu: $select('section .left-menu'),
@@ -22,8 +22,15 @@ const HtmlElements = {
 		saveTagsButton: $select('#btn-save-tags'),
 
 	},
+	optionsBar: {
+		buttons: {
+			btnViewHiddenFiles: $select('#view-hidden-files'),
+
+		},
+
+	},
 
 };
 
 
-module.exports = { HtmlElements };
+module.exports = { Elements };

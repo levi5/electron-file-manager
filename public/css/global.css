@@ -35,6 +35,8 @@
     --border-radius: 10px;
 }
 
+
+
 * {
     margin: 0;
     padding: 0;
@@ -46,7 +48,8 @@
     font-variant-ligatures: common-ligatures; */
     /* font-family: 'Ubuntu', sans-serif; */
     /* font-family: 'Roboto', sans-serif; */
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Open Sans', sans-serif,'Noto Color Emoji';
+    src: url('https://gitcdn.xyz/repo/googlefonts/noto-emoji/master/fonts/NotoColorEmoji.ttf');
     scroll-behavior: smooth;
 }
 

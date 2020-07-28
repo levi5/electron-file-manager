@@ -25,10 +25,7 @@ async function readConfigurationFile(settingPath = '') {
 		let path;
 		if (settingPath) { path = settingPath; } else { path = resolve(__dirname, '..', 'config', 'settings.json'); }
 
-
 		const data = await fs.readFile(path, 'utf8').then((dataConfig) => dataConfig);
-
-
 
 		if (data) {
 			const obj = JSON.parse(data);
@@ -94,7 +91,6 @@ async function saveTagConfig(dataTag, workspaceName = 'main') {
 	const newData = [];
 
 	const settingsPath = resolve(__dirname, '..', 'config', 'settings.json');
-
 	const settingData = await readConfigurationFile(settingsPath);
 
 	settingData.map((config) => {
@@ -103,43 +99,37 @@ async function saveTagConfig(dataTag, workspaceName = 'main') {
 
 		if (workspace === workspaceName) {
 			let count = 0;
-			tags.map((file) => {
-				const { filePath } = file;
+			tags.map((tag) => {
+				const { filePath } = tag;
 
-				let temp;
+				let tmpVar;
 				if (filePath === dataTag.filePath) {
-					temp = dataTag;
+					tmpVar = dataTag;
 					count += 1;
 				} else {
-					temp = file;
+					tmpVar = tag;
 				}
-
-				newTag.push(temp);
+				newTag.push(tmpVar);
 				return true;
 			});
 
-
-			if (count === 0) {
-				newTag.push(dataTag);
-			}
-
-
+			if (count === 0) { newTag.push(dataTag); }
 			newData.push({ workspace, options, tags: newTag });
 		} else {
 			newData.push(config);
 		}
 		return true;
 	});
-
 	writeConfigurationFile(newData, settingsPath);
 }
+
 
 
 async function changeTagData(filename, filepath, newFilepath, filetype) {
 	const newData = [];
 	const settingsPath = resolve(__dirname, '..', 'config', 'settings.json');
-
 	const settingData = await readConfigurationFile(settingsPath);
+
 	settingData.map((config) => {
 		const newTag = [];
 		const { workspace, options, tags } = config;
@@ -168,7 +158,6 @@ async function changeTagData(filename, filepath, newFilepath, filetype) {
 async function getOptionHiddenFile(workspaceName = 'main') {
 	let response = false;
 	const settingsPath = resolve(__dirname, '..', 'config', 'settings.json');
-
 	const settingData = await readConfigurationFile(settingsPath);
 
 	if (settingData) {
@@ -178,6 +167,7 @@ async function getOptionHiddenFile(workspaceName = 'main') {
 				const { hiddenFile } = options;
 				response = hiddenFile;
 			}
+			return true;
 		});
 	}
 	return response;
@@ -205,10 +195,13 @@ async function setOptionHiddenFile(value, workspaceName = 'main') {
 		} else {
 			data.push(config);
 		}
+		return true;
 	});
 	const response = await writeConfigurationFile(data, settingsPath);
 	return response;
 }
+
+
 
 
 module.exports = {
