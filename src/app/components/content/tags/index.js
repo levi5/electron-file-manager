@@ -1,8 +1,7 @@
 /* eslint-disable no-undef */
-const path = require('path');
-
 const { Elements } = require('../../../../utils/Elements');
 const { saveTagConfig } = require('../../../../utils/settings');
+const { getImage } = require('../../../../utils/userInterface');
 const { loadMenuTags } = require('../left-menu/index');
 
 
@@ -34,7 +33,7 @@ function getTagData() {
 
 
 function readTag(filepath) {
-	const itens = [...document.querySelectorAll('.item')];
+	const itens = [...Elements.mainArea.querySelectorAll('.item')];
 
 	itens.map((item) => {
 		const dataPath = item.getAttribute('data-path');
@@ -111,17 +110,18 @@ function load() {
 
 
 
-document.getElementById('btn-create-tag').addEventListener('click', async () => {
-	const filename = await String(document.querySelector('#folder-options').getAttribute('data-name'));
-	const filetype = await String(document.querySelector('#folder-options').getAttribute('data-type'));
-	const filePath = await String(document.querySelector('#folder-options').getAttribute('data-path'));
+Elements.tag.buttons.createTag.addEventListener('click', async () => {
+	const filename = await String(Elements.main.folder.options.getAttribute('data-name'));
+	const filetype = await String(Elements.main.folder.options.getAttribute('data-type'));
+	const filePath = await String(Elements.main.folder.options.getAttribute('data-path'));
+	const extname = await String(Elements.main.folder.options.getAttribute('data-extname'));
+
+	const url = getImage({ extname, type: filetype });
 
 	readTag(filePath);
 	setTagCreateScreenValues(filename, filePath, filetype);
 
-	const url = path.resolve(__dirname, '..', '..', '..', '..', '..', 'public', 'assets', 'icons', 'main-area', `${filetype}.svg`);
-	document.querySelector('#createTag-img-preview').setAttribute('src', url);
-
+	Elements.tag.image.imgPreview.setAttribute('src', url);
 	Elements.configScreen.classList.toggle('on');
 });
 

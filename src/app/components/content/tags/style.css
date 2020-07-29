@@ -35,9 +35,15 @@
     height: auto;
     word-wrap: break-word;
     word-break: normal;
+    margin-top: 4px;
    
     color: var(--white-color);
 }
+.config-screen  label[name=filename] {
+    margin-top: 5px;
+    margin-bottom: 0px;
+}
+
 modal-config  label[name=tagname] {
     font-size: 12px;
     font-family: 'Open Sans', sans-serif, color-emoji;
@@ -45,6 +51,11 @@ modal-config  label[name=tagname] {
 
 .config-screen  label[name=filePath] {
     display: none;
+}
+
+.config-screen  label[name=filetype] {
+    margin-top: 0;
+    margin-bottom: 5px;
 }
 
 
@@ -113,6 +124,11 @@ modal-config  label[name=tagname] {
 }
 
 .config-screen  img{
+    max-width: 100px;
+    max-height: 100px;
+    width: auto;
+    height: auto;
+
     background-position: center;
     background-repeat: repeat;
     background-size: cover;

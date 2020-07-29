@@ -45,6 +45,25 @@ function clearView() {
 }
 
 
+function getImage(file) {
+	let src = '';
+	const extname = file.extname.replace('.', '');
+	const extensions = ['iso', 'jpg', 'pdf', 'png', 'txt'];
+
+	if (file.type === 'file') {
+		if (extensions.indexOf(extname) !== -1) {
+			src = path.resolve(__dirname, '..', '..', 'public', 'assets', 'icons', 'main-area', 'files', `${extname}`, `${file.type}.svg`);
+		} else {
+			src = path.resolve(__dirname, '..', '..', 'public', 'assets', 'icons', 'main-area', 'files', 'undefined', `${file.type}.svg`);
+		}
+	} else if (file.type === 'directory') {
+		src = path.resolve(__dirname, '..', '..', 'public', 'assets', 'icons', 'main-area', 'dir', `${file.type}.svg`);
+	}
+
+
+	return src;
+}
+
 
 
 function displayFile(file, hideFiles = true) {
@@ -59,15 +78,14 @@ function displayFile(file, hideFiles = true) {
 
 
 	if (file.type) {
-		const urlIma = path.resolve(__dirname, '..', '..', 'public', 'assets', 'icons', 'main-area', `${file.type}.svg`);
-
 		clone.querySelector('.item').setAttribute('data-path', file.path);
 		clone.querySelector('.item').setAttribute('data-type', file.type);
+		clone.querySelector('.item').setAttribute('data-extname', file.extname);
 		clone.querySelector('.item').setAttribute('onClick', 'selected(this)');
 		clone.querySelector('.item').setAttribute('onPointerdown', 'selected(this)');
 		clone.querySelector('.item .filename').setAttribute('ondblclick', 'openWindowRenameFiles(this)');
 
-		clone.querySelector('img').src = urlIma;
+		clone.querySelector('img').src = getImage(file);
 		clone.querySelector('img').setAttribute('data-filePath', file.path);
 
 
@@ -82,7 +100,7 @@ function displayFile(file, hideFiles = true) {
 			.addEventListener('pointerdown', (e) => {
 				if (e.button === 2) {
 					closeFolderOptions();
-					folderOptions(e.clientX, e.clientY, file.file, file.type, file.path);
+					folderOptions(e.clientX, e.clientY, file.file, file.type, file.path, file.extname);
 				}
 			}, false);
 
@@ -175,7 +193,7 @@ function getCurrentDirectory() {
 }
 
 
-function folderOptions(x, y, filename, filetype, filePath) {
+function folderOptions(x, y, filename, filetype, filePath, extname) {
 	let posX = x;
 	let posY = y;
 	const elementFolderOptions = document.querySelector('#folder-options');
@@ -185,6 +203,7 @@ function folderOptions(x, y, filename, filetype, filePath) {
 	elementFolderOptions.setAttribute('data-name', filename);
 	elementFolderOptions.setAttribute('data-type', filetype);
 	elementFolderOptions.setAttribute('data-path', filePath);
+	elementFolderOptions.setAttribute('data-extname', extname);
 	elementFolderOptions.querySelector('#folder-options-title').textContent = filename;
 
 	const [mainAreaData] = Elements.mainArea.getClientRects();
@@ -256,5 +275,6 @@ module.exports = {
 	closeFolderOptions,
 	closeModalRename,
 	getCurrentDirectory,
+	getImage,
 
 };

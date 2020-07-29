@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 
 const $select = document.querySelector.bind(document);
+// const $selectAll = document.querySelectorAll.bind(document);
 const $selectById = document.getElementById.bind(document);
 
 const Elements = {
@@ -25,6 +26,24 @@ const Elements = {
 	optionsBar: {
 		buttons: {
 			btnViewHiddenFiles: $select('#view-hidden-files'),
+
+		},
+
+
+	},
+	tag: {
+		buttons: {
+			createTag: $selectById('btn-create-tag'),
+		},
+		image: {
+			imgPreview: $select('#createTag-img-preview'),
+		},
+	},
+	main: {
+		folder: {
+			options: $select('#folder-options'),
+		},
+		items: {
 
 		},
 
