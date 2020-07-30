@@ -3,12 +3,13 @@ const { Elements } = require('../../../utils/Elements');
 
 const section = document.querySelector('section');
 
-const sectionWidth = parseInt(section.offsetWidth, 10);
-const separatorWidth = parseInt(Elements.separador.offsetWidth, 10);
+
 
 let startWidth;
 
 function doDrag(e) {
+const sectionWidth = parseInt(section.offsetWidth, 10);
+const separatorWidth = parseInt(Elements.separador.offsetWidth, 10);
 	startWidth = parseInt(e.clientX, 10);
 	const mainAreaWidthValue = sectionWidth - startWidth;
 
