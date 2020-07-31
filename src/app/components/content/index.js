@@ -8,8 +8,9 @@ const section = document.querySelector('section');
 let startWidth;
 
 function doDrag(e) {
-const sectionWidth = parseInt(section.offsetWidth, 10);
-const separatorWidth = parseInt(Elements.separador.offsetWidth, 10);
+	const sectionWidth = parseInt(section.offsetWidth, 10);
+	const separatorWidth = parseInt(Elements.separador.offsetWidth, 10);
+
 	startWidth = parseInt(e.clientX, 10);
 	const mainAreaWidthValue = sectionWidth - startWidth;
 

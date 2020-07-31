@@ -13,7 +13,7 @@ function main() {
 	userInterface.openFolder(folderPath);
 	loadMenuTags();
 	optionsBar.viewHiddenFiles();
-	rename();
+	rename(userInterface.loadDirectory);
 
 
 	userInterface.bindSearchField((event) => {

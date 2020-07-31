@@ -10,6 +10,7 @@ const { getTagConfig } = require('./settings');
 const { setTitleBar, navigatingTitleBar } = require('../app/components/tittleBar/index');
 const settings = require('./settings');
 
+const { openWindowRenameFiles } = require('../app/components/content/modal/rename/index');
 
 
 
@@ -83,7 +84,6 @@ function displayFile(file, hideFiles = true) {
 		clone.querySelector('.item').setAttribute('data-extname', file.extname);
 		clone.querySelector('.item').setAttribute('onClick', 'selected(this)');
 		clone.querySelector('.item').setAttribute('onPointerdown', 'selected(this)');
-		clone.querySelector('.item .filename').setAttribute('ondblclick', 'openWindowRenameFiles(this)');
 
 		clone.querySelector('img').src = getImage(file);
 		clone.querySelector('img').setAttribute('data-filePath', file.path);
@@ -92,8 +92,8 @@ function displayFile(file, hideFiles = true) {
 
 		if (file.type === 'directory') {
 			clone.querySelector('img')
-				.addEventListener('dblclick', () => {
-					openFolder(file.path);
+				.addEventListener('dblclick', async () => {
+					await openFolder(file.path);
 				}, false);
 		}
 		clone.querySelector('.item')
@@ -103,6 +103,9 @@ function displayFile(file, hideFiles = true) {
 					folderOptions(e.clientX, e.clientY, file.file, file.type, file.path, file.extname);
 				}
 			}, false);
+		clone.querySelector('.item .filename').addEventListener('dblclick', () => {
+			openWindowRenameFiles(file.file, file.type, file.path);
+		});
 
 		clone.querySelector('.filename').innerText = file.file;
 		Elements.mainArea.appendChild(clone);
@@ -250,12 +253,6 @@ function closeFolderOptions() {
 
 
 
-function closeModalRename() {
-	Elements.modalRename.classList.remove('on');
-}
-
-
-
 
 function permissionErrors(_err) {
 	alert('this folder or files cannot be accessed by you');
@@ -272,8 +269,6 @@ module.exports = {
 	resetFilter,
 	openFolder,
 	getSelectedFileDirectory,
-	closeFolderOptions,
-	closeModalRename,
 	getCurrentDirectory,
 	getImage,
 
