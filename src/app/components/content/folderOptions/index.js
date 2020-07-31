@@ -1,22 +1,28 @@
 /* eslint-disable no-undef */
-const {
-	openFolder, getSelectedFileDirectory, closeFolderOptions, closeModalRename,
-} = require('../../../../utils/userInterface');
-
 const { Elements } = require('../../../../utils/Elements');
+const { openFolder, getSelectedFileDirectory } = require('../../../../utils/userInterface');
+const { openWindowRenameFiles, closeWindowRenameFiles } = require('../modal/rename/index');
+
+
+
+function closeFolderOptions() {
+	Elements.menuFolderOptions.classList.remove('on');
+}
 
 
 document.body.addEventListener('click', (e) => {
-	if (e.target.parentNode.id !== 'modal-rename') {
-		closeModalRename();
+	if (e.target.parentNode.id === 'main-area') {
+		closeWindowRenameFiles();
 	}
 	closeFolderOptions();
 });
 
+
 Elements.mainArea.addEventListener('scroll', () => {
 	closeFolderOptions();
-	closeModalRename();
 });
+
+
 
 document.getElementById('open-folder').addEventListener('click', () => {
 	folderPath = getSelectedFileDirectory();
@@ -25,6 +31,12 @@ document.getElementById('open-folder').addEventListener('click', () => {
 });
 
 
-document.getElementById('rename-file').addEventListener('click', () => {
 
+document.getElementById('rename-file').addEventListener('click', () => {
+	const filename = String(Elements.main.folder.options.getAttribute('data-name'));
+	const filetype = String(Elements.main.folder.options.getAttribute('data-type'));
+	const filepath = String(Elements.main.folder.options.getAttribute('data-path'));
+
+	openWindowRenameFiles(filename, filetype, filepath);
+	closeFolderOptions();
 });

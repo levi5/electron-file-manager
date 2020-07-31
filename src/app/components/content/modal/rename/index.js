@@ -3,9 +3,25 @@ const path = require('path');
 
 const { Elements } = require('../../../../../utils/Elements');
 const fileSystem = require('../../../../../utils/fileSystem');
-const userInterface = require('../../../../../utils/userInterface');
 const settings = require('../../../../../utils/settings');
 const { loadMenuTags } = require('../../left-menu/index');
+
+
+function openWindowRenameFiles(filename, filetype, filepath) {
+	const modal = document.querySelector('#modal-rename');
+
+	modal.classList.add('on');
+	modal.querySelector('input[name=rename-file]').value = filename;
+	modal.setAttribute('data-path', filepath);
+	modal.setAttribute('data-type', filetype);
+}
+
+
+function closeWindowRenameFiles() {
+	const modal = document.querySelector('#modal-rename');
+	modal.classList.remove('on');
+}
+
 
 
 
@@ -32,7 +48,7 @@ function setAttributeModal(filename = '', filepath = '', filetype = '') {
 	Elements.menuFolderOptions.setAttribute('data-path', filepath);
 }
 
-async function rename() {
+async function rename(f) {
 	document.querySelector('#btn-modal-rename').addEventListener('click', async () => {
 		const filepath = String(Elements.modalRename.getAttribute('data-path'));
 		const filetype = String(Elements.modalRename.getAttribute('data-type'));
@@ -47,12 +63,11 @@ async function rename() {
 			await settings.changeTagData(input, filepath, newFilepath, filetype);
 
 			setAttributeModal(input, newFilepath, filetype);
+
 			const previousDirectory = path.resolve(newFilepath, '..');
-
-
 			const posScroll = Elements.mainArea.scrollTop;
 
-			await userInterface.openFolder(previousDirectory);
+			await f(previousDirectory);
 			await loadMenuTags();
 			Elements.mainArea.scrollTo(0, posScroll);
 		}
@@ -63,6 +78,9 @@ async function rename() {
 }
 
 
+
 module.exports = {
+	openWindowRenameFiles,
+	closeWindowRenameFiles,
 	rename,
 };
