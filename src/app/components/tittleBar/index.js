@@ -39,7 +39,7 @@ function createHtmlNavElementsTitleBar(directory, filepath, index) {
 	div.setAttribute('data-path', `${filepath}`);
 	label.textContent = directory;
 	div.appendChild(label);
-	Elements.titleBarNavMenu.appendChild(div);
+	Elements.header.menu.directory.appendChild(div);
 }
 
 
@@ -47,10 +47,10 @@ function setTitleBar(directory) {
 	const elementSize = 100;
 	const { links, directors } = createPathFolders(directory);
 
-	Elements.titleBarNavMenu.innerHTML = '';
+	Elements.header.menu.directory.innerHTML = '';
 
 	let numberElements = Math.trunc(100 / ((elementSize * 100)
-	/ (parseInt(Elements.titleBar.offsetWidth, 10))));
+	/ (parseInt(Elements.header.bar.title.offsetWidth, 10))));
 
 	const directorySize = directors.length;
 
@@ -77,7 +77,7 @@ function setTitleBar(directory) {
 
 
 async function navigatingTitleBar(f) {
-	const tabs = [...Elements.titleBarNavMenu.children];
+	const tabs = [...Elements.header.menu.directory.children];
 
 	tabs.map((tab) => {
 		tab.addEventListener('click', async (_event) => {
@@ -91,19 +91,19 @@ async function navigatingTitleBar(f) {
 
 
 
-Elements.buttons.closeButton.addEventListener('click', (_e) => {
+Elements.header.buttons.close.addEventListener('click', (_e) => {
 	const window = remote.getCurrentWindow();
 	window.close();
 });
 
 
-Elements.buttons.minimizeButton.addEventListener('click', (_e) => {
+Elements.header.buttons.minimize.addEventListener('click', (_e) => {
 	const window = remote.getCurrentWindow();
 	window.minimize();
 });
 
 
-Elements.buttons.maximizeButton.addEventListener('click', (_e) => {
+Elements.header.buttons.maximize.addEventListener('click', (_e) => {
 	const window = remote.getCurrentWindow();
 
 	if (!window.isMaximized()) {
@@ -116,15 +116,15 @@ Elements.buttons.maximizeButton.addEventListener('click', (_e) => {
 });
 
 
-Elements.buttons.previousDirectory.addEventListener('click', () => {
-	const scrollPosX = Elements.titleBarNavMenu.scrollLeft;
-	Elements.titleBarNavMenu.scrollTo(scrollPosX - 20, 0);
+Elements.header.buttons.previousDirectory.addEventListener('click', () => {
+	const scrollPosX = Elements.header.menu.directory.scrollLeft;
+	Elements.header.menu.directory.scrollTo(scrollPosX - 20, 0);
 });
 
 
-Elements.buttons.nextDirectory.addEventListener('click', () => {
-	const scrollPosX = Elements.titleBarNavMenu.scrollLeft;
-	Elements.titleBarNavMenu.scrollTo(scrollPosX + 20, 0);
+Elements.header.buttons.nextDirectory.addEventListener('click', () => {
+	const scrollPosX = Elements.header.menu.directory.scrollLeft;
+	Elements.header.menu.directory.scrollTo(scrollPosX + 20, 0);
 });
 
 

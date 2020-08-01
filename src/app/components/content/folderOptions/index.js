@@ -6,7 +6,7 @@ const { openWindowRenameFiles, closeWindowRenameFiles } = require('../modal/rena
 
 
 function closeFolderOptions() {
-	Elements.menuFolderOptions.classList.remove('on');
+	Elements.main.folder.menu.options.classList.remove('on');
 }
 
 
@@ -33,9 +33,9 @@ document.getElementById('open-folder').addEventListener('click', () => {
 
 
 document.getElementById('rename-file').addEventListener('click', () => {
-	const filename = String(Elements.main.folder.options.getAttribute('data-name'));
-	const filetype = String(Elements.main.folder.options.getAttribute('data-type'));
-	const filepath = String(Elements.main.folder.options.getAttribute('data-path'));
+	const filename = String(Elements.main.folder.menu.options.getAttribute('data-name'));
+	const filetype = String(Elements.main.folder.menu.options.getAttribute('data-type'));
+	const filepath = String(Elements.main.folder.menu.options.getAttribute('data-path'));
 
 	openWindowRenameFiles(filename, filetype, filepath);
 	closeFolderOptions();

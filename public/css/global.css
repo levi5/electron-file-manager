@@ -125,6 +125,7 @@ nav {
     width: 100%;
     height: auto;
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
     align-items: center;
     grid-area: TooBar;
@@ -139,25 +140,6 @@ nav .search input[name=search]{
     background-color: #f4f4f4;
 
 }
-nav #view-hidden-files{
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2px;
-    
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-
-    background-image: url('../assets/icons/options-bar/eye-fill.svg');
-    transition: background-image 0.3s;
-}
-nav #view-hidden-files.off{
-    background-image: url('../assets/icons/options-bar/eye-off-fill.svg');
-}
-
 section {
     flex: 1;
     grid-area: Content;

@@ -7,9 +7,9 @@ const settings = require('../../../../../utils/settings');
 const { loadMenuTags } = require('../../left-menu/index');
 
 
-function openWindowRenameFiles(filename, filetype, filepath) {
-	const modal = document.querySelector('#modal-rename');
+const modal = Elements.modal.rename.screen;
 
+function openWindowRenameFiles(filename, filetype, filepath) {
 	modal.classList.add('on');
 	modal.querySelector('input[name=rename-file]').value = filename;
 	modal.setAttribute('data-path', filepath);
@@ -18,11 +18,8 @@ function openWindowRenameFiles(filename, filetype, filepath) {
 
 
 function closeWindowRenameFiles() {
-	const modal = document.querySelector('#modal-rename');
 	modal.classList.remove('on');
 }
-
-
 
 
 async function applyFilenameChange(filepath, newFilepath, filename) {
@@ -42,17 +39,20 @@ async function applyFilenameChange(filepath, newFilepath, filename) {
 	});
 }
 
+
+
 function setAttributeModal(filename = '', filepath = '', filetype = '') {
-	Elements.menuFolderOptions.setAttribute('data-name', filename);
-	Elements.menuFolderOptions.setAttribute('data-type', filetype);
-	Elements.menuFolderOptions.setAttribute('data-path', filepath);
+	Elements.main.folder.menu.options.setAttribute('data-name', filename);
+	Elements.main.folder.menu.options.setAttribute('data-type', filetype);
+	Elements.main.folder.menu.options.setAttribute('data-path', filepath);
 }
+
 
 async function rename(f) {
 	document.querySelector('#btn-modal-rename').addEventListener('click', async () => {
-		const filepath = String(Elements.modalRename.getAttribute('data-path'));
-		const filetype = String(Elements.modalRename.getAttribute('data-type'));
-		const input = String(document.querySelector('#modal-rename input[name=rename-file]').value);
+		const filepath = String(Elements.modal.rename.screen.getAttribute('data-path'));
+		const filetype = String(Elements.modal.rename.screen.getAttribute('data-type'));
+		const input = String(Elements.modal.rename.inputs.renameItem.value);
 
 		let newFilepath;
 
@@ -73,7 +73,7 @@ async function rename(f) {
 		}
 
 		setAttributeModal();
-		Elements.modalRename.classList.remove('on');
+		Elements.modal.rename.screen.classList.remove('on');
 	});
 }
 

@@ -5,28 +5,42 @@ const $select = document.querySelector.bind(document);
 const $selectById = document.getElementById.bind(document);
 
 const Elements = {
-	titleBar: $select('.title-bar'),
-	titleBarNavMenu: $select('.title-bar ul'),
+
 	leftMenu: $select('section .left-menu'),
 	mainArea: $selectById('main-area'),
 	configScreen: $select('.config-screen'),
-	modalRename: $select('#modal-rename'),
-	menuFolderOptions: $select('#folder-options'),
 	separador: $select('section .vertical-separator'),
 
-	buttons: {
-		closeButton: $selectById('btn-close-window'),
-		minimizeButton: $selectById('btn-minimize-window'),
-		maximizeButton: $selectById('btn-maximize-window'),
-		previousDirectory: $select('header .title-bar .previous-directory'),
-		nextDirectory: $select('header .title-bar .next-directory'),
-		saveTagsButton: $select('#btn-save-tags'),
+	header: {
+		buttons: {
+			close: $selectById('btn-close-window'),
+			minimize: $selectById('btn-minimize-window'),
+			maximize: $selectById('btn-maximize-window'),
+			previousDirectory: $select('header .title-bar .previous-directory'),
+			nextDirectory: $select('header .title-bar .next-directory'),
+		},
+		menu: {
+			directory: $select('.title-bar ul'),
+		},
+		bar: {
+
+			title: $select('.title-bar'),
+		},
+	},
+	main: {
+		folder: {
+			menu: {
+				options: $select('#folder-options'),
+			},
+		},
+		items: {
+
+		},
 
 	},
 	optionsBar: {
 		buttons: {
-			btnViewHiddenFiles: $select('#view-hidden-files'),
-
+			viewHiddenFiles: $select('#view-hidden-files'),
 		},
 
 
@@ -34,20 +48,22 @@ const Elements = {
 	tag: {
 		buttons: {
 			createTag: $selectById('btn-create-tag'),
+			saveTag: $select('#btn-save-tags'),
 		},
 		image: {
 			imgPreview: $select('#createTag-img-preview'),
 		},
 	},
-	main: {
-		folder: {
-			options: $select('#folder-options'),
-		},
-		items: {
-
+	modal: {
+		rename: {
+			screen: $select('#modal-rename'),
+			inputs: {
+				renameItem: $select('#modal-rename input[name=rename-file]'),
+			},
 		},
 
 	},
+
 
 };
 

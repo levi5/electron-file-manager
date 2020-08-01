@@ -111,10 +111,10 @@ function load() {
 
 
 Elements.tag.buttons.createTag.addEventListener('click', async () => {
-	const filename = await String(Elements.main.folder.options.getAttribute('data-name'));
-	const filetype = await String(Elements.main.folder.options.getAttribute('data-type'));
-	const filePath = await String(Elements.main.folder.options.getAttribute('data-path'));
-	const extname = await String(Elements.main.folder.options.getAttribute('data-extname'));
+	const filename = await String(Elements.main.folder.menu.options.getAttribute('data-name'));
+	const filetype = await String(Elements.main.folder.menu.options.getAttribute('data-type'));
+	const filePath = await String(Elements.main.folder.menu.options.getAttribute('data-path'));
+	const extname = await String(Elements.main.folder.menu.options.getAttribute('data-extname'));
 
 	const url = getImage({ extname, type: filetype });
 
@@ -167,7 +167,7 @@ inputTagEmoji.addEventListener('keyup', async (_e) => {
 
 
 
-Elements.buttons.saveTagsButton.addEventListener('click', async () => {
+Elements.tag.buttons.saveTag.addEventListener('click', async () => {
 	await saveTag();
 	await loadMenuTags();
 	Elements.configScreen.classList.toggle('on');

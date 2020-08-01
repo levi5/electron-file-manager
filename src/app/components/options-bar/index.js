@@ -8,10 +8,10 @@ const userInterface = require('../../../utils/userInterface');
 function update(hiddenFiles) {
 	if (hiddenFiles) {
 		htmlElements.Elements.optionsBar
-			.buttons.btnViewHiddenFiles.classList.add('off');
+			.buttons.viewHiddenFiles.classList.add('off');
 	} else {
 		htmlElements.Elements.optionsBar
-			.buttons.btnViewHiddenFiles.classList.remove('off');
+			.buttons.viewHiddenFiles.classList.remove('off');
 	}
 }
 
@@ -26,13 +26,15 @@ async function toggleClassButtonHiddenFiles() {
 function viewHiddenFiles() {
 	let hiddenFiles;
 
-	htmlElements.Elements.optionsBar.buttons.btnViewHiddenFiles.addEventListener('click', async () => {
-		htmlElements.Elements.optionsBar.buttons.btnViewHiddenFiles.classList.toggle('off');
+	htmlElements.Elements.optionsBar.buttons.viewHiddenFiles.addEventListener('click', async () => {
+		htmlElements.Elements.optionsBar.buttons.viewHiddenFiles.classList.toggle('off');
 		const { value: className } = htmlElements
 			.Elements.optionsBar.buttons
-			.btnViewHiddenFiles.classList;
+			.viewHiddenFiles.classList;
 
-		if (className === 'off') { hiddenFiles = true; } else { hiddenFiles = false; }
+		const classList = className.split(/\s+/);
+
+		if (classList.indexOf('off') !== -1) { hiddenFiles = true; } else { hiddenFiles = false; }
 
 		const response = await settings.setOptionHiddenFile(hiddenFiles);
 		if (!response) {

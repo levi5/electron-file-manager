@@ -9,7 +9,6 @@ const { Elements } = require('./Elements');
 const { getTagConfig } = require('./settings');
 const { setTitleBar, navigatingTitleBar } = require('../app/components/tittleBar/index');
 const settings = require('./settings');
-
 const { openWindowRenameFiles } = require('../app/components/content/modal/rename/index');
 
 
@@ -36,8 +35,8 @@ function setFileTag() {
 
 function clearView() {
 	const template = document.querySelector('#item-template');
-	const modal = Elements.modalRename;
-	const menu = Elements.menuFolderOptions;
+	const modal = Elements.modal.rename.screen;
+	const menu = Elements.main.folder.menu.options;
 
 	Elements.mainArea.innerHTML = '';
 	Elements.mainArea.appendChild(modal);
@@ -190,7 +189,7 @@ function resetFilter() {
 
 
 function getCurrentDirectory() {
-	const elements = [...Elements.titleBarNavMenu.querySelectorAll('div')];
+	const elements = [...Elements.header.menu.directory.querySelectorAll('div')];
 	const filepath = elements[elements.length - 1].getAttribute('data-path');
 	return filepath;
 }
@@ -200,7 +199,7 @@ function folderOptions(x, y, filename, filetype, filePath, extname) {
 	let posX = x;
 	let posY = y;
 	const elementFolderOptions = document.querySelector('#folder-options');
-	Elements.modalRename.classList.remove('on');
+	Elements.modal.rename.screen.classList.remove('on');
 
 	elementFolderOptions.classList.toggle('on');
 	elementFolderOptions.setAttribute('data-name', filename);
@@ -241,14 +240,14 @@ function openFolder(folderPath) {
 
 
 function getSelectedFileDirectory() {
-	const filename = String(Elements.menuFolderOptions.getAttribute('data-path'));
+	const filename = String(Elements.main.folder.menu.options.getAttribute('data-path'));
 	return filename;
 }
 
 
 
 function closeFolderOptions() {
-	Elements.menuFolderOptions.classList.remove('on');
+	Elements.main.folder.menu.options.classList.remove('on');
 }
 
 
