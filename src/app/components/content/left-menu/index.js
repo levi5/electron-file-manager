@@ -18,7 +18,7 @@ function navigationByTag() {
 			} else {
 				filePath = path.resolve(filePath, '..');
 			}
-			userInterface.openFolder(filePath);
+			userInterface.loadDirectory(filePath);
 		});
 		return true;
 	});

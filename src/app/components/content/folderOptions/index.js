@@ -1,8 +1,8 @@
 /* eslint-disable no-undef */
 const { Elements } = require('../../../../utils/Elements');
-const { openFolder, getSelectedFileDirectory } = require('../../../../utils/userInterface');
+const { loadDirectory } = require('../../../../utils/userInterface');
 const { openWindowRenameFiles, closeWindowRenameFiles } = require('../modal/rename/index');
-
+const { getSelectedFileDirectory } = require('../../tittleBar/index');
 
 
 function closeFolderOptions() {
@@ -23,10 +23,9 @@ Elements.mainArea.addEventListener('scroll', () => {
 });
 
 
-
 document.getElementById('open-folder').addEventListener('click', () => {
 	folderPath = getSelectedFileDirectory();
-	openFolder(folderPath);
+	loadDirectory(folderPath);
 	closeFolderOptions();
 });
 

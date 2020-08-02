@@ -8,6 +8,7 @@ const search = require('./search');
 const { Elements } = require('./Elements');
 const { getTagConfig } = require('./settings');
 const { setTitleBar, navigatingTitleBar } = require('../app/components/tittleBar/index');
+const { folderOptions } = require('../app/components/content/folderOptions/functions');
 const settings = require('./settings');
 const { openWindowRenameFiles } = require('../app/components/content/modal/rename/index');
 
@@ -92,7 +93,7 @@ function displayFile(file, hideFiles = true) {
 		if (file.type === 'directory') {
 			clone.querySelector('img')
 				.addEventListener('dblclick', async () => {
-					await openFolder(file.path);
+					await loadDirectory(file.path);
 				}, false);
 		}
 		clone.querySelector('.item')
@@ -123,7 +124,7 @@ async function displayFiles(files) {
 	});
 
 	search.resetIndex(sortedFiles);
-	navigatingTitleBar(openFolder);
+	navigatingTitleBar(loadDirectory);
 	setFileTag();
 	return 0;
 }
@@ -195,55 +196,6 @@ function getCurrentDirectory() {
 }
 
 
-function folderOptions(x, y, filename, filetype, filePath, extname) {
-	let posX = x;
-	let posY = y;
-	const elementFolderOptions = document.querySelector('#folder-options');
-	Elements.modal.rename.screen.classList.remove('on');
-
-	elementFolderOptions.classList.toggle('on');
-	elementFolderOptions.setAttribute('data-name', filename);
-	elementFolderOptions.setAttribute('data-type', filetype);
-	elementFolderOptions.setAttribute('data-path', filePath);
-	elementFolderOptions.setAttribute('data-extname', extname);
-	elementFolderOptions.querySelector('#folder-options-title').textContent = filename;
-
-	const [mainAreaData] = Elements.mainArea.getClientRects();
-	const {
-		top, bottom, left, right,
-	} = mainAreaData;
-
-	const elementFolderOptionsWidth = parseInt(elementFolderOptions.clientWidth, 10);
-	const elementFolderOptionsHeight = parseInt(elementFolderOptions.clientHeight, 10);
-
-	const limitX = posX + elementFolderOptionsWidth + 20;
-	const limitY = posY + elementFolderOptionsHeight + 20;
-
-	if (limitX > right) posX -= (limitX - right);
-
-	if (limitX < left) posX += (limitX - left);
-
-	if (limitY > bottom) posY -= (limitY - bottom);
-
-	if (limitY < top) posY += (limitY - top);
-
-	elementFolderOptions.style.left = `${posX}px`;
-	elementFolderOptions.style.top = `${posY}px`;
-}
-
-
-
-function openFolder(folderPath) {
-	loadDirectory(folderPath);
-}
-
-
-
-function getSelectedFileDirectory() {
-	const filename = String(Elements.main.folder.menu.options.getAttribute('data-path'));
-	return filename;
-}
-
 
 
 function closeFolderOptions() {
@@ -266,9 +218,6 @@ module.exports = {
 	bindSearchField,
 	filterResults,
 	resetFilter,
-	openFolder,
-	getSelectedFileDirectory,
 	getCurrentDirectory,
 	getImage,
-
 };

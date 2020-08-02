@@ -90,6 +90,13 @@ async function navigatingTitleBar(f) {
 
 
 
+function getSelectedFileDirectory() {
+	const filename = String(Elements.main.folder.menu.options.getAttribute('data-path'));
+	return filename;
+}
+
+
+
 
 Elements.header.buttons.close.addEventListener('click', (_e) => {
 	const window = remote.getCurrentWindow();
@@ -130,4 +137,4 @@ Elements.header.buttons.nextDirectory.addEventListener('click', () => {
 
 
 
-module.exports = { setTitleBar, navigatingTitleBar };
+module.exports = { setTitleBar, navigatingTitleBar, getSelectedFileDirectory };

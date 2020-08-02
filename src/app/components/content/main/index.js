@@ -10,7 +10,7 @@ const optionsBar = require('../../options-bar/index');
 function main() {
 	const folderPath = fileSystem.getUsersHomeFolder();
 
-	userInterface.openFolder(folderPath);
+	userInterface.loadDirectory(folderPath);
 	loadMenuTags();
 	optionsBar.viewHiddenFiles();
 	rename(userInterface.loadDirectory);

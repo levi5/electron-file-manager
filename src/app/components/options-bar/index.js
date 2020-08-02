@@ -39,7 +39,7 @@ function viewHiddenFiles() {
 		const response = await settings.setOptionHiddenFile(hiddenFiles);
 		if (!response) {
 			const filepath = await userInterface.getCurrentDirectory();
-			userInterface.openFolder(filepath);
+			userInterface.loadDirectory(filepath);
 		}
 	});
 	toggleClassButtonHiddenFiles();
