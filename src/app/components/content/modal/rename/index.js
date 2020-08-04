@@ -68,7 +68,7 @@ async function rename(f) {
 			const posScroll = Elements.mainArea.scrollTop;
 
 			await f(previousDirectory);
-			await loadMenuTags();
+			await loadMenuTags(f);
 			Elements.mainArea.scrollTo(0, posScroll);
 		}
 

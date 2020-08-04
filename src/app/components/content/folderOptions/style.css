@@ -1,4 +1,4 @@
-#folder-options {
+#main-area-menu-global, #folder-options {
 
     max-width: 300px;
     width: auto;
@@ -10,14 +10,13 @@
     z-index: 15;
     border-radius: 5px;
     background-color: #24242D;
-    /* background-color: var(--background-dark-secondary-color); */
     -webkit-box-shadow: 2px 2px 0px 0px rgba(20, 20, 25, 1);
     -moz-box-shadow: 2px 2px 0px 0px rgba(20, 20, 25, 1);
     box-shadow: 2px 2px 0px 0px rgba(20, 20, 25, 1);
     cursor: default;
 }
 
-#folder-options.on {
+#folder-options.on , #main-area-menu-global.on{
     display: flex;
 }
 
@@ -35,7 +34,7 @@
 
 }
 
-#folder-options li {
+#folder-options li , #main-area-menu-global li{
     min-width: 200px;
     width: 100%;
     height: auto;
@@ -48,6 +47,6 @@
     background-color: #24242D;
 }
 
-#folder-options li:hover {
+#folder-options li:hover, #main-area-menu-global li:hover {
     filter: brightness(80%);
 }

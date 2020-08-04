@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 const { Elements } = require('../../../../utils/Elements');
 const { saveTagConfig } = require('../../../../utils/settings');
-const { getImage } = require('../../../../utils/userInterface');
+const { getImage, loadDirectory } = require('../../../../utils/userInterface');
 const { loadMenuTags } = require('../left-menu/index');
 
 
@@ -169,7 +169,7 @@ inputTagEmoji.addEventListener('keyup', async (_e) => {
 
 Elements.tag.buttons.saveTag.addEventListener('click', async () => {
 	await saveTag();
-	await loadMenuTags();
+	await loadMenuTags(loadDirectory);
 	Elements.configScreen.classList.toggle('on');
 });
 

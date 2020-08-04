@@ -1,1 +1,11 @@
-[{"workspace":"main","options":{"hiddenFile":true},"tags":[{"filename":"W5W","filetype":"directory","filePath":"/home/levis/W5W","iconBackgroundColor":"","tagName":"","tagNameColor":"rgb(255, 255, 255)","tagEmoji":"📦📦📦📦 "},{"filename":"Vídeos","filetype":"directory","filePath":"/home/levis/Vídeos","iconBackgroundColor":"rgb(255, 210, 63)","tagName":"!Important","tagNameColor":"rgb(239, 71, 111)","tagEmoji":""}]}]
+[
+    {
+        "workspace": "main",
+        "options": {
+            "hiddenFile": true
+        },
+        "tags": [
+           
+        ]
+    }
+]

@@ -6,10 +6,9 @@ const path = require('path');
 const fileSystem = require('./fileSystem');
 const search = require('./search');
 const { Elements } = require('./Elements');
-const { getTagConfig } = require('./settings');
+const settings = require('./settings');
 const { setTitleBar, navigatingTitleBar } = require('../app/components/tittleBar/index');
 const { folderOptions } = require('../app/components/content/folderOptions/functions');
-const settings = require('./settings');
 const { openWindowRenameFiles } = require('../app/components/content/modal/rename/index');
 
 
@@ -19,7 +18,7 @@ function setFileTag() {
 
 	itens.map(async (item) => {
 		const filePath = await item.getAttribute('data-path');
-		const dataTag = await getTagConfig(filePath);
+		const dataTag = await settings.getTagConfig(filePath);
 
 		if (dataTag) {
 			const element = item;
@@ -37,10 +36,12 @@ function setFileTag() {
 function clearView() {
 	const template = document.querySelector('#item-template');
 	const modal = Elements.modal.rename.screen;
+	const menuGlobal = Elements.main.global.menu.options;
 	const menu = Elements.main.folder.menu.options;
 
 	Elements.mainArea.innerHTML = '';
 	Elements.mainArea.appendChild(modal);
+	Elements.mainArea.appendChild(menuGlobal);
 	Elements.mainArea.appendChild(menu);
 	Elements.mainArea.appendChild(template);
 }

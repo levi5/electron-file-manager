@@ -3,10 +3,10 @@ const path = require('path');
 
 const { Elements } = require('../../../../utils/Elements');
 const { getTagsConfig } = require('../../../../utils/settings');
-const userInterface = require('../../../../utils/userInterface');
 
 
-function navigationByTag() {
+
+function navigationByTag(f) {
 	const itens = [...document.querySelectorAll('#content-tag-left-menu ul li')];
 
 	itens.map((item) => {
@@ -18,7 +18,8 @@ function navigationByTag() {
 			} else {
 				filePath = path.resolve(filePath, '..');
 			}
-			userInterface.loadDirectory(filePath);
+
+			f(filePath);
 		});
 		return true;
 	});
@@ -26,7 +27,7 @@ function navigationByTag() {
 
 
 
-async function loadMenuTags() {
+async function loadMenuTags(f) {
 	const tags = await getTagsConfig();
 	const ul = Elements.leftMenu.querySelector('#content-tag-left-menu ul');
 
@@ -48,7 +49,7 @@ async function loadMenuTags() {
 		ul.appendChild(clone);
 		return true;
 	});
-	navigationByTag();
+	navigationByTag(f);
 }
 
 

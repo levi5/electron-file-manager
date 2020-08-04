@@ -1,4 +1,5 @@
 .item {
+   
     min-width: 110px;
     width: auto;
     height: 150px;
@@ -9,9 +10,15 @@
     align-self: flex-start;
     padding: 5px 4px;
     border-radius: 5px;
-    margin: 7px 4px 0px 4px;
+    margin: 10px 7px 0px 7px;
+   
+    transition: all 0.3s;
+   
 }
-
+.item:hover{
+    background: #555555;
+    
+}
 .item .item-icon {
     width: 50px;
     height: 50px;

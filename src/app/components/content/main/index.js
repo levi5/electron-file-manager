@@ -11,7 +11,7 @@ function main() {
 	const folderPath = fileSystem.getUsersHomeFolder();
 
 	userInterface.loadDirectory(folderPath);
-	loadMenuTags();
+	loadMenuTags(userInterface.loadDirectory);
 	optionsBar.viewHiddenFiles();
 	rename(userInterface.loadDirectory);
 

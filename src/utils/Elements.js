@@ -33,6 +33,12 @@ const Elements = {
 				options: $select('#folder-options'),
 			},
 		},
+		global: {
+			menu: {
+				options: $select('#main-area-menu-global'),
+			},
+
+		},
 		items: {
 
 		},

@@ -2,6 +2,48 @@
 const { Elements } = require('../../../../utils/Elements');
 
 
+function closeFolderOptions() {
+	Elements.main.folder.menu.options.classList.remove('on');
+}
+function closeMenuGlobal() {
+	Elements.main.global.menu.options.classList.remove('on');
+}
+
+
+
+function menuGlobal(x, y) {
+	let posX = x;
+	let posY = y;
+
+	Elements.main.folder.menu.options.classList.remove('on');
+	Elements.main.global.menu.options.classList.toggle('on');
+
+	const [mainAreaData] = Elements.mainArea.getClientRects();
+	const {
+		top, bottom, left, right,
+	} = mainAreaData;
+
+	const elementFolderOptionsWidth = parseInt(Elements.main.global.menu.options.clientWidth, 10);
+	const elementFolderOptionsHeight = parseInt(Elements.main.global.menu.options.clientHeight, 10);
+
+	const limitX = posX + elementFolderOptionsWidth + 20;
+	const limitY = posY + elementFolderOptionsHeight + 20;
+
+	if (limitX > right) posX -= (limitX - right);
+
+	if (limitX < left) posX += (limitX - left);
+
+	if (limitY > bottom) posY -= (limitY - bottom);
+
+	if (limitY < top) posY += (limitY - top);
+
+	Elements.main.global.menu.options.style.left = `${posX}px`;
+	Elements.main.global.menu.options.style.top = `${posY}px`;
+}
+
+
+
+
 function hideMenuOptions(type, elements) {
 	elements.map((element) => {
 		const li = element;
@@ -29,6 +71,7 @@ function folderOptions(x, y, filename, filetype, filePath, extname) {
 	hideMenuOptions(filetype, elements);
 
 	Elements.modal.rename.screen.classList.remove('on');
+	Elements.main.global.menu.options.classList.remove('on');
 
 	elementFolderOptions.classList.toggle('on');
 	elementFolderOptions.setAttribute('data-name', filename);
@@ -64,4 +107,7 @@ function folderOptions(x, y, filename, filetype, filePath, extname) {
 module.exports = {
 	folderOptions,
 	hideMenuOptions,
+	closeFolderOptions,
+	closeMenuGlobal,
+	menuGlobal,
 };
