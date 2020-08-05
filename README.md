@@ -8,7 +8,7 @@
 </div>
 
 <div style="display:flex;  justify-content: center; align-items: center;">
-<img src="./.github/user-folder.gif" style="width:700px;  height:500px; padding: 00px">
+<img src="./.github/file-manager.gif" style="width:700px;  height:500px; padding: 00px">
 
 </div>
 
