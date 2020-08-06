@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
 const { Elements } = require('../../../../utils/Elements');
+const { closeWindowRenameFiles } = require('../Modal/Rename/index');
 
 
 function closeFolderOptions() {
@@ -7,6 +8,11 @@ function closeFolderOptions() {
 }
 function closeMenuGlobal() {
 	Elements.main.global.menu.options.classList.remove('on');
+}
+
+
+function closeModals() {
+	closeWindowRenameFiles();
 }
 
 
@@ -70,7 +76,7 @@ function folderOptions(x, y, filename, filetype, filePath, extname) {
 	const elements = [...document.querySelectorAll('#folder-options ul li')];
 	hideMenuOptions(filetype, elements);
 
-	Elements.modal.rename.screen.classList.remove('on');
+	closeModals();
 	Elements.main.global.menu.options.classList.remove('on');
 
 	elementFolderOptions.classList.toggle('on');

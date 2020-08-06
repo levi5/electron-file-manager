@@ -31,11 +31,17 @@ const Elements = {
 		folder: {
 			menu: {
 				options: $select('#folder-options'),
+				buttons: {
+					rename: $select('#folder-options #rename-item'),
+				},
 			},
 		},
 		global: {
 			menu: {
 				options: $select('#main-area-menu-global'),
+				buttons: {
+					createFolder: $select('#btn-create-folder'),
+				},
 			},
 
 		},
@@ -61,10 +67,20 @@ const Elements = {
 		},
 	},
 	modal: {
+		screen: $select('.modal'),
 		rename: {
-			screen: $select('#modal-rename'),
+			screen: $select('.modal #rename-screen'),
 			inputs: {
-				renameItem: $select('#modal-rename input[name=rename-file]'),
+				renameItem: $select('#rename-screen input[name=rename-file]'),
+			},
+		},
+		createFolder: {
+			screen: $select('.modal #create-folder-screen'),
+			buttons: {
+				create: $select('#create-folder-screen #btn-create-folder'),
+			},
+			inputs: {
+				foldername: $select('#create-folder-screen input[name=folder-name]'),
 			},
 		},
 

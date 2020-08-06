@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="../src/app/components/content/main/style.css">
     <link rel="stylesheet" href="../src/app/components/content/folderOptions/style.css">
     <link rel="stylesheet" href="../src/app/components/content/tags/style.css">
-    <link rel="stylesheet" href="../src/app/components/content/modal/rename/style.css">
+    <link rel="stylesheet" href="../src/app/components/content/Modal/style.css">
     <title>Document</title>
 </head>
 
@@ -217,14 +217,14 @@
             <div id="main-area">
                 <div id="main-area-menu-global">
                     <ul>
-                        <li>Criar nova pasta</li>
+                        <li id="btn-create-folder">Criar nova pasta</li>
                         <li>Criar novo arquivo</li>
                         <li>Auto Organizar</li>
                         <li>Propriedades</li>
                     </ul>
 
                 </div>
-                
+
 
 
                 <div id="folder-options" class="">
@@ -232,18 +232,37 @@
                     <ul>
 
                         <li id="open-folder" data-type="directory">Abrir pasta</li>
-                        <li id="open-folder" data-type="file" >Abrir arquivo</li>
-                      
+                        <li id="open-folder" data-type="file">Abrir arquivo</li>
+
                         <li id="new-folder" data-type="directory">Nova pasta</li>
                         <li data-type="all">Excluir</li>
-                        <li id="rename-file" data-type="all">Renomear</li>
+                        <li id="rename-item" data-type="all">Renomear</li>
                         <li id="btn-create-tag" data-type="all">Tag</li>
                     </ul>
                 </div>
-                <div id="modal-rename">
-                    <div id="modal-rename-content">
-                        <input type="text" name="rename-file"> <button type="button"
-                            id="btn-modal-rename">Renomear</button>
+
+                <div class="modal">
+
+                    <div id="rename-screen">
+                        <div id="rename-screen-content">
+                            <input 
+                            type="text" 
+                            name="rename-file"
+                            > 
+
+                            <button type="button" id="btn-rename">Renomear</button>
+                        </div>
+                    </div>
+
+                    <div id="create-folder-screen">
+                        <div class="content">
+                            <input 
+                                type="text" 
+                                placeholder="Digite o nome da pasta" 
+                                onfocus='this.placeholder=""' name="folder-name"> 
+                                
+                                <button type="button" id="btn-create-folder">Criar pasta</button>
+                        </div>
                     </div>
 
                 </div>
@@ -284,7 +303,7 @@
         require("../src/app/components/content/folderOptions/index.js");
         require("../src/app/components/content/tags/index.js");
         require("../src/app/components/content/left-menu/index.js");
-        require("../src/app/components/content/modal/rename/index.js");
+        require("../src/app/components/content/Modal/Rename/index.js");
     </script>
 
 
