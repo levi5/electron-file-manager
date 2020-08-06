@@ -7,10 +7,13 @@ const settings = require('../../../../../utils/settings');
 const { loadMenuTags } = require('../../left-menu/index');
 
 
-const modal = Elements.modal.rename.screen;
+const modal = Elements.modal.screen;
+const renameScreen = Elements.modal.rename.screen;
 
 function openWindowRenameFiles(filename, filetype, filepath) {
 	modal.classList.add('on');
+	renameScreen.classList.add('on');
+
 	modal.querySelector('input[name=rename-file]').value = filename;
 	modal.setAttribute('data-path', filepath);
 	modal.setAttribute('data-type', filetype);
@@ -19,6 +22,7 @@ function openWindowRenameFiles(filename, filetype, filepath) {
 
 function closeWindowRenameFiles() {
 	modal.classList.remove('on');
+	renameScreen.classList.remove('on');
 }
 
 
@@ -49,9 +53,9 @@ function setAttributeModal(filename = '', filepath = '', filetype = '') {
 
 
 async function rename(f) {
-	document.querySelector('#btn-modal-rename').addEventListener('click', async () => {
-		const filepath = String(Elements.modal.rename.screen.getAttribute('data-path'));
-		const filetype = String(Elements.modal.rename.screen.getAttribute('data-type'));
+	document.querySelector('#btn-rename').addEventListener('click', async () => {
+		const filepath = String(modal.getAttribute('data-path'));
+		const filetype = String(modal.getAttribute('data-type'));
 		const input = String(Elements.modal.rename.inputs.renameItem.value);
 
 		let newFilepath;
@@ -65,15 +69,15 @@ async function rename(f) {
 			setAttributeModal(input, newFilepath, filetype);
 
 			const previousDirectory = path.resolve(newFilepath, '..');
-			const posScroll = Elements.mainArea.scrollTop;
+			const scrollBarPosition = Elements.mainArea.scrollTop;
 
 			await f(previousDirectory);
 			await loadMenuTags(f);
-			Elements.mainArea.scrollTo(0, posScroll);
+			Elements.mainArea.scrollTo(0, scrollBarPosition);
 		}
 
 		setAttributeModal();
-		Elements.modal.rename.screen.classList.remove('on');
+		closeWindowRenameFiles();
 	});
 }
 

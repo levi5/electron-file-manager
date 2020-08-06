@@ -9,7 +9,7 @@ const { Elements } = require('./Elements');
 const settings = require('./settings');
 const { setTitleBar, navigatingTitleBar } = require('../app/components/tittleBar/index');
 const { folderOptions } = require('../app/components/content/folderOptions/functions');
-const { openWindowRenameFiles } = require('../app/components/content/modal/rename/index');
+const { openWindowRenameFiles } = require('../app/components/content/Modal/Rename/index');
 
 
 
@@ -35,7 +35,7 @@ function setFileTag() {
 
 function clearView() {
 	const template = document.querySelector('#item-template');
-	const modal = Elements.modal.rename.screen;
+	const modal = Elements.modal.screen;
 	const menuGlobal = Elements.main.global.menu.options;
 	const menu = Elements.main.folder.menu.options;
 

@@ -116,10 +116,44 @@ async function rename(filename, newFilename) {
 }
 
 
+
+async function createFolderOrFile(directory, type) {
+	let existFolder = true;
+
+	let response = {
+		error: true,
+		message: 'error',
+	};
+
+	try {
+		await fs.access(directory);
+	} catch (error) {
+		existFolder = false;
+	}
+
+
+	if (!existFolder) {
+		if (type === 'directory') {
+			await fs.mkdir(directory);
+			response = {
+				error: false,
+				message: 'Ok',
+			};
+			return response;
+		}
+	}
+
+	return response;
+}
+
+
+
+
 module.exports = {
 	getUsersHomeFolder,
 	getFilesInFolder,
 	inspectAndDescribeFiles,
 	changingFilepath,
 	rename,
+	createFolderOrFile,
 };

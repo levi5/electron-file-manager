@@ -1,7 +1,8 @@
 /* eslint-disable no-undef */
 const { Elements } = require('../../../../utils/Elements');
 const { loadDirectory } = require('../../../../utils/userInterface');
-const { openWindowRenameFiles, closeWindowRenameFiles } = require('../modal/rename/index');
+const { openWindowRenameFiles, closeWindowRenameFiles } = require('../Modal/Rename/index');
+const { openWindowCreateFolder, closeWindowCreateFolder } = require('../Modal/CreateFolder/index');
 const { getSelectedFileDirectory } = require('../../tittleBar/index');
 const { closeFolderOptions, closeMenuGlobal, menuGlobal } = require('./functions');
 
@@ -10,6 +11,7 @@ const { closeFolderOptions, closeMenuGlobal, menuGlobal } = require('./functions
 document.body.addEventListener('click', (e) => {
 	if (e.target.parentNode.id === 'main-area') {
 		closeWindowRenameFiles();
+		closeWindowCreateFolder();
 	}
 	closeFolderOptions();
 	closeMenuGlobal();
@@ -31,7 +33,7 @@ document.getElementById('open-folder').addEventListener('click', () => {
 
 
 
-document.getElementById('rename-file').addEventListener('click', () => {
+Elements.main.folder.menu.buttons.rename.addEventListener('click', () => {
 	const filename = String(Elements.main.folder.menu.options.getAttribute('data-name'));
 	const filetype = String(Elements.main.folder.menu.options.getAttribute('data-type'));
 	const filepath = String(Elements.main.folder.menu.options.getAttribute('data-path'));
@@ -48,4 +50,16 @@ document.querySelector('body').addEventListener('pointerdown', (e) => {
 			menuGlobal(e.clientX, e.clientY);
 		}
 	}
+});
+
+
+
+
+Elements.main.global.menu.buttons.createFolder.addEventListener('click', () => {
+	const filename = String(Elements.main.folder.menu.options.getAttribute('data-name'));
+	const filetype = String(Elements.main.folder.menu.options.getAttribute('data-type'));
+	const filepath = String(Elements.main.folder.menu.options.getAttribute('data-path'));
+
+	openWindowCreateFolder(filename, filetype, filepath);
+	closeFolderOptions();
 });

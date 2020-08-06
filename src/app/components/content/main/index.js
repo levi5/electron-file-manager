@@ -2,7 +2,8 @@ const fileSystem = require('../../../../utils/fileSystem');
 const userInterface = require('../../../../utils/userInterface');
 const search = require('../../../../utils/search');
 const { loadMenuTags } = require('../left-menu/index');
-const { rename } = require('../modal/rename/index');
+const { createFolder } = require('../Modal/CreateFolder/index');
+const { rename } = require('../Modal/Rename/index');
 const optionsBar = require('../../options-bar/index');
 
 
@@ -14,6 +15,7 @@ function main() {
 	loadMenuTags(userInterface.loadDirectory);
 	optionsBar.viewHiddenFiles();
 	rename(userInterface.loadDirectory);
+	createFolder(userInterface.loadDirectory);
 
 
 	userInterface.bindSearchField((event) => {

@@ -1,4 +1,4 @@
-#modal-rename {
+.modal {
     width: 100%;
     height: 100%;
     display: none;
@@ -13,7 +13,9 @@
     border-bottom-right-radius: var(--border-radius);
 }
 
-#modal-rename #modal-rename-content {
+
+
+.modal div {
     min-width: 200px;
     width: auto;
     height: auto;
@@ -25,26 +27,36 @@
 }
 
 
-#modal-rename.on {
+
+
+#rename-screen, #create-folder-screen{
+    display: none;
+}
+
+
+
+.modal.on, #rename-screen.on , #create-folder-screen.on {
     display: flex;
 }
 
-#modal-rename input[name=rename-file] {
+.modal div input {
     background-color: transparent;
     border-bottom: 2px solid #555555;
     margin-bottom: 10px;
     font-size: 14px;
     color: var(--white-color);
-
+}
+.modal div input::placeholder{
+    color:var(--white-color);
 }
 
-#modal-rename button {
+.modal div button {
     cursor: pointer;
     color: var(--white-color);
     background-color: var(--maximize-button-color);
 
 }
 
-#modal-rename button:hover {
+.modal div button:hover {
     filter: brightness(80%);
 }
