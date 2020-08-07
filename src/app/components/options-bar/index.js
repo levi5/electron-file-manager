@@ -1,7 +1,9 @@
+const Elements = require('../../../utils/Elements');
 /* eslint-disable no-undef */
 const htmlElements = require('../../../utils/Elements');
 const settings = require('../../../utils/settings');
 const userInterface = require('../../../utils/userInterface');
+const { openWindowCreateFolder } = require('../content/Modal/CreateFolder/index');
 
 
 
@@ -44,8 +46,19 @@ function viewHiddenFiles() {
 	});
 	toggleClassButtonHiddenFiles();
 }
+function createFolder() {
+	htmlElements.Elements.optionsBar.buttons.newFolder.addEventListener('click', () => {
+		openWindowCreateFolder();
+	});
+}
 
+function optionsBarFunctions() {
+	createFolder();
+	viewHiddenFiles();
+}
 
 module.exports = {
+	optionsBarFunctions,
+	createFolder,
 	viewHiddenFiles,
 };

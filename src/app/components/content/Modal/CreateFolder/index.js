@@ -40,6 +40,7 @@ function createFolder(f) {
 				Elements.mainArea.scrollTo(0, scrollBarPosition);
 			}
 		}
+
 		closeWindowCreateFolder();
 	});
 }

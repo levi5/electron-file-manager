@@ -13,7 +13,7 @@ function main() {
 
 	userInterface.loadDirectory(folderPath);
 	loadMenuTags(userInterface.loadDirectory);
-	optionsBar.viewHiddenFiles();
+	optionsBar.optionsBarFunctions();
 	rename(userInterface.loadDirectory);
 	createFolder(userInterface.loadDirectory);
 

@@ -53,6 +53,7 @@ const Elements = {
 	optionsBar: {
 		buttons: {
 			viewHiddenFiles: $select('#view-hidden-files'),
+			newFolder: $select('#btn-new-folder'),
 		},
 
 

@@ -7,6 +7,14 @@ const { getSelectedFileDirectory } = require('../../tittleBar/index');
 const { closeFolderOptions, closeMenuGlobal, menuGlobal } = require('./functions');
 
 
+function removeSelection() {
+	const itens = [...document.querySelectorAll('.item')];
+	itens.map((item) => {
+		item.classList.remove('selected');
+		return true;
+	});
+}
+
 
 document.body.addEventListener('click', (e) => {
 	if (e.target.parentNode.id === 'main-area') {
@@ -22,6 +30,7 @@ Elements.mainArea.addEventListener('scroll', () => {
 	closeFolderOptions();
 	closeMenuGlobal();
 });
+
 
 
 document.getElementById('open-folder').addEventListener('click', () => {
@@ -47,6 +56,7 @@ Elements.main.folder.menu.buttons.rename.addEventListener('click', () => {
 document.querySelector('body').addEventListener('pointerdown', (e) => {
 	if (e.buttons === 2) {
 		if (e.target.id === 'main-area') {
+			removeSelection();
 			menuGlobal(e.clientX, e.clientY);
 		}
 	}
