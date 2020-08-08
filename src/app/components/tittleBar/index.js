@@ -39,7 +39,7 @@ function createHtmlNavElementsTitleBar(directory, filepath, index) {
 	div.setAttribute('data-path', `${filepath}`);
 	label.textContent = directory;
 	div.appendChild(label);
-	Elements.header.menu.directory.appendChild(div);
+	Elements.header.screen.querySelector('.title-bar ul').appendChild(div);
 }
 
 
@@ -47,10 +47,13 @@ function setTitleBar(directory) {
 	const elementSize = 100;
 	const { links, directors } = createPathFolders(directory);
 
-	Elements.header.menu.directory.innerHTML = '';
+	const directoryMenu = Elements.header.screen.querySelector('.title-bar ul');
+	const directoryMenuContent = Elements.header.screen.querySelector('.title-bar');
+
+	directoryMenu.innerHTML = '';
 
 	let numberElements = Math.trunc(100 / ((elementSize * 100)
-	/ (parseInt(Elements.header.bar.title.offsetWidth, 10))));
+	/ (parseInt(directoryMenuContent.offsetWidth, 10))));
 
 	const directorySize = directors.length;
 
@@ -77,7 +80,7 @@ function setTitleBar(directory) {
 
 
 async function navigatingTitleBar(f) {
-	const tabs = [...Elements.header.menu.directory.children];
+	const tabs = [...Elements.header.screen.querySelector('.title-bar ul').children];
 
 	tabs.map((tab) => {
 		tab.addEventListener('click', async (_event) => {
@@ -97,44 +100,45 @@ function getSelectedFileDirectory() {
 
 
 
-
-Elements.header.buttons.close.addEventListener('click', (_e) => {
-	const window = remote.getCurrentWindow();
-	window.close();
-});
-
-
-Elements.header.buttons.minimize.addEventListener('click', (_e) => {
-	const window = remote.getCurrentWindow();
-	window.minimize();
-});
+function header() {
+	Elements.header.screen.querySelector('#btn-close-window').addEventListener('click', (_e) => {
+		const window = remote.getCurrentWindow();
+		window.close();
+	});
 
 
-Elements.header.buttons.maximize.addEventListener('click', (_e) => {
-	const window = remote.getCurrentWindow();
-
-	if (!window.isMaximized()) {
-		window.maximize();
-		document.documentElement.style.setProperty('--border-radius', '0px');
-	} else {
-		window.unmaximize();
-		document.documentElement.style.setProperty('--border-radius', '10px');
-	}
-});
+	Elements.header.screen.querySelector('#btn-minimize-window').addEventListener('click', (_e) => {
+		const window = remote.getCurrentWindow();
+		window.minimize();
+	});
 
 
-Elements.header.buttons.previousDirectory.addEventListener('click', () => {
-	const scrollPosX = Elements.header.menu.directory.scrollLeft;
-	Elements.header.menu.directory.scrollTo(scrollPosX - 20, 0);
-});
+	Elements.header.screen.querySelector('#btn-maximize-window').addEventListener('click', (_e) => {
+		const window = remote.getCurrentWindow();
+
+		if (!window.isMaximized()) {
+			window.maximize();
+			document.documentElement.style.setProperty('--border-radius', '0px');
+		} else {
+			window.unmaximize();
+			document.documentElement.style.setProperty('--border-radius', '10px');
+		}
+	});
 
 
-Elements.header.buttons.nextDirectory.addEventListener('click', () => {
-	const scrollPosX = Elements.header.menu.directory.scrollLeft;
-	Elements.header.menu.directory.scrollTo(scrollPosX + 20, 0);
-});
+	Elements.header.screen.querySelector('.previous-directory').addEventListener('click', () => {
+		const scrollPosX = Elements.header.menu.directory.scrollLeft;
+		Elements.header.menu.directory.scrollTo(scrollPosX - 20, 0);
+	});
 
 
+	Elements.header.screen.querySelector('.next-directory').addEventListener('click', () => {
+		const scrollPosX = Elements.header.menu.directory.scrollLeft;
+		Elements.header.menu.directory.scrollTo(scrollPosX + 20, 0);
+	});
+}
 
 
-module.exports = { setTitleBar, navigatingTitleBar, getSelectedFileDirectory };
+module.exports = {
+	setTitleBar, navigatingTitleBar, getSelectedFileDirectory, header,
+};

@@ -7,7 +7,7 @@ const { getTagsConfig } = require('../../../../utils/settings');
 
 
 function navigationByTag(f) {
-	const itens = [...document.querySelectorAll('#content-tag-left-menu ul li')];
+	const itens = [...Elements.main.leftMenu.screen.querySelectorAll('#content-tag-left-menu ul li')];
 
 	itens.map((item) => {
 		item.addEventListener('click', () => {
@@ -29,9 +29,10 @@ function navigationByTag(f) {
 
 async function loadMenuTags(f) {
 	const tags = await getTagsConfig();
-	const ul = Elements.leftMenu.querySelector('#content-tag-left-menu ul');
 
-	const template = Elements.leftMenu.querySelector('#tag-left-menu');
+	const ul = Elements.main.leftMenu.screen.querySelector('#content-tag-left-menu ul');
+	const template = ul.querySelector('#tag-left-menu');
+
 	ul.innerHTML = '';
 	ul.appendChild(template);
 
@@ -53,8 +54,18 @@ async function loadMenuTags(f) {
 }
 
 
+function getRecentDirectories() {
+	Elements.main.leftMenu.screen.querySelector('#recent-button').addEventListener('click', () => {
+		document.querySelector('#menu-content').classList.toggle('on');
+	});
+}
 
+function loadFunctions(f) {
+	getRecentDirectories();
+	loadMenuTags(f);
+}
 
 module.exports = {
+	loadFunctions,
 	loadMenuTags,
 };

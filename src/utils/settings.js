@@ -1,4 +1,4 @@
-const { resolve } = require('path');
+const { resolve, basename } = require('path');
 const fs = require('fs').promises;
 
 
@@ -95,7 +95,9 @@ async function saveTagConfig(dataTag, workspaceName = 'main') {
 
 	settingData.map((config) => {
 		const newTag = [];
-		const { workspace, options, tags } = config;
+		const {
+			workspace, options, tags, menu,
+		} = config;
 
 		if (workspace === workspaceName) {
 			let count = 0;
@@ -114,7 +116,9 @@ async function saveTagConfig(dataTag, workspaceName = 'main') {
 			});
 
 			if (count === 0) { newTag.push(dataTag); }
-			newData.push({ workspace, options, tags: newTag });
+			newData.push({
+				workspace, options, tags: newTag, menu,
+			});
 		} else {
 			newData.push(config);
 		}
@@ -132,7 +136,9 @@ async function changeTagData(filename, filepath, newFilepath, filetype) {
 
 	settingData.map((config) => {
 		const newTag = [];
-		const { workspace, options, tags } = config;
+		const {
+			workspace, options, tags, menu,
+		} = config;
 
 		tags.map((tag) => {
 			const { filePath } = tag;
@@ -146,7 +152,9 @@ async function changeTagData(filename, filepath, newFilepath, filetype) {
 			}
 			return true;
 		});
-		newData.push({ workspace, options, tags: newTag });
+		newData.push({
+			workspace, options, tags: newTag, menu,
+		});
 		return true;
 	});
 	writeConfigurationFile(newData, settingsPath);
@@ -201,6 +209,100 @@ async function setOptionHiddenFile(value, workspaceName = 'main') {
 	return response;
 }
 
+// // Recent directories //
+
+async function getRecentDirectories(workspaceName = 'main') {
+	const recentDirectories = [];
+	const settingsPath = resolve(__dirname, '..', 'config', 'settings.json');
+	const settings = await readConfigurationFile(settingsPath);
+
+	settings.map((setting) => {
+		const { workspace, menu } = setting;
+		if (workspace === workspaceName) {
+			const { recent } = menu;
+			recent.map((directory) => {
+				console.log(directory);
+				recentDirectories.push(directory);
+				return true;
+			});
+		}
+		return true;
+	});
+
+	return recentDirectories;
+}
+
+
+
+
+async function setRecentDirectories(folderPath, newType = 'directory', workspaceName = 'main') {
+	const newDirectories = [];
+	const currentDateTime = new Date().toLocaleString();
+	const name = basename(folderPath);
+
+	const defaultObj = {
+		name,
+		path: folderPath,
+		type: newType,
+		access: 1,
+		accessDate: currentDateTime,
+
+	};
+
+
+	const settingsPath = resolve(__dirname, '..', 'config', 'settings.json');
+	const settings = await readConfigurationFile(settingsPath);
+	const newSettings = [];
+
+	settings.map((setting) => {
+		const { workspace, menu } = setting;
+
+		if (workspace === workspaceName) {
+			let count = 0;
+			const { recent } = menu;
+
+			if (recent.length >= 1) {
+				recent.map((directory) => {
+					const {
+						path, type, access,
+					} = directory;
+
+					if (path === folderPath) {
+						const increment = Number(access) + 1;
+						newDirectories.push({
+							name,
+							path,
+							type,
+							access: increment,
+							accessDate: currentDateTime,
+						});
+						count += 1;
+					} else {
+						newDirectories.push(directory);
+					}
+					return true;
+				});
+
+				if (count === 0) {
+					newDirectories.push(defaultObj);
+				}
+			} else {
+				newDirectories.push(defaultObj);
+			}
+		}
+
+		newSettings.push({
+			...setting,
+			menu: {
+				recent: newDirectories,
+			},
+		});
+		return true;
+	});
+
+	await writeConfigurationFile(newSettings, settingsPath);
+}
+
 
 
 
@@ -211,4 +313,6 @@ module.exports = {
 	changeTagData,
 	getOptionHiddenFile,
 	setOptionHiddenFile,
+	getRecentDirectories,
+	setRecentDirectories,
 };
