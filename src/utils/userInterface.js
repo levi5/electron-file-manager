@@ -38,11 +38,13 @@ function clearView() {
 	const modal = Elements.modal.screen;
 	const menuGlobal = Elements.main.global.menu.options;
 	const menu = Elements.main.folder.menu.options;
+	const menuContent = document.querySelector('#menu-content');
 
 	Elements.mainArea.innerHTML = '';
 	Elements.mainArea.appendChild(modal);
 	Elements.mainArea.appendChild(menuGlobal);
 	Elements.mainArea.appendChild(menu);
+	Elements.mainArea.appendChild(menuContent);
 	Elements.mainArea.appendChild(template);
 }
 
@@ -140,7 +142,7 @@ function fileOrdering(files) {
 
 async function loadDirectory(folderPath) {
 	const { files, error } = await fileSystem.getFilesInFolder(folderPath);
-
+	settings.setRecentDirectories(folderPath);
 	clearView();
 	if (error) {
 		permissionErrors(error);
@@ -191,7 +193,7 @@ function resetFilter() {
 
 
 function getCurrentDirectory() {
-	const elements = [...Elements.header.menu.directory.querySelectorAll('div')];
+	const elements = [...Elements.header.screen.querySelectorAll('.title-bar ul div')];
 	const filepath = elements[elements.length - 1].getAttribute('data-path');
 	return filepath;
 }

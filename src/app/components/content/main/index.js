@@ -1,32 +1,32 @@
-const fileSystem = require('../../../../utils/fileSystem');
-const userInterface = require('../../../../utils/userInterface');
-const search = require('../../../../utils/search');
-const { loadMenuTags } = require('../left-menu/index');
-const { createFolder } = require('../Modal/CreateFolder/index');
-const { rename } = require('../Modal/Rename/index');
-const optionsBar = require('../../options-bar/index');
+/* eslint-disable no-undef */
+const { Elements } = require('../../../../utils/Elements');
+
+const section = document.querySelector('section');
 
 
 
-function main() {
-	const folderPath = fileSystem.getUsersHomeFolder();
+let startWidth;
 
-	userInterface.loadDirectory(folderPath);
-	loadMenuTags(userInterface.loadDirectory);
-	optionsBar.optionsBarFunctions();
-	rename(userInterface.loadDirectory);
-	createFolder(userInterface.loadDirectory);
+function doDrag(e) {
+	const sectionWidth = parseInt(section.offsetWidth, 10);
+	const separatorWidth = parseInt(Elements.separador.offsetWidth, 10);
 
+	startWidth = parseInt(e.clientX, 10);
+	const mainAreaWidthValue = sectionWidth - startWidth;
 
-	userInterface.bindSearchField((event) => {
-		const query = event.target.value;
-
-		if (query === '') {
-			userInterface.resetFilter();
-		} else {
-			search.find(query, userInterface.filterResults);
-		}
-	});
+	Elements.main.leftMenu.screen.style.width = `${startWidth}px`;
+	Elements.mainArea.style.width = `${mainAreaWidthValue - separatorWidth}px`;
 }
 
-main();
+function stopDrag(_e) {
+	section.removeEventListener('pointermove', doDrag, false);
+	Elements.separador.removeEventListener('pointerup', stopDrag, false);
+}
+
+function initDrag(_e) {
+	startWidth = parseInt(Elements.main.leftMenu.screen.offsetWidth, 10);
+	Elements.separador.addEventListener('pointerup', stopDrag, false);
+	section.addEventListener('pointermove', doDrag, false);
+}
+
+Elements.separador.addEventListener('pointerdown', initDrag, false);
