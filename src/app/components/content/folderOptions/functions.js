@@ -1,13 +1,14 @@
+/* eslint-disable max-len */
 /* eslint-disable no-undef */
 const { Elements } = require('../../../../utils/Elements');
 const { closeWindowRenameFiles } = require('../Modal/Rename/index');
 
 
 function closeFolderOptions() {
-	Elements.main.folder.menu.options.classList.remove('on');
+	Elements.main.content.folder.menu.options.classList.remove('on');
 }
 function closeMenuGlobal() {
-	Elements.main.global.menu.options.classList.remove('on');
+	Elements.main.content.global.menu.options.classList.remove('on');
 }
 
 
@@ -21,16 +22,16 @@ function menuGlobal(x, y) {
 	let posX = x;
 	let posY = y;
 
-	Elements.main.folder.menu.options.classList.remove('on');
-	Elements.main.global.menu.options.classList.toggle('on');
+	Elements.main.content.folder.menu.options.classList.remove('on');
+	Elements.main.content.global.menu.options.classList.toggle('on');
 
 	const [mainAreaData] = Elements.mainArea.getClientRects();
 	const {
 		top, bottom, left, right,
 	} = mainAreaData;
 
-	const elementFolderOptionsWidth = parseInt(Elements.main.global.menu.options.clientWidth, 10);
-	const elementFolderOptionsHeight = parseInt(Elements.main.global.menu.options.clientHeight, 10);
+	const elementFolderOptionsWidth = parseInt(Elements.main.content.global.menu.options.clientWidth, 10);
+	const elementFolderOptionsHeight = parseInt(Elements.main.content.global.menu.options.clientHeight, 10);
 
 	const limitX = posX + elementFolderOptionsWidth + 20;
 	const limitY = posY + elementFolderOptionsHeight + 20;
@@ -43,8 +44,8 @@ function menuGlobal(x, y) {
 
 	if (limitY < top) posY += (limitY - top);
 
-	Elements.main.global.menu.options.style.left = `${posX}px`;
-	Elements.main.global.menu.options.style.top = `${posY}px`;
+	Elements.main.content.global.menu.options.style.left = `${posX}px`;
+	Elements.main.content.global.menu.options.style.top = `${posY}px`;
 }
 
 
@@ -72,12 +73,14 @@ function hideMenuOptions(type, elements) {
 function folderOptions(x, y, filename, filetype, filePath, extname) {
 	let posX = x;
 	let posY = y;
+
+
 	const elementFolderOptions = document.querySelector('#folder-options');
 	const elements = [...document.querySelectorAll('#folder-options ul li')];
 	hideMenuOptions(filetype, elements);
 
 	closeModals();
-	Elements.main.global.menu.options.classList.remove('on');
+	Elements.main.content.global.menu.options.classList.remove('on');
 
 	elementFolderOptions.classList.toggle('on');
 	elementFolderOptions.setAttribute('data-name', filename);
@@ -91,12 +94,15 @@ function folderOptions(x, y, filename, filetype, filePath, extname) {
 		top, bottom, left, right,
 	} = mainAreaData;
 
+
 	const elementFolderOptionsWidth = parseInt(elementFolderOptions.clientWidth, 10);
 	const elementFolderOptionsHeight = parseInt(elementFolderOptions.clientHeight, 10);
+
 
 	const limitX = posX + elementFolderOptionsWidth + 20;
 	const limitY = posY + elementFolderOptionsHeight + 20;
 
+	console.log(limitY, bottom, posX, posY);
 	if (limitX > right) posX -= (limitX - right);
 
 	if (limitX < left) posX += (limitX - left);

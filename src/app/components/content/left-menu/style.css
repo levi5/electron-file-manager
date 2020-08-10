@@ -9,6 +9,7 @@ section .left-menu {
     border-right: solid #333 1px;
     overflow-y: auto;
     overflow-x: hidden;
+  
 }
 
 

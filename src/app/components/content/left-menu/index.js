@@ -54,9 +54,11 @@ async function loadMenuTags(f) {
 }
 
 
+
 function getRecentDirectories() {
 	Elements.main.leftMenu.screen.querySelector('#recent-button').addEventListener('click', () => {
 		document.querySelector('#menu-content').classList.toggle('on');
+		Elements.main.content.screenItems.classList.toggle('off');
 	});
 }
 

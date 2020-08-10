@@ -35,9 +35,9 @@ function createFolder(f) {
 			const folderPath = path.join(currentDirectory, foldername);
 			const { error, _message } = await fileSystem.createFolderOrFile(folderPath, filetype);
 			if (!error) {
-				const scrollBarPosition = Elements.mainArea.scrollTop;
+				const scrollBarPosition = Elements.main.content.screenItems.scrollTop;
 				await f(currentDirectory);
-				Elements.mainArea.scrollTo(0, scrollBarPosition);
+				Elements.main.content.screenItems.scrollTo(0, scrollBarPosition);
 			}
 		}
 

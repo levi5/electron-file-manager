@@ -94,7 +94,7 @@ async function navigatingTitleBar(f) {
 
 
 function getSelectedFileDirectory() {
-	const filename = String(Elements.main.folder.menu.options.getAttribute('data-path'));
+	const filename = String(Elements.main.content.folder.menu.options.getAttribute('data-path'));
 	return filename;
 }
 

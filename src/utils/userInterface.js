@@ -36,16 +36,15 @@ function setFileTag() {
 function clearView() {
 	const template = document.querySelector('#item-template');
 	const modal = Elements.modal.screen;
-	const menuGlobal = Elements.main.global.menu.options;
-	const menu = Elements.main.folder.menu.options;
-	const menuContent = document.querySelector('#menu-content');
+	const menuGlobal = Elements.main.content.global.menu.options;
+	const menu = Elements.main.content.folder.menu.options;
 
-	Elements.mainArea.innerHTML = '';
-	Elements.mainArea.appendChild(modal);
-	Elements.mainArea.appendChild(menuGlobal);
-	Elements.mainArea.appendChild(menu);
-	Elements.mainArea.appendChild(menuContent);
-	Elements.mainArea.appendChild(template);
+
+	Elements.main.content.screenItems.innerHTML = '';
+	Elements.main.content.screenItems.appendChild(modal);
+	Elements.main.content.screenItems.appendChild(menuGlobal);
+	Elements.main.content.screenItems.appendChild(menu);
+	Elements.main.content.screenItems.appendChild(template);
 }
 
 
@@ -73,6 +72,8 @@ function getImage(file) {
 function displayFile(file, hideFiles = true) {
 	const template = document.querySelector('#item-template');
 	const clone = document.importNode(template.content, true);
+
+	console.log(hideFiles);
 
 
 	if (hideFiles) {
@@ -111,7 +112,7 @@ function displayFile(file, hideFiles = true) {
 		});
 
 		clone.querySelector('.filename').innerText = file.file;
-		Elements.mainArea.appendChild(clone);
+		Elements.main.content.screenItems.appendChild(clone);
 	}
 }
 
@@ -202,7 +203,7 @@ function getCurrentDirectory() {
 
 
 function closeFolderOptions() {
-	Elements.main.folder.menu.options.classList.remove('on');
+	Elements.main.content.folder.menu.options.classList.remove('on');
 }
 
 

@@ -38,7 +38,7 @@
         <section>
 
             <div class="left-menu">
-               <noscript>drop code</noscript>
+                <noscript>drop code</noscript>
             </div>
 
             <div class="vertical-separator"></div>
@@ -68,7 +68,7 @@
 
                             <div id="tag-options-colors-icon" class="tag-content-options">
 
-                                
+
                             </div>
                         </div>
 
@@ -110,82 +110,113 @@
 
 
 
+
             <div id="main-area">
-                <div id="main-area-menu-global">
-                    <ul>
-                        <li id="btn-create-folder">Criar nova pasta</li>
-                        <li>Criar novo arquivo</li>
-                        <li>Auto Organizar</li>
-                        <li>Propriedades</li>
-                    </ul>
-                </div>
+                <div id="items-content">
 
 
 
-                <div id="folder-options" class="">
-                    <div id="folder-options-title"></div>
-                    <ul>
 
-                        <li id="open-folder" data-type="directory">Abrir pasta</li>
-                        <li id="open-folder" data-type="file">Abrir arquivo</li>
 
-                        <li id="new-folder" data-type="directory">Nova pasta</li>
-                        <li data-type="all">Excluir</li>
-                        <li id="rename-item" data-type="all">Renomear</li>
-                        <li id="btn-create-tag" data-type="all">Tag</li>
-                    </ul>
-                </div>
-
-                <div class="modal">
-
-                    <div id="rename-screen">
-                        <div id="rename-screen-content">
-                            <input 
-                            type="text" 
-                            name="rename-file"
-                            > 
-
-                            <button type="button" id="btn-rename">Renomear</button>
-                        </div>
+                    <div id="main-area-menu-global">
+                        <ul>
+                            <li id="btn-create-folder">Criar nova pasta</li>
+                            <li>Criar novo arquivo</li>
+                            <li>Auto Organizar</li>
+                            <li>Propriedades</li>
+                        </ul>
                     </div>
 
-                    <div id="create-folder-screen">
-                        <div class="content">
-                            <input 
-                                type="text" 
-                                placeholder="Digite o nome da pasta" 
-                                onfocus='this.placeholder=""' name="folder-name"> 
-                                
+
+
+                    <div id="folder-options" class="">
+                        <div id="folder-options-title"></div>
+                        <ul>
+
+                            <li id="open-folder" data-type="directory">Abrir pasta</li>
+                            <li id="open-folder" data-type="file">Abrir arquivo</li>
+
+                            <li id="new-folder" data-type="directory">Nova pasta</li>
+                            <li data-type="all">Excluir</li>
+                            <li id="rename-item" data-type="all">Renomear</li>
+                            <li id="btn-create-tag" data-type="all">Tag</li>
+                        </ul>
+                    </div>
+
+                    <div class="modal">
+
+                        <div id="rename-screen">
+                            <div id="rename-screen-content">
+                                <input type="text" name="rename-file">
+
+                                <button type="button" id="btn-rename">Renomear</button>
+                            </div>
+                        </div>
+
+                        <div id="create-folder-screen">
+                            <div class="content">
+                                <input type="text" placeholder="Digite o nome da pasta" onfocus='this.placeholder=""'
+                                    name="folder-name">
+
                                 <button type="button" id="btn-create-folder">Criar pasta</button>
+                            </div>
                         </div>
+
                     </div>
+
+
+
+
+
+
+                    <template id="item-template">
+                        <div class="item">
+                            <img class="item-icon">
+                            <div class="filename"></div>
+                            <div class="tag">
+                                <div class="tag-group">
+                                    <div class="tag-icon"></div>
+                                    <div class="tag-name"></div>
+                                </div>
+                                <div class="tag-emoji"></div>
+                            </div>
+
+                        </div>
+
+                    </template>
+
 
                 </div>
 
                 <div id="menu-content">
+                    <div id="recent-items-screen">
+                        <div class="content">
+                            <div class="title">
+                                <h3>Diretórios</h3>
 
-                </div>
-
-
-                <template id="item-template">
-                    <div class="item">
-                        <img class="item-icon">
-                        <div class="filename"></div>
-                        <div class="tag">
-                            <div class="tag-group">
-                                <div class="tag-icon"></div>
-                                <div class="tag-name"></div>
                             </div>
-                            <div class="tag-emoji"></div>
+                            <ul>
+
+                            </ul>
+
+                        </div>
+
+                        <div class="items-information">
+                            <img src="./assets/icons/main-area/dir/directory.svg" />
+                            <label>levis</label>
+                            <label>/home/levi/</label>
+                            <label>diretório</label>
+                            <label>acesso: 09/08/12 - 12:20</label>
                         </div>
 
                     </div>
-
-                </template>
-
+                    <footer></footer>
+                </div>
 
 
             </div>
+
+
         </section>
         <footer>
 
@@ -194,13 +225,13 @@
 
     </div>
     <script src="../src/app/html/functions.js"></script>
-   
+
 
     <script>
         require('../src/app/html/render.js')
 
         require("../src/app/components/content/main/index.js");
-    
+
         require("../src/app/components/content/folderOptions/index.js");
         require("../src/app/components/content/tags/index.js");
         require("../src/app/components/content/left-menu/index.js");

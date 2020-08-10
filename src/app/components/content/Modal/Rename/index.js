@@ -46,9 +46,9 @@ async function applyFilenameChange(filepath, newFilepath, filename) {
 
 
 function setAttributeModal(filename = '', filepath = '', filetype = '') {
-	Elements.main.folder.menu.options.setAttribute('data-name', filename);
-	Elements.main.folder.menu.options.setAttribute('data-type', filetype);
-	Elements.main.folder.menu.options.setAttribute('data-path', filepath);
+	Elements.main.content.folder.menu.options.setAttribute('data-name', filename);
+	Elements.main.content.folder.menu.options.setAttribute('data-type', filetype);
+	Elements.main.content.folder.menu.options.setAttribute('data-path', filepath);
 }
 
 
@@ -69,11 +69,11 @@ async function rename(f) {
 			setAttributeModal(input, newFilepath, filetype);
 
 			const previousDirectory = path.resolve(newFilepath, '..');
-			const scrollBarPosition = Elements.mainArea.scrollTop;
+			const scrollBarPosition = Elements.main.content.screenItems.scrollTop;
 
 			await f(previousDirectory);
 			await loadMenuTags(f);
-			Elements.mainArea.scrollTo(0, scrollBarPosition);
+			Elements.main.content.screenItems.scrollTo(0, scrollBarPosition);
 		}
 
 		setAttributeModal();
