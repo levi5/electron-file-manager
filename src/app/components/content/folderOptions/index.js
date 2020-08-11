@@ -17,7 +17,8 @@ function removeSelection() {
 
 
 document.body.addEventListener('click', (e) => {
-	if (e.target.parentNode.id === 'main-area') {
+	console.log(e.target.parentNode.id);
+	if (e.target.parentNode.id === 'items-content') {
 		closeWindowRenameFiles();
 		closeWindowCreateFolder();
 	}
@@ -26,7 +27,7 @@ document.body.addEventListener('click', (e) => {
 });
 
 
-Elements.mainArea.addEventListener('scroll', () => {
+Elements.main.content.screenItems.addEventListener('scroll', () => {
 	closeFolderOptions();
 	closeMenuGlobal();
 });
@@ -42,10 +43,10 @@ document.getElementById('open-folder').addEventListener('click', () => {
 
 
 
-Elements.main.folder.menu.buttons.rename.addEventListener('click', () => {
-	const filename = String(Elements.main.folder.menu.options.getAttribute('data-name'));
-	const filetype = String(Elements.main.folder.menu.options.getAttribute('data-type'));
-	const filepath = String(Elements.main.folder.menu.options.getAttribute('data-path'));
+Elements.main.content.folder.menu.buttons.rename.addEventListener('click', () => {
+	const filename = String(Elements.main.content.folder.menu.options.getAttribute('data-name'));
+	const filetype = String(Elements.main.content.folder.menu.options.getAttribute('data-type'));
+	const filepath = String(Elements.main.content.folder.menu.options.getAttribute('data-path'));
 
 	openWindowRenameFiles(filename, filetype, filepath);
 	closeFolderOptions();
@@ -55,7 +56,7 @@ Elements.main.folder.menu.buttons.rename.addEventListener('click', () => {
 
 document.querySelector('body').addEventListener('pointerdown', (e) => {
 	if (e.buttons === 2) {
-		if (e.target.id === 'main-area') {
+		if (e.target.id === 'items-content') {
 			removeSelection();
 			menuGlobal(e.clientX, e.clientY);
 		}
@@ -65,10 +66,10 @@ document.querySelector('body').addEventListener('pointerdown', (e) => {
 
 
 
-Elements.main.global.menu.buttons.createFolder.addEventListener('click', () => {
-	const filename = String(Elements.main.folder.menu.options.getAttribute('data-name'));
-	const filetype = String(Elements.main.folder.menu.options.getAttribute('data-type'));
-	const filepath = String(Elements.main.folder.menu.options.getAttribute('data-path'));
+Elements.main.content.global.menu.buttons.createFolder.addEventListener('click', () => {
+	const filename = String(Elements.main.content.folder.menu.options.getAttribute('data-name'));
+	const filetype = String(Elements.main.content.folder.menu.options.getAttribute('data-type'));
+	const filepath = String(Elements.main.content.folder.menu.options.getAttribute('data-path'));
 
 	openWindowCreateFolder(filename, filetype, filepath);
 	closeFolderOptions();

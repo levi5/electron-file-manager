@@ -164,7 +164,7 @@ async function changeTagData(filename, filepath, newFilepath, filetype) {
 
 
 async function getOptionHiddenFile(workspaceName = 'main') {
-	let response = false;
+	let response = true;
 	const settingsPath = resolve(__dirname, '..', 'config', 'settings.json');
 	const settingData = await readConfigurationFile(settingsPath);
 

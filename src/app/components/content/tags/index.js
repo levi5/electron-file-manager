@@ -111,10 +111,10 @@ function load() {
 
 
 Elements.tag.buttons.createTag.addEventListener('click', async () => {
-	const filename = await String(Elements.main.folder.menu.options.getAttribute('data-name'));
-	const filetype = await String(Elements.main.folder.menu.options.getAttribute('data-type'));
-	const filePath = await String(Elements.main.folder.menu.options.getAttribute('data-path'));
-	const extname = await String(Elements.main.folder.menu.options.getAttribute('data-extname'));
+	const filename = await String(Elements.main.content.folder.menu.options.getAttribute('data-name'));
+	const filetype = await String(Elements.main.content.folder.menu.options.getAttribute('data-type'));
+	const filePath = await String(Elements.main.content.folder.menu.options.getAttribute('data-path'));
+	const extname = await String(Elements.main.content.folder.menu.options.getAttribute('data-extname'));
 
 	const url = getImage({ extname, type: filetype });
 

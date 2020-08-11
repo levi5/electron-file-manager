@@ -7,5 +7,6 @@ function selected(e) {
 		item.classList.remove('selected');
 		return true;
 	});
+
 	e.classList.add('selected');
 }

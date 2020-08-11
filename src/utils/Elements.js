@@ -1,4 +1,5 @@
 /* eslint-disable no-undef */
+
 const $select = document.querySelector.bind(document);
 // const $selectAll = document.querySelectorAll.bind(document);
 const $selectById = document.getElementById.bind(document);
@@ -15,28 +16,37 @@ const Elements = {
 		screen: $select('header'),
 	},
 	main: {
-		folder: {
-			menu: {
-				options: $select('#folder-options'),
-				buttons: {
-					rename: $select('#folder-options #rename-item'),
-				},
-			},
-		},
-		global: {
-			menu: {
-				options: $select('#main-area-menu-global'),
-				buttons: {
-					createFolder: $select('#btn-create-folder'),
+		screen: $selectById('main-area'),
+		content: {
+			screenItems: $select('#main-area #items-content'),
+			folder: {
+				menu: {
+					options: $select('#folder-options'),
+					buttons: {
+						rename: $select('#folder-options #rename-item'),
+					},
 				},
 			},
 
-		},
-		items: {
+			global: {
+				menu: {
+					options: $select('#main-area-menu-global'),
+					buttons: {
+						createFolder: $select('#btn-create-folder'),
+					},
+				},
 
+			},
 		},
+
+
+		options: {
+			screen: $select('#menu-content'),
+		},
+
 		leftMenu: {
 			screen: $select('section .left-menu'),
+
 		},
 
 	},
