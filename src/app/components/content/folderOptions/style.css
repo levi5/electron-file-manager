@@ -9,7 +9,7 @@
     position: absolute;
     z-index: 15;
     border-radius: 5px;
-    background-color: #24242D;
+    background-color: var(--menu-background-color);
     -webkit-box-shadow: 2px 2px 0px 0px rgba(20, 20, 25, 1);
     -moz-box-shadow: 2px 2px 0px 0px rgba(20, 20, 25, 1);
     box-shadow: 2px 2px 0px 0px rgba(20, 20, 25, 1);
@@ -44,7 +44,6 @@
     padding: 10px;
     font-size: 14px;
     color: var(--white-color);
-    background-color: #24242D;
 }
 
 #folder-options li:hover, #main-area-menu-global li:hover {

@@ -73,9 +73,6 @@ function displayFile(file, hideFiles = true) {
 	const template = document.querySelector('#item-template');
 	const clone = document.importNode(template.content, true);
 
-	console.log(hideFiles);
-
-
 	if (hideFiles) {
 		const firstCharacter = file.file[0];
 		if (firstCharacter === '.') { return; }

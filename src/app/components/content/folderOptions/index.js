@@ -17,7 +17,6 @@ function removeSelection() {
 
 
 document.body.addEventListener('click', (e) => {
-	console.log(e.target.parentNode.id);
 	if (e.target.parentNode.id === 'items-content') {
 		closeWindowRenameFiles();
 		closeWindowCreateFolder();
