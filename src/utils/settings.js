@@ -11,7 +11,7 @@ async function writeConfigurationFile(data, settingPath = null) {
 	if (settingPath) { path = settingPath; } else { path = resolve(__dirname, '..', 'config', 'settings.json'); }
 
 	if (data !== null || data !== undefined) {
-		const json = JSON.stringify(data);
+		const json = JSON.stringify(data, null, 2);
 		await fs.writeFile(path, json).then((dataConfig) => dataConfig).catch((err) => ({
 			data: null,
 			error: err,
@@ -221,7 +221,6 @@ async function getRecentDirectories(workspaceName = 'main') {
 		if (workspace === workspaceName) {
 			const { recent } = menu;
 			recent.map((directory) => {
-				console.log(directory);
 				recentDirectories.push(directory);
 				return true;
 			});
@@ -241,17 +240,17 @@ async function setRecentDirectories(folderPath, newType = 'directory', workspace
 	const name = basename(folderPath);
 
 	const defaultObj = {
+
 		name,
 		path: folderPath,
 		type: newType,
 		access: 1,
 		accessDate: currentDateTime,
-
 	};
 
 
 	const settingsPath = resolve(__dirname, '..', 'config', 'settings.json');
-	const settings = await readConfigurationFile(settingsPath);
+	const settings 	= await readConfigurationFile(settingsPath);
 	const newSettings = [];
 
 	settings.map((setting) => {

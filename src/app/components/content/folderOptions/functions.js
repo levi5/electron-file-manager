@@ -102,7 +102,7 @@ function folderOptions(x, y, filename, filetype, filePath, extname) {
 	const limitX = posX + elementFolderOptionsWidth + 20;
 	const limitY = posY + elementFolderOptionsHeight + 20;
 
-	console.log(limitY, bottom, posX, posY);
+
 	if (limitX > right) posX -= (limitX - right);
 
 	if (limitX < left) posX += (limitX - left);

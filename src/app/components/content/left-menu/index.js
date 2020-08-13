@@ -3,6 +3,8 @@ const path = require('path');
 
 const { Elements } = require('../../../../utils/Elements');
 const { getTagsConfig } = require('../../../../utils/settings');
+const userInterface = require('../../../../utils/userInterface');
+const { RecentScreen } = require('../main/Recents/index');
 
 
 
@@ -55,15 +57,16 @@ async function loadMenuTags(f) {
 
 
 
-function getRecentDirectories() {
+function getRecentDirectories(f) {
 	Elements.main.leftMenu.screen.querySelector('#recent-button').addEventListener('click', () => {
-		document.querySelector('#menu-content').classList.toggle('on');
+		Elements.main.options.screen.classList.toggle('on');
 		Elements.main.content.screenItems.classList.toggle('off');
+		RecentScreen(f);
 	});
 }
 
 function loadFunctions(f) {
-	getRecentDirectories();
+	getRecentDirectories(f);
 	loadMenuTags(f);
 }
 

@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="../src/app/components/content/folderOptions/style.css">
     <link rel="stylesheet" href="../src/app/components/content/tags/style.css">
     <link rel="stylesheet" href="../src/app/components/content/Modal/style.css">
+    <link rel="stylesheet" href="../src/app/components/content/main/Recents/style.css">
     <title>Document</title>
 </head>
 
@@ -35,7 +36,7 @@
             </div>
         </nav>
 
-        <section>
+        <section id='main'>
 
             <div class="left-menu">
                 <noscript>drop code</noscript>
@@ -136,7 +137,6 @@
                             <li id="open-folder" data-type="directory">Abrir pasta</li>
                             <li id="open-folder" data-type="file">Abrir arquivo</li>
 
-                            <li id="new-folder" data-type="directory">Nova pasta</li>
                             <li data-type="all">Excluir</li>
                             <li id="rename-item" data-type="all">Renomear</li>
                             <li id="btn-create-tag" data-type="all">Tag</li>
@@ -166,9 +166,6 @@
 
 
 
-
-
-
                     <template id="item-template">
                         <div class="item">
                             <img class="item-icon">
@@ -182,35 +179,48 @@
                             </div>
 
                         </div>
-
                     </template>
-
 
                 </div>
 
+
                 <div id="menu-content">
-                    <div id="recent-items-screen">
-                        <div class="content">
-                            <div class="title">
-                                <h3>Diretórios</h3>
 
+
+                    <div id="recent-screen">
+                        <section class="recent-items" >
+                            <div class="content"> 
+                            
+                                    <template id='template-recent-item'>
+                                        <article>
+                                            <div class="group-items">
+                                                <h4></h4>
+                                                <p></p>
+                                            </div>
+    
+                                            <div class="group-icons">
+                                                <img id='btn-go-recent-item' src="./assets/icons/all/external-link-fill.svg"
+                                                    alt="go">
+                                                <img src="./assets/icons/all/delete-bin-7-fill.svg" alt="delete">
+                                            </div>
+    
+                                        </article>
+                                    </template>
                             </div>
-                            <ul>
+                        </section>
 
-                            </ul>
-
-                        </div>
-
-                        <div class="items-information">
-                            <img src="./assets/icons/main-area/dir/directory.svg" />
-                            <label>levis</label>
-                            <label>/home/levi/</label>
-                            <label>diretório</label>
-                            <label>acesso: 09/08/12 - 12:20</label>
-                        </div>
-
+                        <section class="preview">
+                            <article>
+                                <label name='type'></label>
+                                <img id='' src="./assets/icons/main-area/dir/directory.svg" />
+                                <label name='name'></label>
+                                <label name='path'></label>
+                                <label name='access'></label>
+                                <label name='access-date'></label>
+                            </article>
+                        </section>
                     </div>
-                    <footer></footer>
+                    <!-- <footer></footer> -->
                 </div>
 
 
@@ -236,6 +246,7 @@
         require("../src/app/components/content/tags/index.js");
         require("../src/app/components/content/left-menu/index.js");
         require("../src/app/components/content/Modal/Rename/index.js");
+       
     </script>
 
 

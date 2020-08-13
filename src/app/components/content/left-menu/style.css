@@ -1,4 +1,5 @@
 section .left-menu {
+    min-width: 100px;
     max-width: 100%;
     width: 220px;
     height: 100%;
@@ -9,6 +10,7 @@ section .left-menu {
     border-right: solid #333 1px;
     overflow-y: auto;
     overflow-x: hidden;
+    z-index: 15;
   
 }
 
@@ -99,7 +101,6 @@ section .left-menu h4{
     font-size: 13px;
     font-weight: 500;
     font-family: 'Open Sans', sans-serif;
-     /* font-family: 'Roboto', sans-serif; */
     margin-bottom: 5px;
     cursor: default;
 }

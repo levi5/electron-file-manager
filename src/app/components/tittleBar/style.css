@@ -168,12 +168,13 @@ header .title-bar h3 {
     align-items: center;
 }
 
-header .title-bar .previous-directory {
+header .title-bar .previous-directory, 
+header .title-bar .next-directory {
     width: 37px;
     height: 37px;
     padding: 5px;
     display: flex;
-    background-color:var(--grey-color);
+   background-color:var( --menu-background-color);
     -webkit-app-region: no-drag;
     border-radius: 5px;
     margin-right: 5px;
@@ -185,18 +186,6 @@ header .title-bar .previous-directory:hover {
 
 header .title-bar .next-directory:hover {
     filter: brightness(80%);
-}
-
-
-
-header .title-bar .next-directory {
-    width: 37px;
-    height: 37px;
-    padding: 5px;
-    display: flex;
-    background-color:var(--grey-color);
-    border-radius: 5px;
-    -webkit-app-region: no-drag;
 }
 
 
@@ -216,8 +205,6 @@ header .title-bar ul {
     list-style: none;
     white-space: nowrap;
     overflow-x: auto;
-    /* -webkit-overflow-scrolling: touch; 
-    -ms-overflow-style: -ms-autohiding-scrollbar; */
     -webkit-app-region: no-drag;
 }
 
@@ -235,7 +222,7 @@ header .title-bar ul div {
 
     border-radius: 5px;
     flex-direction: row;
-    background-color:var(--grey-color);
+    background-color:var( --menu-background-color);
     color: var(--white-color);
    
     padding: 10px;
@@ -245,11 +232,10 @@ header .title-bar ul div {
     text-overflow: ellipsis; 
     font-size: 12px;
     text-align: justify;
-   
-  
 }
 
 header .title-bar ul div label{
+    font-family: 'Open Sans', sans-serif, 'Noto Color Emoji';
     font-size: 12px;
     text-align: justify; white-space: nowrap; 
     overflow: hidden;

@@ -9,10 +9,10 @@ const main = require('../app');
 
 
 
-window.onload = (function () {
+window.onload = ((async () => {
 	Elements.header.screen.innerHTML = header;
 	Elements.main.leftMenu.screen.innerHTML = menu;
 	document.querySelector('#tag-name-content-options').innerHTML = textColors;
 	document.querySelector('#tag-options-colors-icon').innerHTML = iconColors;
-}());
-main();
+	await main();
+})());
