@@ -188,37 +188,43 @@
 
 
                     <div id="recent-screen">
+
+                        <section class="preview">
+                                <img src="./assets/icons/all/history-line.svg" >
+                                <p>
+                                   Histórico de diretórios e arquivos
+                                </p>
+                                <button>Apagar histórico</button>
+                        </section>
+
+
+
                         <section class="recent-items" >
+
                             <div class="content"> 
                             
                                     <template id='template-recent-item'>
                                         <article>
                                             <div class="group-items">
-                                                <h4></h4>
-                                                <p></p>
+                                                <label name='name'></label>
+                                                <label name='path'></label>
+                                                <label name='type'></label>
+                                                <label name='access'></label>
+                                                <label name='date'></label>
+                                                <label name='time'></label>
                                             </div>
-    
                                             <div class="group-icons">
                                                 <img id='btn-go-recent-item' src="./assets/icons/all/external-link-fill.svg"
                                                     alt="go">
-                                                <img src="./assets/icons/all/delete-bin-7-fill.svg" alt="delete">
+                                                <img id='btn-remove-recent-item' src="./assets/icons/all/delete-bin-7-fill.svg" alt="delete">
                                             </div>
-    
+
                                         </article>
                                     </template>
                             </div>
                         </section>
 
-                        <section class="preview">
-                            <article>
-                                <label name='type'></label>
-                                <img id='' src="./assets/icons/main-area/dir/directory.svg" />
-                                <label name='name'></label>
-                                <label name='path'></label>
-                                <label name='access'></label>
-                                <label name='access-date'></label>
-                            </article>
-                        </section>
+                     
                     </div>
                     <!-- <footer></footer> -->
                 </div>
