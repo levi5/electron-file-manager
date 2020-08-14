@@ -6,7 +6,36 @@
     },
     "tags": [],
     "menu": {
-      "recent": []
+      "recent": [
+        {
+          "name": "Faculdade",
+          "path": "/home/levis/Faculdade",
+          "type": "directory",
+          "access": 2,
+          "accessDate": "13/08/2020 18:04:12"
+        },
+        {
+          "name": "levis",
+          "path": "/home/levis",
+          "type": "directory",
+          "access": 3,
+          "accessDate": "13/08/2020 18:04:25"
+        },
+        {
+          "name": "Documentos",
+          "path": "/home/levis/Documentos",
+          "type": "directory",
+          "access": 1,
+          "accessDate": "13/08/2020 18:03:00"
+        },
+        {
+          "name": "Preços",
+          "path": "/home/levis/Documentos/Preços",
+          "type": "directory",
+          "access": 1,
+          "accessDate": "13/08/2020 18:03:03"
+        }
+      ]
     }
   }
 ]

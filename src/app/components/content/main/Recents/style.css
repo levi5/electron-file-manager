@@ -39,6 +39,7 @@
 
 #menu-content #recent-screen .recent-items .content article {
     min-width: 180px;
+    max-height: 100%;
     width: 100%;
     height: auto;
     display: flex;

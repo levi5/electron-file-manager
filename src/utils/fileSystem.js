@@ -140,13 +140,41 @@ async function createFolderOrFile(directory, type) {
 				message: 'Ok',
 			};
 			return response;
+		} if (type === 'file') {
+			await fs.writeFile(directory);
 		}
 	}
 
 	return response;
 }
 
+async function removeFolderOrFile(directory, type) {
+	let existFolder = true;
 
+	let response = {
+		error: true,
+		message: 'error',
+	};
+
+	try {
+		await fs.access(directory);
+	} catch (error) {
+		existFolder = false;
+	}
+
+
+	if (!existFolder) {
+		if (type === 'directory') {
+			await fs.rmdir(directory, { recursive: true });
+			response = {
+				error: false,
+				message: 'Ok',
+			};
+			return response;
+		}
+	}
+	return response;
+}
 
 
 module.exports = {
@@ -156,4 +184,5 @@ module.exports = {
 	changingFilepath,
 	rename,
 	createFolderOrFile,
+	removeFolderOrFile,
 };
