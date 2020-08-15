@@ -232,7 +232,39 @@ async function getRecentDirectories(workspaceName = 'main') {
 }
 
 
+async function removeRecentDirectories(folderPath, filter, workspaceName = 'main') {
+	const newSettings = [];
+	const settingsPath = resolve(__dirname, '..', 'config', 'settings.json');
+	const settings = await readConfigurationFile(settingsPath);
 
+	let recentDirectories = await getRecentDirectories();
+
+	if (filter === 'all') {
+		recentDirectories = [];
+	} else if (filter === 'one') {
+		recentDirectories = recentDirectories.filter((directory) => {
+			if (directory.path !== folderPath) return directory;
+
+			return false;
+		});
+	}
+
+	settings.map((setting) => {
+		const { workspace } = setting;
+		if (workspace === workspaceName) {
+			newSettings.push({
+				...setting,
+				menu: {
+					recent: recentDirectories,
+				},
+			});
+		}
+		return true;
+	});
+
+	console.log(recentDirectories, newSettings);
+	await writeConfigurationFile(newSettings, settingsPath);
+}
 
 async function setRecentDirectories(folderPath, newType = 'directory', workspaceName = 'main') {
 	const newDirectories = [];
@@ -250,7 +282,7 @@ async function setRecentDirectories(folderPath, newType = 'directory', workspace
 
 
 	const settingsPath = resolve(__dirname, '..', 'config', 'settings.json');
-	const settings 	= await readConfigurationFile(settingsPath);
+	const settings = await readConfigurationFile(settingsPath);
 	const newSettings = [];
 
 	settings.map((setting) => {
@@ -312,6 +344,8 @@ module.exports = {
 	changeTagData,
 	getOptionHiddenFile,
 	setOptionHiddenFile,
+
 	getRecentDirectories,
 	setRecentDirectories,
+	removeRecentDirectories,
 };

@@ -12,11 +12,11 @@
 
 #menu-content.on {
     display: flex;
-    
+
 }
 
-#menu-content #recent-screen{
-box-sizing: border-box;
+#menu-content #recent-screen {
+    box-sizing: border-box;
     width: 100%;
     height: 100%;
     display: flex;
@@ -24,20 +24,22 @@ box-sizing: border-box;
 }
 
 
-#menu-content #recent-screen .recent-items{
+#menu-content #recent-screen .recent-items {
     width: 60%;
     height: 100%;
     padding: 10px 20px;
 }
 
-#menu-content #recent-screen .recent-items .content{
+#menu-content #recent-screen .recent-items .content {
     width: 100%;
     height: 100%;
+    padding-right: 10px;
     overflow-y: auto;
 }
 
 #menu-content #recent-screen .recent-items .content article {
     min-width: 180px;
+    max-height: 100%;
     width: 100%;
     height: auto;
     display: flex;
@@ -65,29 +67,29 @@ box-sizing: border-box;
     width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: flex-end;
 }
 
 
-#menu-content #recent-screen .recent-items .content article h4,
+#menu-content #recent-screen .recent-items .content article label,
 #menu-content #recent-screen .recent-items .content article p {
-    font-family: 'Lato', sans-serif, 'Noto Color Emoji';
-    max-width: 100%; 
+    max-width: 100%;
     width: auto;
     height: auto;
+    display: flex;
+
+    font-family: 'Lato', sans-serif, 'Noto Color Emoji';
+    font-size: 14px;
     color: #D3EAE8;
+    font-weight: 400;
     white-space: normal;
     word-wrap: break-word;
+    line-height: 16px;
+    margin-bottom: 10px;
+    text-align: left;
 }
 
-#menu-content #recent-screen .recent-items .content article h4{
-    font-size: 15px;
-}
-
-#menu-content #recent-screen .recent-items .content article  p{
-    font-size: 14px;
-}
 
 #menu-content #recent-screen .recent-items .content article img {
     width: 20px;
@@ -97,34 +99,43 @@ box-sizing: border-box;
 }
 
 
-#menu-content #recent-screen .recent-items  h3 {
-    font-size: 18px;
-    font-family: 'Lato', sans-serif, 'Noto Color Emoji';
-    font-weight: 700;
-    color: #D3EAE8;
-}
 
 
 
 
 #menu-content #recent-screen .preview {
     width: 40%;
-    height:100%;
+    height: 100%;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow-y: auto;
-}
-
-#menu-content #recent-screen .preview article{
-    display: flex;
-    padding: 40px 10px 20px 10px;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    overflow-y: auto;
     color: #D3EAE8;
+    padding: 10px;
+
 }
 
-#menu-content #recent-screen .preview  article label{
-    margin-top: 10px;
+
+#menu-content #recent-screen .preview p {
+    font-size: 14px;
+    line-height: 24px;
+    margin: 10px 0;
+}
+
+#menu-content #recent-screen .preview img {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+}
+
+#menu-content #recent-screen .preview button{
+    padding: 15px;
+    cursor: pointer;
+    color: var(--white-color);
+    background: var(--menu-background-color);
+}
+
+#menu-content #recent-screen .preview button:hover{
+    filter: brightness(80%);
 }
