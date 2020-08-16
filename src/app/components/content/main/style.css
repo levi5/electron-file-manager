@@ -59,7 +59,7 @@ section #main-area {
     word-wrap: break-word;
     padding-top: 5px;
     text-align: center;
-    font-family: 'Lato', sans-serif;
+    font-family: 'Lato', sans-serif, 'Noto Color Emoji';
     font-weight: 400;
     font-size: 14px;
     color: var(--white-color);

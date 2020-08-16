@@ -6,8 +6,9 @@ const { header } = require('./components/tittleBar/index');
 const leftMenu = require('./components/content/left-menu/index');
 const optionsBar = require('./components/options-bar/index');
 
-const { createFolder } = require('./components/content/Modal/CreateFolder/index');
+
 const { rename } = require('./components/content/Modal/Rename/index');
+const createFileOrFolder = require('../utils/CreateFileOrFolder');
 
 
 
@@ -21,7 +22,8 @@ function main() {
 
 	optionsBar.optionsBarFunctions();
 	rename(userInterface.loadDirectory);
-	createFolder(userInterface.loadDirectory);
+	createFileOrFolder(userInterface.loadDirectory, 'file');
+	createFileOrFolder(userInterface.loadDirectory, 'directory');
 
 
 	userInterface.bindSearchField((event) => {

@@ -122,7 +122,7 @@
                     <div id="main-area-menu-global">
                         <ul>
                             <li id="btn-create-folder">Criar nova pasta</li>
-                            <li>Criar novo arquivo</li>
+                            <li id="btn-create-file">Criar novo arquivo</li>
                             <li>Auto Organizar</li>
                             <li>Propriedades</li>
                         </ul>
@@ -155,12 +155,36 @@
 
                         <div id="create-folder-screen">
                             <div class="content">
+                                <label name='name-preview'></label>
                                 <input type="text" placeholder="Digite o nome da pasta" onfocus='this.placeholder=""'
                                     name="folder-name">
-
-                                <button type="button" id="btn-create-folder">Criar pasta</button>
+                                <button type="button" id="btn-create-folder" class="create">Criar pasta</button>
+                                <button type="button" id="btn-cancel-create-folder" class="cancel">Cancelar</button>
                             </div>
                         </div>
+
+
+                        <div id="create-file-screen">
+                            <div class="content">
+                                <label name='name-preview'></label>
+                                <div class="input-group">
+                                    <input type="text" 
+                                    placeholder="Digite o nome do arquivo" 
+                                    onfocus='this.placeholder=""'
+                                    name="file-name">
+
+                                <input type="text" 
+                                    placeholder=".TXT" 
+                                    onfocus='this.placeholder=""' 
+                                    name="file-ext">
+                                </div>
+                               
+
+                                <button type="button" id="btn-create-file" class="create">Criar arquivo</button>
+                                <button type="button" id="btn-cancel-create-file" class="cancel">Cancelar</button>
+                            </div>
+                        </div>
+
 
                     </div>
 

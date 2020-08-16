@@ -20,7 +20,7 @@
     min-width: 200px;
     width: auto;
     height: auto;
-    padding: 40px 20px;
+    padding: 30px 10px;
     display: flex;
     flex-direction: column;
     background-color: #24242D;
@@ -30,19 +30,37 @@
 
 
 
-#rename-screen, #create-folder-screen{
+#rename-screen, #create-folder-screen,  #create-file-screen{
     display: none;
 }
 
 
 
-.modal.on, #rename-screen.on , #create-folder-screen.on {
+.modal.on, #rename-screen.on , #create-folder-screen.on,  #create-file-screen.on {
     display: flex;
 }
 
+.modal div .content .input-group{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    
+}
+
+.modal div .content label{
+    font-family: 'Open Sans', sans-serif, 'Noto Color Emoji';
+    font-size: 16px;
+    font-weight: 700;
+    color:var(--white-color);
+    margin-bottom: 30px;
+
+}
 .modal div input {
     background-color: transparent;
     border-bottom: 2px solid #555555;
+    margin-right: 10px;
     margin-bottom: 10px;
     font-size: 14px;
     color: var(--white-color);
@@ -50,11 +68,24 @@
 .modal div input::placeholder{
     color:var(--white-color);
 }
+.modal div input[name=file-ext]{
+    width: 50px;
+}
 
-.modal div button {
+.modal div .create {
     cursor: pointer;
     color: var(--white-color);
     background-color: var(--maximize-button-color);
+    margin-bottom: 5px;
+
+}
+
+
+.modal div .cancel {
+    cursor: pointer;
+    color: var(--white-color);
+    background-color: var(--close-button-color);
+    margin-bottom: 10px;
 
 }
 
