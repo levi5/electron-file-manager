@@ -1,4 +1,3 @@
-const Elements = require('../../../utils/Elements');
 /* eslint-disable no-undef */
 const htmlElements = require('../../../utils/Elements');
 const settings = require('../../../utils/settings');

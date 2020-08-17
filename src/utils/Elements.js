@@ -33,6 +33,7 @@ const Elements = {
 					options: $select('#main-area-menu-global'),
 					buttons: {
 						createFolder: $select('#btn-create-folder'),
+						createFile: $select('#btn-create-file'),
 					},
 				},
 
@@ -79,10 +80,29 @@ const Elements = {
 			screen: $select('.modal #create-folder-screen'),
 			buttons: {
 				create: $select('#create-folder-screen #btn-create-folder'),
+				cancel: $select('#create-folder-screen #btn-cancel-create-folder'),
 			},
 			inputs: {
-				foldername: $select('#create-folder-screen input[name=folder-name]'),
+				name: $select('#create-folder-screen input[name=folder-name]'),
 			},
+			labels: {
+				name: $select('#create-folder-screen label[name=name-preview]'),
+			},
+		},
+		createFile: {
+			screen: $select('.modal #create-file-screen'),
+			inputs: {
+				name: $select('#create-file-screen input[name=file-name]'),
+				ext: $select('#create-file-screen input[name=file-ext]'),
+			},
+			labels: {
+				name: $select('#create-file-screen label[name=name-preview]'),
+			},
+			buttons: {
+				create: $select('#create-file-screen #btn-create-file'),
+				cancel: $select('#create-file-screen #btn-cancel-create-file'),
+			},
+
 		},
 
 	},

@@ -33,7 +33,7 @@ section .left-menu h4{
     justify-content: flex-start;
     align-items: center;
     list-style: none;
-    padding: 10px 0 10px 0;
+    padding: 10px 0 10px 0px;
 }
 
 .left-menu .left-menu-content ul li {
@@ -90,7 +90,9 @@ section .left-menu h4{
     padding: 10px;
 }
 
-
+.left-menu #content-tag-left-menu ul{
+    padding: 15px;
+}
 
 .left-menu #content-tag-left-menu ul li{
     width: 100%;

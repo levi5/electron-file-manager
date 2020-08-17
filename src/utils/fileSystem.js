@@ -135,14 +135,15 @@ async function createFolderOrFile(directory, type) {
 	if (!existFolder) {
 		if (type === 'directory') {
 			await fs.mkdir(directory);
-			response = {
-				error: false,
-				message: 'Ok',
-			};
-			return response;
 		} if (type === 'file') {
 			await fs.writeFile(directory);
 		}
+
+		response = {
+			error: false,
+			message: 'Ok',
+		};
+		return response;
 	}
 
 	return response;

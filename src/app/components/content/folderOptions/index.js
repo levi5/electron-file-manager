@@ -3,6 +3,7 @@ const { Elements } = require('../../../../utils/Elements');
 const { loadDirectory } = require('../../../../utils/userInterface');
 const { openWindowRenameFiles, closeWindowRenameFiles } = require('../Modal/Rename/index');
 const { openWindowCreateFolder, closeWindowCreateFolder } = require('../Modal/CreateFolder/index');
+const { openWindowCreateFile, closeWindowCreateFile } = require('../Modal/CreateFile/index');
 const { getSelectedFileDirectory } = require('../../tittleBar/index');
 const { closeFolderOptions, closeMenuGlobal, menuGlobal } = require('./functions');
 
@@ -20,6 +21,7 @@ document.body.addEventListener('click', (e) => {
 	if (e.target.parentNode.id === 'items-content') {
 		closeWindowRenameFiles();
 		closeWindowCreateFolder();
+		closeWindowCreateFile();
 	}
 	closeFolderOptions();
 	closeMenuGlobal();
@@ -66,10 +68,12 @@ document.querySelector('body').addEventListener('pointerdown', (e) => {
 
 
 Elements.main.content.global.menu.buttons.createFolder.addEventListener('click', () => {
-	const filename = String(Elements.main.content.folder.menu.options.getAttribute('data-name'));
-	const filetype = String(Elements.main.content.folder.menu.options.getAttribute('data-type'));
-	const filepath = String(Elements.main.content.folder.menu.options.getAttribute('data-path'));
+	openWindowCreateFolder();
+	closeFolderOptions();
+});
 
-	openWindowCreateFolder(filename, filetype, filepath);
+
+Elements.main.content.global.menu.buttons.createFile.addEventListener('click', () => {
+	openWindowCreateFile();
 	closeFolderOptions();
 });
