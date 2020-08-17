@@ -2,10 +2,44 @@
 const path = require('path');
 
 const { Elements } = require('../../../../utils/Elements');
-const { getTagsConfig } = require('../../../../utils/settings');
-const userInterface = require('../../../../utils/userInterface');
+const { getTagsConfig, createLeftMenuOptions } = require('../../../../utils/settings');
 const { RecentScreen } = require('../main/Recents/index');
 
+
+async function createLeftMenuElementsInHTML(homedir) {
+	const options = await createLeftMenuOptions(homedir);
+
+	const ul = Elements.main.leftMenu.screen.querySelector('.left-menu-content ul');
+	const template = Elements.main.leftMenu.screen.querySelector('.left-menu-content ul #left-menu-template');
+	ul.textContent = '';
+
+	ul.appendChild(template);
+
+
+	options.map((option) => {
+		const clone = document.importNode(template.content, true);
+
+		let { id } = option;
+		id = (id.replace(/[$]/g, '')).toLowerCase();
+
+
+		const src = path.resolve(__dirname, '..', '..', '..', '..', '..', 'public', 'assets', 'icons', 'left-menu', `${id}.png`);
+
+		clone.querySelector('li').setAttribute('id', `${id}-button`);
+		clone.querySelector('li').setAttribute('data-path', option.path);
+		clone.querySelector('li').setAttribute('navigation', option.navigation);
+		clone.querySelector('li img').setAttribute('src', src);
+		clone.querySelector('li img').setAttribute('alt', option.name);
+		clone.querySelector('li').append(option.name);
+
+
+
+		ul.appendChild(clone);
+
+
+		return true;
+	});
+}
 
 
 function navigationByTag(f) {
@@ -65,9 +99,10 @@ function getRecentDirectories(f) {
 	});
 }
 
-function loadFunctions(f) {
-	getRecentDirectories(f);
-	loadMenuTags(f);
+async function loadFunctions(f, homedir) {
+	await createLeftMenuElementsInHTML(homedir);
+	await loadMenuTags(f);
+	await getRecentDirectories(f);
 }
 
 module.exports = {

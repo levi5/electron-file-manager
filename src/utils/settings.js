@@ -1,6 +1,7 @@
 const { resolve, basename } = require('path');
-const fs = require('fs').promises;
 
+const fs = require('fs').promises;
+const fileSystem = require('./fileSystem');
 
 
 
@@ -96,7 +97,8 @@ async function saveTagConfig(dataTag, workspaceName = 'main') {
 	settingData.map((config) => {
 		const newTag = [];
 		const {
-			workspace, options, tags, menu,
+			workspace,
+			tags,
 		} = config;
 
 		if (workspace === workspaceName) {
@@ -117,7 +119,8 @@ async function saveTagConfig(dataTag, workspaceName = 'main') {
 
 			if (count === 0) { newTag.push(dataTag); }
 			newData.push({
-				workspace, options, tags: newTag, menu,
+				...config,
+				tags: newTag,
 			});
 		} else {
 			newData.push(config);
@@ -136,9 +139,7 @@ async function changeTagData(filename, filepath, newFilepath, filetype) {
 
 	settingData.map((config) => {
 		const newTag = [];
-		const {
-			workspace, options, tags, menu,
-		} = config;
+		const { tags } = config;
 
 		tags.map((tag) => {
 			const { filePath } = tag;
@@ -153,7 +154,7 @@ async function changeTagData(filename, filepath, newFilepath, filetype) {
 			return true;
 		});
 		newData.push({
-			workspace, options, tags: newTag, menu,
+			...config, tags: newTag,
 		});
 		return true;
 	});
@@ -250,19 +251,18 @@ async function removeRecentDirectories(folderPath, filter, workspaceName = 'main
 	}
 
 	settings.map((setting) => {
-		const { workspace } = setting;
+		const { workspace, menu } = setting;
 		if (workspace === workspaceName) {
 			newSettings.push({
 				...setting,
 				menu: {
+					...menu,
 					recent: recentDirectories,
 				},
 			});
 		}
 		return true;
 	});
-
-	console.log(recentDirectories, newSettings);
 	await writeConfigurationFile(newSettings, settingsPath);
 }
 
@@ -325,13 +325,100 @@ async function setRecentDirectories(folderPath, newType = 'directory', workspace
 		newSettings.push({
 			...setting,
 			menu: {
+				...menu,
 				recent: newDirectories,
 			},
 		});
 		return true;
 	});
 
+
 	await writeConfigurationFile(newSettings, settingsPath);
+}
+
+
+// left menu
+
+async function createLeftMenuOptions(homedir, workspaceName = 'main') {
+	const { files, error } = await fileSystem.getFilesInFolder(homedir);
+	const newDir = await fileSystem.inspectAndDescribeFiles(homedir, files);
+
+	const menu = [];
+
+	if (!error) {
+		const settingsPath = resolve(__dirname, '..', 'config', 'settings.json');
+		const settings = await readConfigurationFile(settingsPath);
+
+		const currentWorkspace = settings.filter((setting) => {
+			const { workspace } = setting;
+
+			if (workspaceName === workspace) {
+				return setting;
+			}
+			return false;
+		});
+		const [{ config: { lang } }] = currentWorkspace;
+
+		const path = resolve(__dirname, '..', 'lang', `${lang}.json`);
+		const [{ leftMenu }] = await readConfigurationFile(path);
+		const arrayDirectoriesRequired = leftMenu.directories.required;
+		const arrayDirectoriesDefault = leftMenu.directories.default;
+
+		arrayDirectoriesRequired.filter((item) => {
+			const { id, name } = item;
+			if (id === '$HOMEDIR$') {
+				menu.push({
+					id,
+					name,
+					path: homedir,
+					type: item.type,
+					navigation: true,
+					delete: false,
+					editable: false,
+					icon: '',
+				});
+			} else {
+				menu.push({
+					id,
+					name,
+					path: null,
+					type: 'directory',
+					navigation: false,
+					delete: false,
+					editable: false,
+					icon: '',
+				});
+			}
+
+			return true;
+		});
+
+
+
+		arrayDirectoriesDefault.filter((item) => {
+			const { id, name } = item;
+			newDir.filter((u) => {
+				if (u.file === name) {
+					menu.push({
+						id,
+						name,
+						path: u.path,
+						type: u.type,
+						navigation: true,
+						delete: true,
+						editable: true,
+						icon: '',
+
+
+					});
+				}
+				return false;
+			});
+			return true;
+		});
+	}
+
+	return menu;
 }
 
 
@@ -348,4 +435,5 @@ module.exports = {
 	getRecentDirectories,
 	setRecentDirectories,
 	removeRecentDirectories,
+	createLeftMenuOptions,
 };

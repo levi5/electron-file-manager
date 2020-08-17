@@ -148,6 +148,7 @@ async function loadDirectory(folderPath) {
 		return;
 	}
 
+
 	const fileData = await fileSystem.inspectAndDescribeFiles(folderPath, files);
 	await setTitleBar(folderPath);
 	await displayFiles(fileData);

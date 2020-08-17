@@ -16,7 +16,7 @@ function main() {
 	const folderPath = fileSystem.getUsersHomeFolder();
 
 	header();
-	leftMenu.loadFunctions(userInterface.loadDirectory);
+	leftMenu.loadFunctions(userInterface.loadDirectory, folderPath);
 
 	userInterface.loadDirectory(folderPath);
 
