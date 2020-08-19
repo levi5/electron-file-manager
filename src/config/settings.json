@@ -8,22 +8,14 @@
       "hiddenFile": true
     },
     "tags": [
-     
+      
     ],
     "menu": {
       "directories": [
-        {
-          "name": "",
-          "path": "",
-          "type": "directory",
-          "navigation": false,
-          "delete": false,
-          "editable": false,
-          "icon": ""
-        }
+       
       ],
       "recent": [
-       
+        
       ]
     }
   }

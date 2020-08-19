@@ -1,5 +1,13 @@
 
 const menu = `
+<div id="left-menu-options">
+        <ul>
+            <li>Abrir</li>
+            <li id="btn-left-menu-options">Remover</li>
+        </ul>
+
+</div>
+
 <div class="left-menu-content">
     <ul>
     <template id="left-menu-template">

@@ -25,14 +25,9 @@ const header = `
 </div>
 
 <div class="menu-window">
-<div class="menu-toggle">
-    <img id="icon-grade" src="./assets/icons/title-bar/layout/grade-2-50.png" alt="">
-</div>
-
-
-<div class="menu-toggle">
-    <img id="icon-menu" src="./assets/icons/title-bar/menu/menu.png" alt="">
-</div>
+    <div class="menu-toggle">
+        <!-- <img id="icon-menu" src="./assets/icons/title-bar/menu/menu.png" alt="">-->
+    </div>
 </div>
 
 `;

@@ -1,45 +1,165 @@
+/* eslint-disable no-use-before-define */
+/* eslint-disable no-eval */
 /* eslint-disable no-undef */
-const path = require('path');
+const { resolve, dirname } = require('path');
 
 const { Elements } = require('../../../../utils/Elements');
-const { getTagsConfig, createLeftMenuOptions } = require('../../../../utils/settings');
+const { getTagsConfig, createLeftMenuOptions, setMenuOptions } = require('../../../../utils/settings');
 const { RecentScreen } = require('../main/Recents/index');
+
+
+
+
+function LeftMenuOptions(x, y, dataItem) {
+	const { edit, path } = dataItem;
+
+	let posX = x;
+	let posY = y;
+
+
+	if (edit) {
+		const menu = document.querySelector('#left-menu-options');
+		menu.classList.toggle('on');
+		menu.setAttribute('path', path);
+
+
+		const [main] = Elements.main.content.screenItems.getClientRects();
+		const {
+			top, bottom, left, right,
+		} = main;
+
+		const elementFolderOptionsWidth = parseInt(menu.clientWidth, 10);
+		const elementFolderOptionsHeight = parseInt(menu.clientHeight, 10);
+
+		const limitX = posX + elementFolderOptionsWidth + 20;
+		const limitY = posY + elementFolderOptionsHeight + 20;
+
+		if (limitX > right) posX -= (limitX - right);
+
+		if (limitX < left) posX += (limitX - left);
+
+		if (limitY > bottom) posY -= (limitY - bottom);
+
+		if (limitY < top) posY += (limitY - top);
+
+		menu.style.left = `${x}px`;
+		menu.style.top = `${y}px`;
+	}
+}
+
+
+async function openLeftMenuOptions() {
+	const items = [...Elements.main.leftMenu.screen.querySelectorAll('.left-menu-content ul li')];
+	items.map((item) => {
+		item.addEventListener('pointerdown', async (e) => {
+			if (e.buttons === 2) {
+				const boolEditable = eval(String(item.getAttribute('data-edit')));
+				const path = item.getAttribute('data-path');
+				const defaultItem = eval(String(item.getAttribute('data-default')));
+				const navigation = eval(String(item.getAttribute('data-navigation')));
+
+				const dataItem = {
+					edit: boolEditable, path, defaultItem, navigation,
+				};
+				await LeftMenuOptions(e.clientX, e.clientY, dataItem);
+				await removeOptionLeftMenu();
+			}
+		});
+		return true;
+	});
+}
+
+
+
+async function stt(data, flag) {
+	const ul = Elements.main.leftMenu.screen.querySelector('.left-menu-content ul');
+	const template = Elements.main.leftMenu.screen.querySelector('.left-menu-content ul #left-menu-template');
+
+
+	const directories = await setMenuOptions(data, flag);
+	ul.textContent = '';
+	ul.appendChild(template);
+
+	directories.map((directory) => {
+		const clone = document.importNode(template.content, true);
+		clone.querySelector('li').setAttribute('id', `${directory.id}-button`);
+		clone.querySelector('li').setAttribute('data-id', directory.id);
+		clone.querySelector('li').setAttribute('data-name', directory.name);
+		clone.querySelector('li').setAttribute('data-path', directory.path);
+		clone.querySelector('li').setAttribute('data-type', directory.type);
+		clone.querySelector('li').setAttribute('data-edit', directory.edit);
+		clone.querySelector('li').setAttribute('data-default', directory.defaultItem);
+		clone.querySelector('li').setAttribute('navigation', directory.navigation);
+		clone.querySelector('li').setAttribute('data-icon', directory.icon);
+
+		clone.querySelector('li img').setAttribute('src', directory.icon);
+		clone.querySelector('li img').setAttribute('alt', directory.name);
+		clone.querySelector('li').append(directory.name);
+		ul.appendChild(clone);
+		return true;
+	});
+
+	await openLeftMenuOptions();
+}
 
 
 async function createLeftMenuElementsInHTML(homedir) {
 	const options = await createLeftMenuOptions(homedir);
 
-	const ul = Elements.main.leftMenu.screen.querySelector('.left-menu-content ul');
-	const template = Elements.main.leftMenu.screen.querySelector('.left-menu-content ul #left-menu-template');
-	ul.textContent = '';
 
-	ul.appendChild(template);
-
-
+	const data = [];
 	options.map((option) => {
-		const clone = document.importNode(template.content, true);
-
 		let { id } = option;
 		id = (id.replace(/[$]/g, '')).toLowerCase();
-
-
-		const src = path.resolve(__dirname, '..', '..', '..', '..', '..', 'public', 'assets', 'icons', 'left-menu', `${id}.png`);
-
-		clone.querySelector('li').setAttribute('id', `${id}-button`);
-		clone.querySelector('li').setAttribute('data-path', option.path);
-		clone.querySelector('li').setAttribute('navigation', option.navigation);
-		clone.querySelector('li img').setAttribute('src', src);
-		clone.querySelector('li img').setAttribute('alt', option.name);
-		clone.querySelector('li').append(option.name);
-
-
-
-		ul.appendChild(clone);
-
+		const src = resolve(__dirname, '..', '..', '..', '..', '..', 'public', 'assets', 'icons', 'left-menu', `${id}.png`);
+		data.push({
+			...option,
+			id,
+			icon: src,
+		});
 
 		return true;
 	});
+
+	await stt(data, 'LOAD');
 }
+
+
+
+async function removeOptionLeftMenu() {
+	const menu = document.querySelector('#left-menu-options');
+	const path = menu.getAttribute('path');
+
+	document.querySelector('#btn-left-menu-options').addEventListener('click', () => {
+		const data = [];
+		const items = [...Elements.main.leftMenu.screen.querySelectorAll('.left-menu-content ul li')];
+		items.map(async (item) => {
+			const dataPath = String(item.getAttribute('data-path'));
+			if (dataPath === path) {
+				const id = String(item.getAttribute('data-id'));
+				const name = String(item.getAttribute('data-name'));
+				const type = String(item.getAttribute('data-type'));
+				const edit = eval(item.getAttribute('data-edit'));
+				const defaultItem = eval(item.getAttribute('data-default'));
+				const navigation = eval(item.getAttribute('data-navigation'));
+				const icon = String(item.getAttribute('data-icon'));
+
+				data.push({
+					id,
+					name,
+					path: dataPath,
+					type,
+					edit,
+					defaultItem,
+					navigation,
+					icon,
+				});
+				await stt(data, 'DEL');
+			}
+		});
+	});
+}
+
 
 
 function navigationByTag(f) {
@@ -50,9 +170,9 @@ function navigationByTag(f) {
 			let filePath = item.getAttribute('data-path');
 			const filetype = item.getAttribute('data-type');
 			if (filetype === 'file') {
-				filePath = path.dirname(filePath);
+				filePath = dirname(filePath);
 			} else {
-				filePath = path.resolve(filePath, '..');
+				filePath = resolve(filePath, '..');
 			}
 
 			f(filePath);
@@ -71,7 +191,6 @@ async function loadMenuTags(f) {
 
 	ul.innerHTML = '';
 	ul.appendChild(template);
-
 
 	tags.map((tag) => {
 		const clone = document.importNode(template.content, true);
@@ -104,6 +223,9 @@ async function loadFunctions(f, homedir) {
 	await loadMenuTags(f);
 	await getRecentDirectories(f);
 }
+
+
+
 
 module.exports = {
 	loadFunctions,

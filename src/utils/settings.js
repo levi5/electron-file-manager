@@ -32,10 +32,10 @@ async function readConfigurationFile(settingPath = '') {
 			const obj = JSON.parse(data);
 			return obj;
 		}
-		return null;
+		return [];
 	} catch (error) {
 		console.error('Error reading configuration file. ', error);
-		return null;
+		return [];
 	}
 }
 
@@ -70,10 +70,8 @@ async function getTagsConfig(workspaceName = 'main') {
 	const settingData = await readConfigurationFile(settingsPath);
 
 	const arrayTags = [];
-
 	settingData.map((config) => {
 		const { workspace, tags } = config;
-
 		if (workspace === workspaceName) {
 			tags.map((tag) => {
 				arrayTags.push(tag);
@@ -266,6 +264,8 @@ async function removeRecentDirectories(folderPath, filter, workspaceName = 'main
 	await writeConfigurationFile(newSettings, settingsPath);
 }
 
+
+
 async function setRecentDirectories(folderPath, newType = 'directory', workspaceName = 'main') {
 	const newDirectories = [];
 	const currentDateTime = new Date().toLocaleString();
@@ -331,19 +331,16 @@ async function setRecentDirectories(folderPath, newType = 'directory', workspace
 		});
 		return true;
 	});
-
-
 	await writeConfigurationFile(newSettings, settingsPath);
 }
 
 
 // left menu
-
 async function createLeftMenuOptions(homedir, workspaceName = 'main') {
 	const { files, error } = await fileSystem.getFilesInFolder(homedir);
 	const newDir = await fileSystem.inspectAndDescribeFiles(homedir, files);
 
-	const menu = [];
+	const leftMenuOptions = [];
 
 	if (!error) {
 		const settingsPath = resolve(__dirname, '..', 'config', 'settings.json');
@@ -359,57 +356,50 @@ async function createLeftMenuOptions(homedir, workspaceName = 'main') {
 		});
 		const [{ config: { lang } }] = currentWorkspace;
 
-		const path = resolve(__dirname, '..', 'lang', `${lang}.json`);
-		const [{ leftMenu }] = await readConfigurationFile(path);
+		const filepath = resolve(__dirname, '..', 'lang', `${lang}.json`);
+		const [{ leftMenu }] = await readConfigurationFile(filepath);
 		const arrayDirectoriesRequired = leftMenu.directories.required;
 		const arrayDirectoriesDefault = leftMenu.directories.default;
 
-		arrayDirectoriesRequired.filter((item) => {
-			const { id, name } = item;
+		arrayDirectoriesRequired.filter((directory) => {
+			const { id, name } = directory;
+			const menuOptionObject = {
+				id,
+				name,
+				path: homedir,
+				type: directory.type,
+				navigation: true,
+				edit: false,
+				icon: '',
+			};
+
+
 			if (id === '$HOMEDIR$') {
-				menu.push({
-					id,
-					name,
-					path: homedir,
-					type: item.type,
-					navigation: true,
-					delete: false,
-					editable: false,
-					icon: '',
-				});
+				leftMenuOptions.push(menuOptionObject);
 			} else {
-				menu.push({
-					id,
-					name,
+				leftMenuOptions.push({
+					...menuOptionObject,
 					path: null,
-					type: 'directory',
 					navigation: false,
-					delete: false,
-					editable: false,
-					icon: '',
 				});
 			}
-
 			return true;
 		});
 
+		arrayDirectoriesDefault.filter((directoryDefault) => {
+			const { id, name } = directoryDefault;
+			newDir.filter((directory) => {
+				const { file, path, type } = directory;
 
-
-		arrayDirectoriesDefault.filter((item) => {
-			const { id, name } = item;
-			newDir.filter((u) => {
-				if (u.file === name) {
-					menu.push({
+				if (file === name) {
+					leftMenuOptions.push({
 						id,
 						name,
-						path: u.path,
-						type: u.type,
+						path,
+						type,
 						navigation: true,
-						delete: true,
-						editable: true,
+						edit: true,
 						icon: '',
-
-
 					});
 				}
 				return false;
@@ -417,8 +407,72 @@ async function createLeftMenuOptions(homedir, workspaceName = 'main') {
 			return true;
 		});
 	}
+	return leftMenuOptions;
+}
 
-	return menu;
+
+
+
+async function setMenuOptions(data, flag, workspaceName = 'main') {
+	const settingsPath = resolve(__dirname, '..', 'config', 'settings.json');
+	const settings = await readConfigurationFile(settingsPath);
+
+
+	const newDirectories = [];
+	const newSettings = [];
+
+	let obj;
+
+	settings.map((setting) => {
+		const { workspace, menu } = setting;
+		if (workspace === workspaceName) {
+			const { directories } = menu;
+
+
+			data.map((dir) => {
+				obj = dir;
+
+				if (directories.length >= 1) {
+					directories.map((it) => {
+						if (flag.toUpperCase() === 'LOAD') {
+							if (it.path === obj.path) {
+								newDirectories.push(it);
+							}
+						} else if (flag.toUpperCase() === 'ADD') {
+							console.log('a');
+						} else if (flag.toUpperCase() === 'DEL') {
+							if (it.path !== obj.path) {
+								if (it.edit) {
+									newDirectories.push({ ...it, visible: true });
+								} else {
+									newDirectories.push(it);
+								}
+							}
+						}
+						return true;
+					});
+				} else {
+					newDirectories.push({ ...obj, visible: true });
+				}
+				return true;
+			});
+
+			console.log(newDirectories);
+
+			newSettings.push({
+				...setting,
+				menu: {
+					...menu,
+					directories: newDirectories,
+				},
+			});
+			console.log(newSettings);
+		}
+		return true;
+	});
+	await writeConfigurationFile(newSettings, settingsPath);
+	const Dir = newDirectories.filter((directory) => directory.visible === true);
+	return Dir;
 }
 
 
@@ -435,5 +489,7 @@ module.exports = {
 	getRecentDirectories,
 	setRecentDirectories,
 	removeRecentDirectories,
+
 	createLeftMenuOptions,
+	setMenuOptions,
 };

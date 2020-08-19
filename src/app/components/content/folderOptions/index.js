@@ -23,6 +23,7 @@ document.body.addEventListener('click', (e) => {
 		closeWindowCreateFolder();
 		closeWindowCreateFile();
 	}
+	document.querySelector('#left-menu-options').classList.remove('on');
 	closeFolderOptions();
 	closeMenuGlobal();
 });
