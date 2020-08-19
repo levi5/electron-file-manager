@@ -1,11 +1,27 @@
 [
   {
     "workspace": "main",
+    "config": {
+      "lang": "pt_br"
+    },
     "options": {
       "hiddenFile": true
     },
-    "tags": [],
+    "tags": [
+     
+    ],
     "menu": {
+      "directories": [
+        {
+          "name": "",
+          "path": "",
+          "type": "directory",
+          "navigation": false,
+          "delete": false,
+          "editable": false,
+          "icon": ""
+        }
+      ],
       "recent": [
        
       ]

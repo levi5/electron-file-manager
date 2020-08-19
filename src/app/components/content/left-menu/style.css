@@ -1,5 +1,5 @@
 section .left-menu {
-    min-width: 100px;
+    min-width: 120px;
     max-width: 100%;
     width: 220px;
     height: 100%;
@@ -10,22 +10,21 @@ section .left-menu {
     border-right: solid #333 1px;
     overflow-y: auto;
     overflow-x: hidden;
-    z-index: 15;
-  
+    z-index: 10;
 }
 
 
-section .left-menu h4{
+section .left-menu h4 {
     font-weight: 400;
     font-size: 14px;
-    color:var(--grey-color);
+    color: var(--grey-color);
     margin-bottom: 10px;
 }
 
 
 
 
-.left-menu  ul {
+.left-menu ul {
     width: 100%;
     height: auto;
     display: flex;
@@ -48,7 +47,7 @@ section .left-menu h4{
     font-weight: 500;
     font-family: 'Open Sans', sans-serif;
 
-    padding: 8px 15px;
+    padding: 8px 5px 8px 15px;
     margin-bottom: 1px;
 
     transition: border-left 0.2s linear;
@@ -72,9 +71,41 @@ section .left-menu h4{
 
 
 
+.left-menu .left-menu-content ul li div {
+
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    padding-left: 10px;
+}
 
 
 
+.left-menu .left-menu-content ul li button {
+    width: 20px;
+    height: 20px;
+    margin-left: 5px;
+}
+
+.btn-edit {
+    background-color: transparent;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url('../../../../../public/assets/icons/all/edit.svg');
+
+}
+
+
+.btn-remove {
+    background-color: transparent;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url('../../../../../public/assets/icons/all/delete-bin-7-fill.svg');
+}
 
 
 
@@ -90,11 +121,11 @@ section .left-menu h4{
     padding: 10px;
 }
 
-.left-menu #content-tag-left-menu ul{
+.left-menu #content-tag-left-menu ul {
     padding: 15px;
 }
 
-.left-menu #content-tag-left-menu ul li{
+.left-menu #content-tag-left-menu ul li {
     width: 100%;
     display: flex;
     flex-direction: row;
