@@ -4,7 +4,7 @@
 const { resolve, dirname } = require('path');
 
 const { Elements } = require('../../../../utils/Elements');
-const { getTagsConfig, createLeftMenuOptions, setMenuOptions } = require('../../../../utils/settings');
+const { getTagsConfig, setMenuOptions } = require('../../../../utils/settings');
 const { RecentScreen } = require('../main/Recents/index');
 
 
@@ -72,13 +72,14 @@ async function openLeftMenuOptions() {
 
 
 async function stt(data, flag) {
-	const ul = Elements.main.leftMenu.screen.querySelector('.left-menu-content ul');
-	const template = Elements.main.leftMenu.screen.querySelector('.left-menu-content ul #left-menu-template');
+	const ul = Elements.main.leftMenu.screen.querySelector('.left-menu-content #variable-items-menu');
+	const template = ul.querySelector('#left-menu-template');
 
 
 	const directories = await setMenuOptions(data, flag);
 	ul.textContent = '';
 	ul.appendChild(template);
+
 
 	directories.map((directory) => {
 		const clone = document.importNode(template.content, true);
@@ -88,7 +89,6 @@ async function stt(data, flag) {
 		clone.querySelector('li').setAttribute('data-path', directory.path);
 		clone.querySelector('li').setAttribute('data-type', directory.type);
 		clone.querySelector('li').setAttribute('data-edit', directory.edit);
-		clone.querySelector('li').setAttribute('data-default', directory.defaultItem);
 		clone.querySelector('li').setAttribute('navigation', directory.navigation);
 		clone.querySelector('li').setAttribute('data-icon', directory.icon);
 
@@ -102,27 +102,6 @@ async function stt(data, flag) {
 	await openLeftMenuOptions();
 }
 
-
-async function createLeftMenuElementsInHTML(homedir) {
-	const options = await createLeftMenuOptions(homedir);
-
-
-	const data = [];
-	options.map((option) => {
-		let { id } = option;
-		id = (id.replace(/[$]/g, '')).toLowerCase();
-		const src = resolve(__dirname, '..', '..', '..', '..', '..', 'public', 'assets', 'icons', 'left-menu', `${id}.png`);
-		data.push({
-			...option,
-			id,
-			icon: src,
-		});
-
-		return true;
-	});
-
-	await stt(data, 'LOAD');
-}
 
 
 
@@ -140,7 +119,7 @@ async function removeOptionLeftMenu() {
 				const name = String(item.getAttribute('data-name'));
 				const type = String(item.getAttribute('data-type'));
 				const edit = eval(item.getAttribute('data-edit'));
-				const defaultItem = eval(item.getAttribute('data-default'));
+
 				const navigation = eval(item.getAttribute('data-navigation'));
 				const icon = String(item.getAttribute('data-icon'));
 
@@ -150,7 +129,6 @@ async function removeOptionLeftMenu() {
 					path: dataPath,
 					type,
 					edit,
-					defaultItem,
 					navigation,
 					icon,
 				});
@@ -218,8 +196,8 @@ function getRecentDirectories(f) {
 	});
 }
 
-async function loadFunctions(f, homedir) {
-	await createLeftMenuElementsInHTML(homedir);
+async function loadFunctions(f) {
+	await stt('[]', 'LOAD');
 	await loadMenuTags(f);
 	await getRecentDirectories(f);
 }
@@ -230,4 +208,5 @@ async function loadFunctions(f, homedir) {
 module.exports = {
 	loadFunctions,
 	loadMenuTags,
+	stt,
 };

@@ -1,6 +1,9 @@
 // eslint-disable-next-line strict
-const { app, BrowserWindow, globalShortcut } = require('electron');
+const {
+	app, BrowserWindow, globalShortcut, ipcMain,
+} = require('electron');
 const { resolve } = require('path');
+
 
 
 
@@ -46,7 +49,6 @@ const createWindow = () => {
 app.on('window-all-closed', () => {
 	if (process.platform !== 'darwin') app.quit();
 });
-
 
 
 

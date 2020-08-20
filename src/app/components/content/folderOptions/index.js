@@ -2,6 +2,7 @@
 const { Elements } = require('../../../../utils/Elements');
 const { loadDirectory } = require('../../../../utils/userInterface');
 const { openWindowRenameFiles, closeWindowRenameFiles } = require('../Modal/Rename/index');
+const { openWindowAddFolderToMenu, closeWindowAddFolderToMenu } = require('../Modal/AddFolderToMenu/index');
 const { openWindowCreateFolder, closeWindowCreateFolder } = require('../Modal/CreateFolder/index');
 const { openWindowCreateFile, closeWindowCreateFile } = require('../Modal/CreateFile/index');
 const { getSelectedFileDirectory } = require('../../tittleBar/index');
@@ -22,6 +23,7 @@ document.body.addEventListener('click', (e) => {
 		closeWindowRenameFiles();
 		closeWindowCreateFolder();
 		closeWindowCreateFile();
+		closeWindowAddFolderToMenu();
 	}
 	document.querySelector('#left-menu-options').classList.remove('on');
 	closeFolderOptions();
@@ -76,5 +78,14 @@ Elements.main.content.global.menu.buttons.createFolder.addEventListener('click',
 
 Elements.main.content.global.menu.buttons.createFile.addEventListener('click', () => {
 	openWindowCreateFile();
+	closeFolderOptions();
+});
+
+Elements.main.content.folder.menu.buttons.addFolderToMenu.addEventListener('click', () => {
+	const filename = String(Elements.main.content.folder.menu.options.getAttribute('data-name'));
+	const filetype = String(Elements.main.content.folder.menu.options.getAttribute('data-type'));
+	const filepath = String(Elements.main.content.folder.menu.options.getAttribute('data-path'));
+
+	openWindowAddFolderToMenu(filename, filetype, filepath);
 	closeFolderOptions();
 });
