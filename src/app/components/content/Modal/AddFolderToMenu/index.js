@@ -31,7 +31,7 @@ function selectFolderIcon() {
 	});
 }
 
-function addOptionInMenu(functionLoadMenu) {
+function addOptionInMenu(functionLoadDirectory, functionLoadMenu) {
 	const add = Elements.modal.addFolderToMenu.screen.querySelector('#btn-add-folder-to-menu');
 	add.addEventListener('click', async () => {
 		const name = addFolderToMenuScreen.getAttribute('data-name');
@@ -48,21 +48,21 @@ function addOptionInMenu(functionLoadMenu) {
 			visible: true,
 		}];
 
-		await functionLoadMenu(data, 'ADD');
+		await functionLoadMenu(data, 'ADD', functionLoadDirectory);
 		closeWindowAddFolderToMenu();
 	});
 }
 
 function closeModal() {
-	const close = Elements.modal.addFolderToMenu.screen('#btn-cancel-add-folder-to-menu');
-	close.addEventListener('click', async () => {
+	const close = Elements.modal.addFolderToMenu.screen.querySelector('#btn-cancel-add-folder-to-menu');
+	close.addEventListener('click', () => {
 		closeWindowAddFolderToMenu();
 	});
 }
 
-function loadFolderToMenu(functionLoadMenu) {
+function loadFolderToMenu(loadDirectory, functionLoadMenu) {
 	selectFolderIcon();
-	addOptionInMenu(functionLoadMenu);
+	addOptionInMenu(loadDirectory, functionLoadMenu);
 	closeModal();
 }
 

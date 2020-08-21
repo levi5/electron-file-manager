@@ -13,7 +13,6 @@ function open(path, type, loadDirectory) {
 	if (type === 'directory') {
 		loadDirectory(path);
 	}
-
 	closeRecentItemsWindow();
 }
 
@@ -45,8 +44,6 @@ async function createElementsOnTheRecentScreen(loadDirectory) {
 		clone.querySelector('label[name=date]').textContent = `Data: ${date}`;
 		clone.querySelector('label[name=time]').textContent = `Hora: ${time}`;
 
-
-
 		clone.querySelector('article').querySelector('#btn-go-recent-item').addEventListener('click', () => {
 			open(path, type, loadDirectory);
 		});
@@ -57,7 +54,6 @@ async function createElementsOnTheRecentScreen(loadDirectory) {
 		});
 
 		ul.appendChild(clone);
-
 		return true;
 	});
 }

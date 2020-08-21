@@ -2,28 +2,24 @@
 const menu = `
 <div id="left-menu-options">
         <ul>
-            <li>Abrir</li>
-            <li id="btn-left-menu-options">Remover</li>
+            <li id="btn-open-options-menu"><img src="./assets/icons/all/folder.svg" alt="open">Abrir</li>
+            <li id="btn-remove-options-menu"><img src="./assets/icons/all/delete-bin.svg" alt="remove"> Remover</li>
         </ul>
-
 </div>
 
 <div class="left-menu-content">
-
     <ul id="fixed-items-menu">
-        <li id='recent-button'> <img src="./assets/icons/left-menu/recent.png" alt="">Recente</li>
-        <li> <img src="./assets/icons/left-menu/homedir.png" alt="pasta pessoal">Pasta pessoal</li>
+        <li id="recent-button"> <img src="./assets/icons/left-menu/recent.png" alt="">Recente</li>
+        <li id="homedir-button"><img src="./assets/icons/left-menu/homedir.png" alt="pasta pessoal">Pasta pessoal</li>
     <ul>
 
-
     <ul id="variable-items-menu">
-    <template id="left-menu-template">
-    <li> 
-        <img>
-      
-    </li>
-    </template>
-
+            <template id="left-menu-template">
+            <li> 
+                <img>
+            
+            </li>
+            </template>
     </ul>
 </div>
 

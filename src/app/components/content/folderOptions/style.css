@@ -46,7 +46,15 @@
     background: var(--menu-background-color);
     color: var(--white-color);
 }
-
+#folder-options li img , #main-area-menu-global li img{
+    width: 20px;
+    height: 20px;
+    object-fit: cover;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-right: 5px;
+}
 #folder-options li:hover, #main-area-menu-global li:hover {
     filter: brightness(80%);
 }
