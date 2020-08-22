@@ -24,6 +24,7 @@ const Elements = {
 					options: $select('#folder-options'),
 					buttons: {
 						rename: $select('#folder-options #rename-item'),
+						addFolderToMenu: $select('#folder-options #btn-add-folder-menu'),
 					},
 				},
 			},
@@ -103,6 +104,9 @@ const Elements = {
 				cancel: $select('#create-file-screen #btn-cancel-create-file'),
 			},
 
+		},
+		addFolderToMenu: {
+			screen: $select('.modal #add-folder-to-menu'),
 		},
 
 	},

@@ -7,7 +7,7 @@ const leftMenu = require('./components/content/left-menu/index');
 const optionsBar = require('./components/options-bar/index');
 
 
-const { rename } = require('./components/content/Modal/Rename/index');
+const modalLoadFunctions = require('./components/content/Modal/loadFunctions');
 const createFileOrFolder = require('../utils/CreateFileOrFolder');
 
 
@@ -16,12 +16,13 @@ function main() {
 	const folderPath = fileSystem.getUsersHomeFolder();
 
 	header();
-	leftMenu.loadFunctions(userInterface.loadDirectory, folderPath);
+	leftMenu.loadFunctions(userInterface.loadDirectory);
 
 	userInterface.loadDirectory(folderPath);
 
 	optionsBar.optionsBarFunctions();
-	rename(userInterface.loadDirectory);
+
+	modalLoadFunctions(userInterface.loadDirectory, leftMenu.stt);
 	createFileOrFolder(userInterface.loadDirectory, 'file');
 	createFileOrFolder(userInterface.loadDirectory, 'directory');
 

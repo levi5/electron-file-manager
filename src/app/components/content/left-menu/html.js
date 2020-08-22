@@ -9,7 +9,14 @@ const menu = `
 </div>
 
 <div class="left-menu-content">
+
+    <ul id="fixed-items-menu">
+        <li id='recent-button'> <img src="./assets/icons/left-menu/recent.png" alt="">Recente</li>
+        <li> <img src="./assets/icons/left-menu/homedir.png" alt="pasta pessoal">Pasta pessoal</li>
     <ul>
+
+
+    <ul id="variable-items-menu">
     <template id="left-menu-template">
     <li> 
         <img>

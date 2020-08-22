@@ -101,23 +101,15 @@
 
 
                 </div>
-
                 <div class="title-modal-config">
                     <button id="btn-close-modal-config">close</button>
                     <button id="btn-save-tags">save</button>
                 </div>
-
             </div>
-
-
 
 
             <div id="main-area">
                 <div id="items-content">
-
-
-
-
 
                     <div id="main-area-menu-global">
                         <ul>
@@ -133,14 +125,12 @@
                     <div id="folder-options" class="">
                         <div id="folder-options-title"></div>
                         <ul>
-
                             <li id="open-folder" data-type="directory">Abrir pasta</li>
                             <li id="open-folder" data-type="file">Abrir arquivo</li>
-
                             <li data-type="all">Excluir</li>
                             <li id="rename-item" data-type="all">Renomear</li>
                             <li id="btn-create-tag" data-type="all">Tag</li>
-                            <li id="btn-create-tag" data-type="directory">Adicionar ao menu</li>
+                            <li id="btn-add-folder-menu" data-type="directory">Adicionar ao menu</li>
                         </ul>
                     </div>
 
@@ -149,8 +139,8 @@
                         <div id="rename-screen">
                             <div id="rename-screen-content">
                                 <input type="text" name="rename-file">
-
-                                <button type="button" id="btn-rename">Renomear</button>
+                                <button type="button" id="btn-rename" class='create'>Renomear</button>
+                                <button type="button" id="btn-cancel-rename" class='cancel'>Cancelar</button>
                             </div>
                         </div>
 
@@ -169,24 +159,27 @@
                             <div class="content">
                                 <label name='name-preview'></label>
                                 <div class="input-group">
-                                    <input type="text" 
-                                    placeholder="Digite o nome do arquivo" 
-                                    onfocus='this.placeholder=""'
-                                    name="file-name">
+                                    <input 
+                                        type="text" 
+                                        placeholder="Digite o nome do arquivo"
+                                        onfocus='this.placeholder=""' 
+                                        name="file-name">
 
-                                <input type="text" 
-                                    placeholder=".TXT" 
-                                    onfocus='this.placeholder=""' 
-                                    name="file-ext">
+                                    <input 
+                                        type="text" 
+                                        placeholder=".TXT" 
+                                        onfocus='this.placeholder=""' 
+                                        name="file-ext">
                                 </div>
-                               
-
                                 <button type="button" id="btn-create-file" class="create">Criar arquivo</button>
                                 <button type="button" id="btn-cancel-create-file" class="cancel">Cancelar</button>
                             </div>
                         </div>
 
 
+                        <div id="add-folder-to-menu">
+                            <noscript>code drop</noscript>
+                        </div>
                     </div>
 
 
@@ -215,41 +208,42 @@
                     <div id="recent-screen">
 
                         <section class="preview">
-                                <img src="./assets/icons/all/history-line.svg" >
-                                <p>
-                                   Histórico de diretórios e arquivos
-                                </p>
-                                <button>Apagar histórico</button>
+                            <img src="./assets/icons/all/history-line.svg">
+                            <p>
+                                Histórico de diretórios e arquivos
+                            </p>
+                            <button>Apagar histórico</button>
                         </section>
 
 
 
-                        <section class="recent-items" >
+                        <section class="recent-items">
 
-                            <div class="content"> 
-                            
-                                    <template id='template-recent-item'>
-                                        <article>
-                                            <div class="group-items">
-                                                <label name='name'></label>
-                                                <label name='path'></label>
-                                                <label name='type'></label>
-                                                <label name='access'></label>
-                                                <label name='date'></label>
-                                                <label name='time'></label>
-                                            </div>
-                                            <div class="group-icons">
-                                                <img id='btn-go-recent-item' src="./assets/icons/all/external-link-fill.svg"
-                                                    alt="go">
-                                                <img id='btn-remove-recent-item' src="./assets/icons/all/delete-bin-7-fill.svg" alt="delete">
-                                            </div>
+                            <div class="content">
 
-                                        </article>
-                                    </template>
+                                <template id='template-recent-item'>
+                                    <article>
+                                        <div class="group-items">
+                                            <label name='name'></label>
+                                            <label name='path'></label>
+                                            <label name='type'></label>
+                                            <label name='access'></label>
+                                            <label name='date'></label>
+                                            <label name='time'></label>
+                                        </div>
+                                        <div class="group-icons">
+                                            <img id='btn-go-recent-item' src="./assets/icons/all/external-link-fill.svg"
+                                                alt="go">
+                                            <img id='btn-remove-recent-item'
+                                                src="./assets/icons/all/delete-bin-7-fill.svg" alt="delete">
+                                        </div>
+
+                                    </article>
+                                </template>
                             </div>
                         </section>
 
-                     
+
                     </div>
                     <!-- <footer></footer> -->
                 </div>
@@ -277,7 +271,6 @@
         require("../src/app/components/content/tags/index.js");
         require("../src/app/components/content/left-menu/index.js");
         require("../src/app/components/content/Modal/Rename/index.js");
-       
     </script>
 
 

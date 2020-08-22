@@ -1,8 +1,6 @@
 const { resolve, basename } = require('path');
 
 const fs = require('fs').promises;
-const fileSystem = require('./fileSystem');
-
 
 
 // Function for writing the configuration file
@@ -336,79 +334,6 @@ async function setRecentDirectories(folderPath, newType = 'directory', workspace
 
 
 // left menu
-async function createLeftMenuOptions(homedir, workspaceName = 'main') {
-	const { files, error } = await fileSystem.getFilesInFolder(homedir);
-	const newDir = await fileSystem.inspectAndDescribeFiles(homedir, files);
-
-	const leftMenuOptions = [];
-
-	if (!error) {
-		const settingsPath = resolve(__dirname, '..', 'config', 'settings.json');
-		const settings = await readConfigurationFile(settingsPath);
-
-		const currentWorkspace = settings.filter((setting) => {
-			const { workspace } = setting;
-
-			if (workspaceName === workspace) {
-				return setting;
-			}
-			return false;
-		});
-		const [{ config: { lang } }] = currentWorkspace;
-
-		const filepath = resolve(__dirname, '..', 'lang', `${lang}.json`);
-		const [{ leftMenu }] = await readConfigurationFile(filepath);
-		const arrayDirectoriesRequired = leftMenu.directories.required;
-		const arrayDirectoriesDefault = leftMenu.directories.default;
-
-		arrayDirectoriesRequired.filter((directory) => {
-			const { id, name } = directory;
-			const menuOptionObject = {
-				id,
-				name,
-				path: homedir,
-				type: directory.type,
-				navigation: true,
-				edit: false,
-				icon: '',
-			};
-
-
-			if (id === '$HOMEDIR$') {
-				leftMenuOptions.push(menuOptionObject);
-			} else {
-				leftMenuOptions.push({
-					...menuOptionObject,
-					path: null,
-					navigation: false,
-				});
-			}
-			return true;
-		});
-
-		arrayDirectoriesDefault.filter((directoryDefault) => {
-			const { id, name } = directoryDefault;
-			newDir.filter((directory) => {
-				const { file, path, type } = directory;
-
-				if (file === name) {
-					leftMenuOptions.push({
-						id,
-						name,
-						path,
-						type,
-						navigation: true,
-						edit: true,
-						icon: '',
-					});
-				}
-				return false;
-			});
-			return true;
-		});
-	}
-	return leftMenuOptions;
-}
 
 
 
@@ -418,7 +343,7 @@ async function setMenuOptions(data, flag, workspaceName = 'main') {
 	const settings = await readConfigurationFile(settingsPath);
 
 
-	const newDirectories = [];
+	let newDirectories = [];
 	const newSettings = [];
 
 	let obj;
@@ -428,36 +353,38 @@ async function setMenuOptions(data, flag, workspaceName = 'main') {
 		if (workspace === workspaceName) {
 			const { directories } = menu;
 
-
-			data.map((dir) => {
-				obj = dir;
-
-				if (directories.length >= 1) {
-					directories.map((it) => {
-						if (flag.toUpperCase() === 'LOAD') {
-							if (it.path === obj.path) {
-								newDirectories.push(it);
-							}
-						} else if (flag.toUpperCase() === 'ADD') {
-							console.log('a');
-						} else if (flag.toUpperCase() === 'DEL') {
-							if (it.path !== obj.path) {
-								if (it.edit) {
-									newDirectories.push({ ...it, visible: true });
-								} else {
+			if (flag.toUpperCase() !== 'LOAD') {
+				data.map((dir) => {
+					obj = dir;
+					if (directories.length >= 1) {
+						directories.map((it, index) => {
+							if (flag.toUpperCase() === 'ADD') {
+								if (it.path !== obj.path) {
 									newDirectories.push(it);
 								}
+								if (directories.length === (index + 1)) {
+									newDirectories.push(obj);
+								}
+							} else if (flag.toUpperCase() === 'DEL') {
+								if (it.path !== obj.path) {
+									if (it.edit) {
+										newDirectories.push({ ...it, visible: true });
+									} else {
+										newDirectories.push(it);
+									}
+								}
 							}
-						}
-						return true;
-					});
-				} else {
-					newDirectories.push({ ...obj, visible: true });
-				}
-				return true;
-			});
+							return true;
+						});
+					} else {
+						newDirectories.push({ ...obj, visible: true });
+					}
+					return true;
+				});
+			} else {
+				newDirectories = directories;
+			}
 
-			console.log(newDirectories);
 
 			newSettings.push({
 				...setting,
@@ -466,7 +393,6 @@ async function setMenuOptions(data, flag, workspaceName = 'main') {
 					directories: newDirectories,
 				},
 			});
-			console.log(newSettings);
 		}
 		return true;
 	});
@@ -490,6 +416,5 @@ module.exports = {
 	setRecentDirectories,
 	removeRecentDirectories,
 
-	createLeftMenuOptions,
 	setMenuOptions,
 };
