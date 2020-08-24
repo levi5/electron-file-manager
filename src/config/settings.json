@@ -10,10 +10,76 @@
     "tags": [],
     "menu": {
       "directories": [
-       
+        {
+          "name": "Área de Trabalho",
+          "path": "/home/levis/Área de Trabalho",
+          "type": "directory",
+          "icon": "./assets/icons/left-menu/desktop.png",
+          "navigation": true,
+          "edit": true,
+          "visible": true
+        },
+        {
+          "name": "Documentos",
+          "path": "/home/levis/Documentos",
+          "type": "directory",
+          "icon": "./assets/icons/left-menu/document.png",
+          "navigation": true,
+          "edit": true,
+          "visible": true
+        },
+        {
+          "name": "Downloads",
+          "path": "/home/levis/Downloads",
+          "type": "directory",
+          "icon": "./assets/icons/left-menu/download.png",
+          "navigation": true,
+          "edit": true,
+          "visible": true
+        },
+        {
+          "name": "Imagens",
+          "path": "/home/levis/Imagens",
+          "type": "directory",
+          "icon": "./assets/icons/left-menu/image.png",
+          "navigation": true,
+          "edit": true,
+          "visible": true
+        },
+        {
+          "name": "Música",
+          "path": "/home/levis/Música",
+          "type": "directory",
+          "icon": "./assets/icons/left-menu/music.png",
+          "navigation": true,
+          "edit": true,
+          "visible": true
+        },
+        {
+          "name": "Vídeos",
+          "path": "/home/levis/Vídeos",
+          "type": "directory",
+          "icon": "./assets/icons/left-menu/video.png",
+          "navigation": true,
+          "edit": true,
+          "visible": true
+        }
       ],
       "recent": [
-        
+        {
+          "name": "levis",
+          "path": "/home/levis",
+          "type": "directory",
+          "access": 4,
+          "accessDate": "24/08/2020 10:25:46"
+        },
+        {
+          "name": "Design",
+          "path": "/home/levis/Design",
+          "type": "directory",
+          "access": 3,
+          "accessDate": "24/08/2020 10:25:52"
+        }
       ]
     }
   }

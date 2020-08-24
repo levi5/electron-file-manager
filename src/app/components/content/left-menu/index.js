@@ -6,6 +6,7 @@ const { resolve, dirname } = require('path');
 const { Elements } = require('../../../../utils/Elements');
 const { getTagsConfig, setMenuOptions } = require('../../../../utils/settings');
 const { RecentScreen } = require('../main/Recents/index');
+const { closeWindowDetails } = require('../Details/index');
 
 
 
@@ -206,6 +207,7 @@ function getRecentDirectories(f) {
 	Elements.main.leftMenu.screen.querySelector('#recent-button').addEventListener('click', () => {
 		Elements.main.options.screen.classList.toggle('on');
 		Elements.main.content.screenItems.classList.toggle('off');
+		closeWindowDetails();
 		RecentScreen(f);
 	});
 }

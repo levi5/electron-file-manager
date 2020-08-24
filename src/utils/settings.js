@@ -377,7 +377,6 @@ async function setMenuOptions(data, flag, workspaceName = 'main') {
 						return true;
 					});
 				} else {
-					console.log('load');
 					newDirectories = directories;
 				}
 
@@ -389,11 +388,9 @@ async function setMenuOptions(data, flag, workspaceName = 'main') {
 						directories: newDirectories,
 					},
 				});
-				console.log(newSettings);
 			}
 			return true;
 		});
-		console.log('gravar', newSettings);
 		await writeConfigurationFile(newSettings, settingsPath);
 		const Dir = newDirectories.filter((directory) => directory.visible === true);
 		return Dir;

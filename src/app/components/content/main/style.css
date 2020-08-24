@@ -4,6 +4,8 @@ section #main-area {
     height: 100%;
     grid-area: Main;
     background-color: var(--background-dark-primary-color);
+    display: flex;
+    flex-direction: row;
 }
 
 
@@ -21,6 +23,7 @@ section #main-area {
 #main-area #items-content.off {
     display: none;
 }
+
 
 
 .item {
@@ -137,4 +140,64 @@ section #main-area {
 
 .item.selected {
     background-color: var(--grey-color);
+}
+
+
+
+
+
+section #main-area #details-screen{
+    max-width: 300px;
+    width: 100%;
+    height: 100%;
+    background:transparent;
+    display: none;
+    position: relative;
+    flex-direction: column;
+    z-index: 10;
+    transition: all 0.5s;
+    padding: 10px;
+}
+
+#main-area #details-screen.on{
+  display: flex;
+}
+#main-area #details-screen .content{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#main-area #details-screen button{
+    margin-bottom: 10px;
+    background: var(--close-button-color);
+    color: var(--white-color);
+    cursor: pointer;
+}
+
+
+#main-area #details-screen button:hover{
+    filter: brightness(80%);
+}
+
+#main-area #details-screen .content img{
+    width: 80px;
+    height: 80px;
+}
+#main-area #details-screen .content div{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 30px 20px;
+}
+#main-area #details-screen .content div label{
+    font-family: 'Lato', sans-serif, 'Noto Color Emoji';
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 24px;
+    color: var(--white-color);
+    
 }
