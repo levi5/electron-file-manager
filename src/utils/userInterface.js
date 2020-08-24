@@ -10,6 +10,7 @@ const settings = require('./settings');
 const { setTitleBar, navigatingTitleBar } = require('../app/components/tittleBar/index');
 const { folderOptions } = require('../app/components/content/folderOptions/functions');
 const { openWindowRenameFiles } = require('../app/components/content/Modal/Rename/index');
+const { stt } = require('../app/components/content/left-menu/index');
 
 
 
@@ -51,7 +52,7 @@ function clearView() {
 function getImage(file) {
 	let src = '';
 	const extname = file.extname.replace('.', '');
-	const extensions = ['iso', 'jpg', 'pdf', 'png', 'txt'];
+	const extensions = ['iso', 'jpg', 'pdf', 'png', 'txt', 'mp3', 'mp4'];
 
 	if (file.type === 'file') {
 		if (extensions.indexOf(extname) !== -1) {
@@ -78,7 +79,6 @@ function displayFile(file, hideFiles = true) {
 		if (firstCharacter === '.') { return; }
 	}
 
-
 	if (file.type) {
 		clone.querySelector('.item').setAttribute('data-path', file.path);
 		clone.querySelector('.item').setAttribute('data-type', file.type);
@@ -88,8 +88,6 @@ function displayFile(file, hideFiles = true) {
 
 		clone.querySelector('img').src = getImage(file);
 		clone.querySelector('img').setAttribute('data-filePath', file.path);
-
-
 
 		if (file.type === 'directory') {
 			clone.querySelector('img')
@@ -140,18 +138,20 @@ function fileOrdering(files) {
 
 async function loadDirectory(folderPath) {
 	const { files, error } = await fileSystem.getFilesInFolder(folderPath);
-	settings.setRecentDirectories(folderPath);
+	await settings.setRecentDirectories(folderPath);
 	clearView();
+
 	if (error) {
 		permissionErrors(error);
-		console.log('Sorry, we could not load your home folder');
-		return;
+		const data = [{ path: folderPath }];
+		await stt(data, 'DEL', this.loadDirectory);
+		const homeFolder = fileSystem.getUsersHomeFolder();
+		return loadDirectory(homeFolder);
 	}
-
-
 	const fileData = await fileSystem.inspectAndDescribeFiles(folderPath, files);
 	await setTitleBar(folderPath);
 	await displayFiles(fileData);
+	return true;
 }
 
 

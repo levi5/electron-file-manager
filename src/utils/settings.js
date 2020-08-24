@@ -270,7 +270,6 @@ async function setRecentDirectories(folderPath, newType = 'directory', workspace
 	const name = basename(folderPath);
 
 	const defaultObj = {
-
 		name,
 		path: folderPath,
 		type: newType,
@@ -335,70 +334,71 @@ async function setRecentDirectories(folderPath, newType = 'directory', workspace
 
 // left menu
 
-
-
-
 async function setMenuOptions(data, flag, workspaceName = 'main') {
 	const settingsPath = resolve(__dirname, '..', 'config', 'settings.json');
 	const settings = await readConfigurationFile(settingsPath);
-
 
 	let newDirectories = [];
 	const newSettings = [];
 
 	let obj;
+	if (settings.length !== 0) {
+		settings.map(async (setting) => {
+			const { workspace, menu } = setting;
+			if (workspace === workspaceName) {
+				const { directories } = menu;
 
-	settings.map((setting) => {
-		const { workspace, menu } = setting;
-		if (workspace === workspaceName) {
-			const { directories } = menu;
-
-			if (flag.toUpperCase() !== 'LOAD') {
-				data.map((dir) => {
-					obj = dir;
-					if (directories.length >= 1) {
-						directories.map((it, index) => {
-							if (flag.toUpperCase() === 'ADD') {
-								if (it.path !== obj.path) {
-									newDirectories.push(it);
-								}
-								if (directories.length === (index + 1)) {
-									newDirectories.push(obj);
-								}
-							} else if (flag.toUpperCase() === 'DEL') {
-								if (it.path !== obj.path) {
-									if (it.edit) {
-										newDirectories.push({ ...it, visible: true });
-									} else {
+				if (flag.toUpperCase() !== 'LOAD') {
+					data.map((dir) => {
+						obj = dir;
+						if (directories.length >= 1) {
+							directories.map((it, index) => {
+								if (flag.toUpperCase() === 'ADD') {
+									if (it.path !== obj.path) {
 										newDirectories.push(it);
 									}
+									if (directories.length === (index + 1)) {
+										newDirectories.push(obj);
+									}
+								} else if (flag.toUpperCase() === 'DEL') {
+									if (it.path !== obj.path) {
+										if (it.edit) {
+											newDirectories.push({ ...it, visible: true });
+										} else {
+											newDirectories.push(it);
+										}
+									}
 								}
-							}
-							return true;
-						});
-					} else {
-						newDirectories.push({ ...obj, visible: true });
-					}
-					return true;
+								return true;
+							});
+						} else {
+							newDirectories.push({ ...obj, visible: true });
+						}
+						return true;
+					});
+				} else {
+					console.log('load');
+					newDirectories = directories;
+				}
+
+
+				newSettings.push({
+					...setting,
+					menu: {
+						...menu,
+						directories: newDirectories,
+					},
 				});
-			} else {
-				newDirectories = directories;
+				console.log(newSettings);
 			}
-
-
-			newSettings.push({
-				...setting,
-				menu: {
-					...menu,
-					directories: newDirectories,
-				},
-			});
-		}
-		return true;
-	});
-	await writeConfigurationFile(newSettings, settingsPath);
-	const Dir = newDirectories.filter((directory) => directory.visible === true);
-	return Dir;
+			return true;
+		});
+		console.log('gravar', newSettings);
+		await writeConfigurationFile(newSettings, settingsPath);
+		const Dir = newDirectories.filter((directory) => directory.visible === true);
+		return Dir;
+	}
+	return [];
 }
 
 

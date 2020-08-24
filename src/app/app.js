@@ -13,13 +13,11 @@ const createFileOrFolder = require('../utils/CreateFileOrFolder');
 
 
 function main() {
-	const folderPath = fileSystem.getUsersHomeFolder();
+	const homeFolder = fileSystem.getUsersHomeFolder();
 
 	header();
-	leftMenu.loadFunctions(userInterface.loadDirectory);
-
-	userInterface.loadDirectory(folderPath);
-
+	leftMenu.loadFunctions(userInterface.loadDirectory, homeFolder);
+	userInterface.loadDirectory(homeFolder);
 	optionsBar.optionsBarFunctions();
 
 	modalLoadFunctions(userInterface.loadDirectory, leftMenu.stt);

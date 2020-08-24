@@ -9,13 +9,11 @@ const { RecentScreen } = require('../main/Recents/index');
 
 
 
-
 function LeftMenuOptions(x, y, dataItem) {
 	const { edit, path } = dataItem;
 
 	let posX = x;
 	let posY = y;
-
 
 	if (edit) {
 		const menu = document.querySelector('#left-menu-options');
@@ -48,7 +46,7 @@ function LeftMenuOptions(x, y, dataItem) {
 }
 
 
-async function openLeftMenuOptions() {
+async function openLeftMenuOptions(f) {
 	const items = [...Elements.main.leftMenu.screen.querySelectorAll('.left-menu-content ul li')];
 	items.map((item) => {
 		item.addEventListener('pointerdown', async (e) => {
@@ -62,7 +60,8 @@ async function openLeftMenuOptions() {
 					edit: boolEditable, path, defaultItem, navigation,
 				};
 				await LeftMenuOptions(e.clientX, e.clientY, dataItem);
-				await removeOptionLeftMenu();
+				await openDirectory(f);
+				await removeOptionLeftMenu(f);
 			}
 		});
 		return true;
@@ -71,20 +70,17 @@ async function openLeftMenuOptions() {
 
 
 
-async function stt(data, flag) {
+async function stt(data, flag, loadDirectory) {
 	const ul = Elements.main.leftMenu.screen.querySelector('.left-menu-content #variable-items-menu');
 	const template = ul.querySelector('#left-menu-template');
-
 
 	const directories = await setMenuOptions(data, flag);
 	ul.textContent = '';
 	ul.appendChild(template);
 
-
 	directories.map((directory) => {
 		const clone = document.importNode(template.content, true);
-		clone.querySelector('li').setAttribute('id', `${directory.id}-button`);
-		clone.querySelector('li').setAttribute('data-id', directory.id);
+		clone.querySelector('li').setAttribute('id', `${directory.name}-button`);
 		clone.querySelector('li').setAttribute('data-name', directory.name);
 		clone.querySelector('li').setAttribute('data-path', directory.path);
 		clone.querySelector('li').setAttribute('data-type', directory.type);
@@ -95,22 +91,42 @@ async function stt(data, flag) {
 		clone.querySelector('li img').setAttribute('src', directory.icon);
 		clone.querySelector('li img').setAttribute('alt', directory.name);
 		clone.querySelector('li').append(directory.name);
+
+		clone.querySelector('li').addEventListener('click', () => {
+			loadDirectory(directory.path);
+		});
 		ul.appendChild(clone);
 		return true;
 	});
+	await openLeftMenuOptions(loadDirectory);
+}
 
-	await openLeftMenuOptions();
+
+function openDirectory(loadDirectory) {
+	document.querySelector('#btn-open-options-menu').addEventListener('click', () => {
+		const menu = document.querySelector('#left-menu-options');
+		const path = menu.getAttribute('path');
+
+		const items = [...Elements.main.leftMenu.screen.querySelectorAll('.left-menu-content ul li')];
+
+		items.map(async (item) => {
+			const dataPath = String(item.getAttribute('data-path'));
+			if (dataPath === path) {
+				await loadDirectory(path);
+			}
+		});
+		menu.setAttribute('path', '');
+	});
 }
 
 
 
-
-async function removeOptionLeftMenu() {
-	const menu = document.querySelector('#left-menu-options');
-	const path = menu.getAttribute('path');
-
-	document.querySelector('#btn-left-menu-options').addEventListener('click', () => {
+async function removeOptionLeftMenu(f) {
+	document.querySelector('#btn-remove-options-menu').addEventListener('click', () => {
 		const data = [];
+		const menu = document.querySelector('#left-menu-options');
+		const path = menu.getAttribute('path');
+
 		const items = [...Elements.main.leftMenu.screen.querySelectorAll('.left-menu-content ul li')];
 		items.map(async (item) => {
 			const dataPath = String(item.getAttribute('data-path'));
@@ -119,7 +135,6 @@ async function removeOptionLeftMenu() {
 				const name = String(item.getAttribute('data-name'));
 				const type = String(item.getAttribute('data-type'));
 				const edit = eval(item.getAttribute('data-edit'));
-
 				const navigation = eval(item.getAttribute('data-navigation'));
 				const icon = String(item.getAttribute('data-icon'));
 
@@ -132,7 +147,7 @@ async function removeOptionLeftMenu() {
 					navigation,
 					icon,
 				});
-				await stt(data, 'DEL');
+				await stt(data, 'DEL', f);
 			}
 		});
 	});
@@ -140,7 +155,7 @@ async function removeOptionLeftMenu() {
 
 
 
-function navigationByTag(f) {
+function navigationByTag(loadDirectory) {
 	const itens = [...Elements.main.leftMenu.screen.querySelectorAll('#content-tag-left-menu ul li')];
 
 	itens.map((item) => {
@@ -152,8 +167,7 @@ function navigationByTag(f) {
 			} else {
 				filePath = resolve(filePath, '..');
 			}
-
-			f(filePath);
+			loadDirectory(filePath);
 		});
 		return true;
 	});
@@ -196,14 +210,20 @@ function getRecentDirectories(f) {
 	});
 }
 
-async function loadFunctions(f) {
-	await stt('[]', 'LOAD');
-	await loadMenuTags(f);
-	await getRecentDirectories(f);
+function goToPersonalFolder(funcLoadDirectory, homedir) {
+	const li = Elements.main.leftMenu.screen.querySelector('.left-menu-content #homedir-button');
+	li.setAttribute('data-path', homedir);
+	li.addEventListener('click', () => {
+		funcLoadDirectory(homedir);
+	});
 }
 
-
-
+async function loadFunctions(funcLoadDirectory, homedir) {
+	await stt('[]', 'LOAD', funcLoadDirectory);
+	await loadMenuTags(funcLoadDirectory);
+	await getRecentDirectories(funcLoadDirectory);
+	await goToPersonalFolder(funcLoadDirectory, homedir);
+}
 
 module.exports = {
 	loadFunctions,
