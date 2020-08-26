@@ -41,7 +41,9 @@ function clearView() {
 	const menu = Elements.main.content.folder.menu.options;
 
 
+
 	Elements.main.content.screenItems.innerHTML = '';
+
 	Elements.main.content.screenItems.appendChild(modal);
 	Elements.main.content.screenItems.appendChild(menuGlobal);
 	Elements.main.content.screenItems.appendChild(menu);

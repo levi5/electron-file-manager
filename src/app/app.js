@@ -4,6 +4,7 @@ const search = require('../utils/search');
 
 const { header } = require('./components/tittleBar/index');
 const leftMenu = require('./components/content/left-menu/index');
+const { loadDetails } = require('./components/content/Details/index');
 const optionsBar = require('./components/options-bar/index');
 
 
@@ -23,6 +24,7 @@ function main() {
 	modalLoadFunctions(userInterface.loadDirectory, leftMenu.stt);
 	createFileOrFolder(userInterface.loadDirectory, 'file');
 	createFileOrFolder(userInterface.loadDirectory, 'directory');
+	loadDetails();
 
 
 	userInterface.bindSearchField((event) => {

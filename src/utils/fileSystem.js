@@ -41,7 +41,7 @@ async function inspectAndDescribeFile(filePath) {
 		file: path.basename(filePath),
 		path: filePath,
 		type: '',
-		extname: path.extname(filePath) ? path.extname(filePath) : 'directory',
+		extname: path.extname(filePath) ? path.extname(filePath) : 'none',
 	};
 
 	let files;
@@ -178,10 +178,16 @@ async function removeFolderOrFile(directory, type) {
 }
 
 
+async function getFileDetails(filepath) {
+	const data = await fs.stat(filepath);
+	return data;
+}
+
 module.exports = {
 	getUsersHomeFolder,
 	getFilesInFolder,
 	inspectAndDescribeFiles,
+	getFileDetails,
 	changingFilepath,
 	rename,
 	createFolderOrFile,

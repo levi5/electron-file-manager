@@ -162,8 +162,9 @@ nav .search input[name=search] {
 }
 
 ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+
+    width: 7px;
+    height: 7px;
     border-radius: 4px;
     background-color: #161719;
 

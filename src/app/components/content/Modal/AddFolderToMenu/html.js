@@ -21,6 +21,7 @@ const HTMLCodeBlock = `
             <img src="./assets/icons/left-menu/heart-red.svg" alt="heart">
             <img src="./assets/icons/left-menu/lightbulb-flash.svg" alt="light bulb-flash">
             <img src="./assets/icons/left-menu/settings.svg" alt="settings">
+            <img src="./assets/icons/all/global.svg" alt="globo">
 </div>
 
 <button type="button" id="btn-add-folder-to-menu" class="create">Adicionar</button>

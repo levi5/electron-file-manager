@@ -25,6 +25,7 @@ const Elements = {
 					buttons: {
 						rename: $select('#folder-options #rename-item'),
 						addFolderToMenu: $select('#folder-options #btn-add-folder-menu'),
+						details: $select('#folder-options #btn-details-file'),
 					},
 				},
 			},
@@ -49,6 +50,9 @@ const Elements = {
 		leftMenu: {
 			screen: $select('section .left-menu'),
 
+		},
+		details: {
+			screen: $select('#main-area #details-screen'),
 		},
 
 	},
