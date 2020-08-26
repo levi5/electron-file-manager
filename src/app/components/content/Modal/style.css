@@ -71,23 +71,6 @@
     width: 50px;
 }
 
-.modal div .create {
-    cursor: pointer;
-    color: var(--white-color);
-    background-color: var(--maximize-button-color);
-    margin-bottom: 5px;
-
-}
-
-
-.modal div .cancel {
-    cursor: pointer;
-    color: var(--white-color);
-    background-color: var(--close-button-color);
-    margin-bottom: 10px;
-
-}
-
 .modal div button:hover {
     filter: brightness(80%);
 }
