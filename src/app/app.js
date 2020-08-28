@@ -24,7 +24,7 @@ function main() {
 	modalLoadFunctions(userInterface.loadDirectory, leftMenu.stt);
 	createFileOrFolder(userInterface.loadDirectory, 'file');
 	createFileOrFolder(userInterface.loadDirectory, 'directory');
-	loadDetails();
+	loadDetails(userInterface.loadDirectory);
 
 
 	userInterface.bindSearchField((event) => {

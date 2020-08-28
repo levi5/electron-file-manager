@@ -10,6 +10,7 @@ const settings = require('./settings');
 const { setTitleBar, navigatingTitleBar } = require('../app/components/tittleBar/index');
 const { folderOptions } = require('../app/components/content/folderOptions/functions');
 const { openWindowRenameFiles } = require('../app/components/content/Modal/Rename/index');
+const { closeWindowDetails } = require('../app/components/content/Details/index');
 const { stt } = require('../app/components/content/left-menu/index');
 
 
@@ -95,6 +96,7 @@ function displayFile(file, hideFiles = true) {
 			clone.querySelector('img')
 				.addEventListener('dblclick', async () => {
 					await loadDirectory(file.path);
+					closeWindowDetails();
 				}, false);
 		}
 		clone.querySelector('.item')
@@ -106,6 +108,7 @@ function displayFile(file, hideFiles = true) {
 			}, false);
 		clone.querySelector('.item .filename').addEventListener('dblclick', () => {
 			openWindowRenameFiles(file.file, file.type, file.path);
+			closeWindowDetails();
 		});
 
 		clone.querySelector('.filename').innerText = file.file;

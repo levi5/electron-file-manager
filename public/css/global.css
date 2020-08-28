@@ -193,3 +193,22 @@ footer {
     border-top: solid #333 1px;
     padding: 20px;
 }
+
+
+
+
+ .create, .open {
+    cursor: pointer;
+    color: var(--white-color);
+    background-color: var(--maximize-button-color);
+    margin-bottom: 5px;
+
+}
+
+
+.cancel, .close {
+    cursor: pointer;
+    color: var(--white-color);
+    background-color: var(--close-button-color);
+    margin-bottom: 10px;
+}
