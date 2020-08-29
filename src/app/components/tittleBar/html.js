@@ -26,7 +26,7 @@ const header = `
 
 <div class="menu-window">
     <div class="menu-toggle">
-        <!-- <img id="icon-menu" src="./assets/icons/title-bar/menu/menu.png" alt="">-->
+        <img id="header-icon-settings" src="./assets/icons/all/settings.svg" alt="Configurações">
     </div>
 </div>
 
