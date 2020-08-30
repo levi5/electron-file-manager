@@ -64,7 +64,7 @@ modal-config  label[name=tagname] {
     height: auto;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-start;
     padding: 10px;
     overflow-y: auto;
 }
@@ -79,6 +79,7 @@ modal-config  label[name=tagname] {
     border-radius: 5px;
     padding: 10px;
     color:var(--white-color);
+  
 }
 
 .config-screen .title-modal-config #btn-save-tags {
@@ -90,6 +91,7 @@ modal-config  label[name=tagname] {
     border-radius: 5px;
     padding: 10px;
     color:var(--white-color);
+    margin-right: 20px;
 }
 
 

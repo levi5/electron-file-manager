@@ -244,24 +244,6 @@ header .title-bar ul div label{
 }
 
 
-
-
-
-/*  */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 header .menu-window {
     max-width: 20%;
     width: auto;
@@ -280,90 +262,30 @@ header .menu-window {
 
 
 .menu-toggle {
-    width: 40px;
-    height: 27px;
+    width: auto;
+    height: auto;
     display: flex;
     padding: 5px;
     justify-content: center;
     align-items: center;
-    border: 8px;
-    z-index: 10;
-    margin-left: 5px;
-    transition: background-color 0.5s;
 }
 
 
 .menu-toggle img {
-    width: 100%;
-    height: 100%;
+    width: 24px;
+    height: 24px;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+   
 }
 
-.menu-toggle:hover {
-    background-color: #333;
+.menu-toggle #header-icon-settings:hover{
+    animation: spinning 8s linear infinite;
 }
 
-
-
-/* .menu-toggle #icon-grade {
-    width: 21px;
-    height: 15px;
-}
-
-.menu-toggle #icon-menu {
-    width: 20px;
-    height: 19px;
-}
-
-
-.menu-toggle #icon-search {
-    width: 23px;
-    height: 21px;
-} */
-
-
-
-
-
-/* 
-
-.one,
-.two,
-.three {
-    background-color: #fff;
-    height: 4px;
-    width: 100%;
-    margin: 6px auto;
-    transition-duration: 0.4s;
-} */
-
-/* 
-.menu-toggle.on{
-    right: 0px;
-    position: fixed;
-} */
-
-/* .menu-toggle.on .one {
-    transform: rotate(45deg) translate(8px, 7px);
-}
-
-.menu-toggle.on .two {
-    opacity: 0;
-}
-
-.menu-toggle.on .three {
-    transform: rotate(-45deg) translate(7px, -7px);
-} */
-
-
-
-
-
-
-@keyframes animationOpacity {
+@keyframes spinning {
     to {
-        opacity: 1;
+        transform: rotate(360deg);
     }
 }

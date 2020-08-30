@@ -52,8 +52,6 @@
     font-size: 16px;
     font-weight: 700;
     color:var(--white-color);
-    margin-bottom: 30px;
-
 }
 
 .modal div input {
@@ -111,7 +109,7 @@
 }
 
 .modal #add-folder-to-menu  label[name=folder-name]{
-    margin:0;
+    margin-top:-5px;
 }
 
 .modal #add-folder-to-menu  .content{
