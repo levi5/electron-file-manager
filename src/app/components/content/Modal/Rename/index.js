@@ -79,6 +79,10 @@ async function rename(f) {
 		setAttributeModal();
 		closeWindowRenameFiles();
 	});
+
+	document.querySelector('#btn-cancel-rename').addEventListener('click', async () => {
+		closeWindowRenameFiles();
+	});
 }
 
 
