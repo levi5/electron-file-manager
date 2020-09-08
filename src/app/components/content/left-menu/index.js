@@ -5,7 +5,7 @@ const { resolve, dirname } = require('path');
 
 const { Elements } = require('../../../../utils/Elements');
 const { getTagsConfig, setMenuOptions } = require('../../../../utils/settings');
-const { RecentScreen } = require('../main/Recents/index');
+const { RecentScreen } = require('../Main/Recents/index');
 const { closeWindowDetails } = require('../Details/index');
 
 
