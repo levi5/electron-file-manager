@@ -8,7 +8,7 @@
     "start": "electron  ."
   },
   "dependencies": {
-    "async": "^3.2.0",
+    "async": "^3.2.2",
     "byte-size": "^7.0.0",
     "electron": "^13.6.6",
     "fs-extra": "^9.0.1",
