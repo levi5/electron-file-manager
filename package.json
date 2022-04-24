@@ -15,7 +15,8 @@
     "get-folder-size": "^2.0.1",
     "lunr": "^2.3.8",
     "moment": "^2.29.2",
-    "osenv": "^0.1.5"
+    "osenv": "^0.1.5",
+    "ansi-regex":"^5.0.1"
   },
   "devDependencies": {
     "eslint": "^7.4.0",
