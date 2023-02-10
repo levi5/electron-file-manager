@@ -14,7 +14,7 @@
     "fs-extra": "^9.0.1",
     "get-folder-size": "^2.0.1",
     "lunr": "^2.3.8",
-    "moment": "^2.29.2",
+    "moment": "^2.29.4",
     "osenv": "^0.1.5",
     "ansi-regex":"^5.0.1"
   },
